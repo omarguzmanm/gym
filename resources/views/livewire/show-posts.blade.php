@@ -15,40 +15,74 @@
                 {{-- <input type="text" wire:model="search"> --}}
             </div>
             {{-- Si existe por lo menos algùn post --}}
-            @if($posts->count())
+            @if ($posts->count())
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col"
-                            {{-- Le estamos diciendo que vamos a utilizar el metodo order --}}
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="order('id')">
+                            <th scope="col" {{-- Le estamos diciendo que vamos a utilizar el metodo order --}}
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                wire:click="order('id')">
                                 ID
+                                
+                                {{-- Sort --}}
+                                @if ($sort == 'id')
+                                    @if ($direction == 'asc')
+                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+                                    @else
+                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                    @endif
+                                @else
+                                    <i class="fas fa-sort float-right mt-1"></i>
+                                @endif
                             </th>
                             <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="order('title')">
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                wire:click="order('title')">
                                 Title
+                                {{-- Sort --}}
+                                @if ($sort == 'title')
+                                    @if ($direction == 'asc')
+                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+                                    @else
+                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                    @endif
+                                @else
+                                    <i class="fas fa-sort float-right mt-1"></i>
+                                @endif
+
                             </th>
                             <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="order('content')">
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                wire:click="order('content')">
                                 Content
+                                {{-- Sort --}}
+                                @if ($sort == 'content')
+                                    @if ($direction == 'asc')
+                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+                                    @else
+                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                    @endif
+                                @else
+                                    <i class="fas fa-sort float-right mt-1"></i>
+                                @endif
                             </th>
-   
+
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Edit</span>
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($posts as $post)                            
+                        @foreach ($posts as $post)
                             <tr>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{$post->id}}</div>
+                                    <div class="text-sm text-gray-900">{{ $post->id }}</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{$post->title}}</div>
+                                    <div class="text-sm text-gray-900">{{ $post->title }}</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{$post->content}}</div>
+                                    <div class="text-sm text-gray-900">{{ $post->content }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
