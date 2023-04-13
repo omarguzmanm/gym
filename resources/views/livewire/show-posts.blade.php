@@ -4,5 +4,65 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-    {{$posts}}
+
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!---Table---->
+        <x-table>
+            <div class="px-6 py-4">
+                <x-input type="text" wire:model="search" class="w-full" placeholder="Escriba lo que quiera buscar">
+                </x-input>
+                {{-- <input type="text" wire:model="search"> --}}
+            </div>
+            {{-- Si existe por lo menos algùn post --}}
+            @if($posts->count())
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col"
+                            {{-- Le estamos diciendo que vamos a utilizar el metodo order --}}
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="order('id')">
+                                ID
+                            </th>
+                            <th scope="col"
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="order('title')">
+                                Title
+                            </th>
+                            <th scope="col"
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" wire:click="order('content')">
+                                Content
+                            </th>
+   
+                            <th scope="col" class="relative px-6 py-3">
+                                <span class="sr-only">Edit</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($posts as $post)                            
+                            <tr>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{$post->id}}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{$post->title}}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{$post->content}}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @else
+                <div class="px-6 py-4">
+                    No existe ningun registro coincidente
+                </div>
+
+            @endif
+        </x-table>
+    </div>
 </div>
