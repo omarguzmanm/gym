@@ -11,6 +11,11 @@ class ShowPosts extends Component
     public $sort = 'id';
     public $direction = 'desc';
 
+    // Escucha el evento y pasamos el nombre del metodo que queremos escuchar
+    // protected $listeners = ['render' => 'render'];
+    protected $listeners = ['render'];
+
+
     public function render()
     {
         $posts = Post::where('title', 'like', '%' . $this->search . '%')

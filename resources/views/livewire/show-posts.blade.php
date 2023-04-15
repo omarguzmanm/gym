@@ -9,9 +9,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!---Table---->
         <x-table>
-            <div class="px-6 py-4">
-                <x-input type="text" wire:model="search" class="w-full" placeholder="Escriba lo que quiera buscar">
+            <div class="px-6 py-4 flex items-center">
+                <x-input type="text" wire:model="search" class="flex-1 mr-4" placeholder="Escriba lo que quiera buscar">
                 </x-input>
+                @livewire('create-post')
                 {{-- <input type="text" wire:model="search"> --}}
             </div>
             {{-- Si existe por lo menos algùn post --}}
@@ -20,7 +21,7 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" {{-- Le estamos diciendo que vamos a utilizar el metodo order --}}
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                class="w-24 cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 wire:click="order('id')">
                                 ID
                                 
