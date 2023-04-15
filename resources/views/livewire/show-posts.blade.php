@@ -85,8 +85,8 @@
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">{{ $post->content }}</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    @livewire('edit-post', ['post' => $post], key($post->id)) {{--Componentes de anidamiento--}}
                                 </td>
                             </tr>
                         @endforeach

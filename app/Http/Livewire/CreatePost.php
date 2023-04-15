@@ -36,7 +36,7 @@ class CreatePost extends Component
         Post::create([
             'title'     =>  $this->title,
             'content'   =>  $this->content,
-            'image'     => $image
+            'image'     =>  $image
         ]);
 
         //Borramos los valores de los inputs
