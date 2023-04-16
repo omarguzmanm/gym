@@ -1,4 +1,4 @@
-<div wire:init="loadPost">
+<div wire:init="loadUser">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -24,11 +24,11 @@
                 <x-input type="text" wire:model="search" class="flex-1 mx-4"
                     placeholder="Escriba lo que quiera buscar">
                 </x-input>
-                @livewire('create-post')
+                @livewire('create-user')
                 {{-- <input type="text" wire:model="search"> --}}
             </div>
             {{-- Si existe por lo menos algùn post --}}
-            @if (count($posts))
+            @if (count($users))
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -50,10 +50,10 @@
                             </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('title')">
-                                Title
+                                wire:click="order('name')">
+                                Nombre
                                 {{-- Sort --}}
-                                @if ($sort == 'title')
+                                @if ($sort == 'name')
                                     @if ($direction == 'asc')
                                         <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
                                     @else
@@ -66,10 +66,10 @@
                             </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('content')">
-                                Content
+                                wire:click="order('phone_number')">
+                                Telefono
                                 {{-- Sort --}}
-                                @if ($sort == 'content')
+                                @if ($sort == 'phone_number')
                                     @if ($direction == 'asc')
                                         <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
                                     @else
@@ -86,17 +86,17 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($posts as $item)
+                        @foreach ($users as $item)
                             <tr>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">{{ $item->id }}</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $item->title }}</div>
+                                    <div class="text-sm text-gray-900">{{ $item->name }}</div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">
-                                        {!! $item->content !!}
+                                        {!! $item->phone_number !!}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex">
@@ -105,7 +105,7 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <a class="btn btn-red ml-2" wire:click="$emit('deletePost', {{$item}})">
+                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteUser', {{$item}})">
                                         <i class="fas fa-trash"></i>
                                     </a>
 
@@ -116,9 +116,9 @@
                 </table>
 
                 {{-- Generamos un div que no queremos que este pegado ni al eje x ni al y --}}
-                @if ($posts->hasPages())
+                @if ($users->hasPages())
                     <div class="px-6 py-3">
-                        {{ $posts->links() }} {{-- Mostramos la paginación --}}
+                        {{ $users->links() }} {{-- Mostramos la paginación --}}
                     </div>
                 @endif
             @else
@@ -137,8 +137,8 @@
 
     </div>
     <x-dialog-modal wire:model="open_edit">
-        <x-slot name="title">
-            Editar el post {{ $post->title }}
+        <x-slot name="name">
+            Editar usuario {{ $user->name }}
         </x-slot>
 
         <x-slot name="content">
@@ -151,18 +151,18 @@
 
             @if ($image)
                 <img class="mb-4" src="{{ $image->temporaryUrl() }}">
-            @elseif ($post->image)
-                <img src="{{ Storage::url($post->image) }}" alt="">
+            @elseif ($user->image)
+                <img src="{{ Storage::url($user->image) }}" alt="">
             @endif
 
             <div class="mb-4">
                 <x-label value="Titulo del post"></x-label>
-                <x-input wire:model="post.title" type="text" class="w-full"></x-input>
+                <x-input wire:model="user.name" type="text" class="w-full"></x-input>
             </div>
 
             <div class="mb-4">
                 <x-label value="Contenido del post"></x-label>
-                <textarea wire:model="post.content" rows="6" class="form-control w-full"></textarea>
+                <textarea wire:model="user.phone_number" rows="6" class="form-control w-full"></textarea>
             </div>
 
             <div>
@@ -189,7 +189,7 @@
     @push('js')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-            Livewire.on('deletePost', postId => {
+            Livewire.on('deleteUser', userId => {
                 Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -202,7 +202,7 @@
                 if (result.isConfirmed) {
 
 
-                    Livewire.emitTo('show-posts', 'delete', postId);
+                    Livewire.emitTo('show-users', 'delete', userId);
 
                     Swal.fire(
                         'Deleted!',

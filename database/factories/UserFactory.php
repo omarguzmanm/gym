@@ -26,7 +26,9 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'phone_number'  => $this->faker->phoneNumber(),
+            'address'   => $this->faker->address(),
+            'inscription'   =>  $this->faker->date(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'two_factor_secret' => null,
@@ -34,6 +36,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
             'current_team_id' => null,
+            'image' =>  'users/' . $this->faker->image('public/storage/users',640,480,null,false)
         ];
     }
 

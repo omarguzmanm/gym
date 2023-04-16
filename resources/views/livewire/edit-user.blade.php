@@ -4,8 +4,8 @@
     </a>
 
     <x-dialog-modal wire:model="open">
-        <x-slot name="title">
-            Editar el post {{$post->title}}
+        <x-slot name="name">
+            Editar el post {{$user->name}}
         </x-slot>
 
         <x-slot name="content">
@@ -20,18 +20,17 @@
                 <img class="mb-4" src="{{$image->temporaryUrl()}}">
 
             @else
-                Hola mundo
-                <img src="{{Storage::url($post->image)}}" alt="">
+                <img src="{{Storage::url($user->image)}}" alt="">
             @endif
 
             <div class="mb-4">
                 <x-label value="Titulo del post"></x-label>
-                <x-input wire:model="post.title" type="text" class="w-full"></x-input>
+                <x-input wire:model="user.name" type="text" class="w-full"></x-input>
             </div>
 
             <div class="mb-4">
                 <x-label value="Contenido del post"></x-label>
-                <textarea wire:model="post.content" rows="6" class="form-control w-full"></textarea>
+                <textarea wire:model="user.phone_number" rows="6" class="form-control w-full"></textarea>
             </div>
 
             <div>

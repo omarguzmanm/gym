@@ -1,12 +1,12 @@
 <div>
-    <x-danger-button wire:click="$set('open', true)">
-        Crear nuevo post
-    </x-danger-button>
+    <x-secondary-button wire:click="$set('open', true)">
+        Crear nuevo usuario
+    </x-secondary-button>
 
 
     <x-dialog-modal wire:model="open" >
-        <x-slot name="title">
-            Crear nuevo post
+        <x-slot name="name">
+            Crear nuevo usuario
         </x-slot>
 
         <x-slot name="content">
@@ -22,9 +22,9 @@
 
             <div class="mb-4">
                 <x-label value="Titulo del post"></x-label>
-                <x-input type="text" class="w-full" wire:model="title"></x-input>
+                <x-input type="text" class="w-full" wire:model="name"></x-input>
 
-                <x-input-error for="title"></x-input-error>
+                <x-input-error for="name"></x-input-error>
 
             </div>
 
@@ -34,9 +34,9 @@
             <div class="mb-4">
                 <x-label value="Contenido del post"></x-label>
                 <div wire:ignore>
-                    <textarea rows="6" class="form-control" id="editor" wire:model.defer="content">{{$content}}</textarea>
+                    <textarea rows="6" class="form-control" id="editor" wire:model.defer="phone_number">{{$phone_number}}</textarea>
                 </div>
-                <x-input-error for="content"></x-input-error>
+                <x-input-error for="phone_number"></x-input-error>
              </div>
 
              <div>
@@ -54,7 +54,7 @@
             </x-secondary-button>
 
             <x-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image" class="disabled:opacity-25">
-                Crear post
+                Crear usuario
             </x-danger-button>
 
         </x-slot>
@@ -67,7 +67,7 @@
                 .create( document.querySelector( '#editor' ) )
                 .then(function(editor) {
                     editor.model.document.on('change:data', ()  => {
-                        @this.set('content', editor.getData());
+                        @this.set('phone_number', editor.getData());
                     });
                     Livewire.on('resetCKEditor', ()=> {
                         editor.setData('');

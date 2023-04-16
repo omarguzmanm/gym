@@ -3,18 +3,17 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;    //Paginación dinamica
 
-
-class ShowPosts extends Component
+class ShowUsers extends Component
 {
     use WithFileUploads;
     use WithPagination;
 
-    public $post, $image, $identifier;
+    public $user, $image, $identifier;
     public $search = ''; 
     public $sort = 'id';
     public $direction = 'desc';
@@ -22,8 +21,6 @@ class ShowPosts extends Component
     public $readyToLoad = false;
     public $open_edit = false;
 
-    // Escucha el evento y pasamos el nombre del metodo que queremos escuchar
-    // protected $listeners = ['render' => 'render'];
     protected $listeners = ['render', 'delete'];
 
     protected $queryString = [
@@ -35,7 +32,7 @@ class ShowPosts extends Component
 
     public function mount(){
         $this->identifier = rand();
-        $this->post = new Post(); 
+        $this->user = new User(); 
     }
 
     public function updatingSearch(){
@@ -43,28 +40,24 @@ class ShowPosts extends Component
     }
 
     protected $rules = [
-        'post.title'    => 'required',
-        'post.content'  => 'required'
+        'user.name'    => 'required',
+        'user.phone_number'  => 'required'
     ];
-
-
-
 
     public function render()
     {
         if($this->readyToLoad){
-            $posts = Post::where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('content', 'like', '%' . $this->search . '%')
+            $users = User::where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('phone_number', 'like', '%' . $this->search . '%')
                         ->orderBy($this->sort, $this->direction)
                         ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
         }else{
-            $posts = [];
+            $users = [];
         }
-
-        return view('livewire.show-posts', compact('posts'));
+        return view('livewire.show-users', compact('users'));
     }
-
-    public function loadPost(){
+    
+    public function loadUser(){
         $this->readyToLoad =  true;
     }
 
@@ -85,8 +78,8 @@ class ShowPosts extends Component
         $this->sort = $sort;
     }    
 
-    public function edit(Post $post){
-        $this->post = $post;
+    public function edit(User $user){
+        $this->user = $user;
         $this->open_edit = true;
     }
 
@@ -94,11 +87,11 @@ class ShowPosts extends Component
         $this->validate();
 
         if($this->image){
-            Storage::delete([$this->post->image]);
-            $this->post->image = $this->image->store('posts');
+            Storage::delete([$this->user->image]);
+            $this->user->image = $this->image->store('users');
         }
 
-        $this->post->save();
+        $this->user->save();
 
         //Borramos los valores de los inputs
         $this->reset(['open_edit', 'image']);
@@ -108,9 +101,9 @@ class ShowPosts extends Component
         $this->emit('alert', 'El post se actualizó satisfactoriamente');
     }
 
-    public function delete(Post $post){
-        Storage::delete([$post->image]);
+    public function delete(User $user){
+        Storage::delete([$user->image]);
 
-        $post->delete();
+        $user->delete();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\ShowPosts;
+use App\Http\Livewire\ShowUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', ShowPosts::class)->name('dashboard');
+    Route::get('/dashboard', ShowUsers::class)->name('dashboard');
 });
 
