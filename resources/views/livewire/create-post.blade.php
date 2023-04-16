@@ -28,17 +28,20 @@
 
             </div>
 
+            {{-- {{$content}} --}}
 
+            {{-- Con wire:ignore se renderiza todo el contenido menos el div --}}
             <div class="mb-4">
                 <x-label value="Contenido del post"></x-label>
-                <textarea rows="6" class="form-control" wire:model.defer="content"></textarea>
-                
+                <div wire:ignore>
+                    <textarea rows="6" class="form-control" id="editor" wire:model.defer="content">{{$content}}</textarea>
+                </div>
                 <x-input-error for="content"></x-input-error>
              </div>
 
              <div>
                 <input type="file" wire:model="image" id="{{$identifier}}">
-                <x-input-error for="image"></x-input-error>
+                <x-input-error for="image" enctype="multipart/form-data"></x-input-error>
 
              </div>
 
@@ -56,4 +59,23 @@
 
         </x-slot>
     </x-dialog-modal>
+
+    @push('js')
+        <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#editor' ) )
+                .then(function(editor) {
+                    editor.model.document.on('change:data', ()  => {
+                        @this.set('content', editor.getData());
+                    });
+                    Livewire.on('resetCKEditor', ()=> {
+                        editor.setData('');
+                    })
+                })
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script>        
+    @endpush
 </div>

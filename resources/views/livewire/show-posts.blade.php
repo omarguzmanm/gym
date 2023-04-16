@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadPost">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
@@ -10,13 +10,25 @@
         <!---Table---->
         <x-table>
             <div class="px-6 py-4 flex items-center">
-                <x-input type="text" wire:model="search" class="flex-1 mr-4" placeholder="Escriba lo que quiera buscar">
+                <div class="flex items-center">
+                    <span>Mostrar</span>
+                    <select class="mx-2 form-control" wire:model="cant">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>entradas</span>
+                </div>
+
+                <x-input type="text" wire:model="search" class="flex-1 mx-4"
+                    placeholder="Escriba lo que quiera buscar">
                 </x-input>
                 @livewire('create-post')
                 {{-- <input type="text" wire:model="search"> --}}
             </div>
             {{-- Si existe por lo menos algùn post --}}
-            @if ($posts->count())
+            @if (count($posts))
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -24,7 +36,7 @@
                                 class="w-24 cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 wire:click="order('id')">
                                 ID
-                                
+
                                 {{-- Sort --}}
                                 @if ($sort == 'id')
                                     @if ($direction == 'asc')
@@ -74,30 +86,133 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($posts as $post)
+                        @foreach ($posts as $item)
                             <tr>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $post->id }}</div>
+                                    <div class="text-sm text-gray-900">{{ $item->id }}</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $post->title }}</div>
+                                    <div class="text-sm text-gray-900">{{ $item->title }}</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $post->content }}</div>
+                                    <div class="text-sm text-gray-900">
+                                        {!! $item->content !!}
+                                    </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    @livewire('edit-post', ['post' => $post], key($post->id)) {{--Componentes de anidamiento--}}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex">
+                                    {{-- @livewire('edit-post', ['post' => $post], key($post->id)) Componentes de anidamiento --}}
+                                    <a class="btn btn-green" wire:click="edit({{ $item }})">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-red ml-2" wire:click="$emit('deletePost', {{$item}})">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+
+                {{-- Generamos un div que no queremos que este pegado ni al eje x ni al y --}}
+                @if ($posts->hasPages())
+                    <div class="px-6 py-3">
+                        {{ $posts->links() }} {{-- Mostramos la paginación --}}
+                    </div>
+                @endif
             @else
-                <div class="px-6 py-4">
+                <div wire:loading.remove class="px-6 py-4">
                     No existe ningun registro coincidente
                 </div>
 
             @endif
+
         </x-table>
+
+        {{-- Loading icon --}}
+        <div class="flex justify-center">
+            <img wire:loading src="{{ asset('img/loading_4.gif') }}" class="w-40 p-10">
+        </div>
+
     </div>
+    <x-dialog-modal wire:model="open_edit">
+        <x-slot name="title">
+            Editar el post {{ $post->title }}
+        </x-slot>
+
+        <x-slot name="content">
+            {{-- Alerta cuando la imagen se está procesando --}}
+            <div wire:loading wire:target="image"
+                class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">¡Imagen cargando!</strong>
+                <span class="block sm:inline">Espere un momento hasta que la imagen se haya procesado.</span>
+            </div>
+
+            @if ($image)
+                <img class="mb-4" src="{{ $image->temporaryUrl() }}">
+            @elseif ($post->image)
+                <img src="{{ Storage::url($post->image) }}" alt="">
+            @endif
+
+            <div class="mb-4">
+                <x-label value="Titulo del post"></x-label>
+                <x-input wire:model="post.title" type="text" class="w-full"></x-input>
+            </div>
+
+            <div class="mb-4">
+                <x-label value="Contenido del post"></x-label>
+                <textarea wire:model="post.content" rows="6" class="form-control w-full"></textarea>
+            </div>
+
+            <div>
+                <input type="file" wire:model="image" id="{{ $identifier }}">
+                <x-input-error for="image"></x-input-error>
+
+            </div>
+
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button class="mr-3" wire:click="$set('open_edit', false)">
+                Cancelar
+            </x-secondary-button>
+
+            <x-danger-button wire:click="update" wire:loading.attr="disabled" class="disabled:opacity-25">
+                Actualizar
+            </x-danger-button>
+
+        </x-slot>
+
+    </x-dialog-modal>
+
+    @push('js')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.on('deletePost', postId => {
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+
+                    Livewire.emitTo('show-posts', 'delete', postId);
+
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+            })
+        </script>
+    @endpush
+
 </div>

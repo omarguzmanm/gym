@@ -20,7 +20,7 @@ class CreatePost extends Component
     protected $rules = [
         'title'     => 'required',
         'content'   =>  'required',
-        'image'     => 'required|image|max:2048',
+        'image'     => 'required|image|max:2048'
         ];
 
     // public function updated($propertyName){
@@ -55,4 +55,14 @@ class CreatePost extends Component
     {
         return view('livewire.create-post');
     }
+
+    public function updatingOpen(){
+        if($this->open == false){
+            $this->reset(['content', 'title', 'image']);
+            $this->identifier = rand();
+            $this->emit('resetCKEditor');
+
+        }
+    }
+
 }
