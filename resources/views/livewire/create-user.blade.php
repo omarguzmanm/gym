@@ -19,14 +19,27 @@
             @if ($image)
                 <img class="mb-4" src="{{$image->temporaryUrl()}}">
             @endif
+            
+            <div class="mb-4">
+                <x-label value="Nombre"></x-label>
+                <x-input type="text" class="w-full" wire:model="name"></x-input>
+                <x-input-error for="name"></x-input-error>
+            </div>  
 
             <div class="mb-4">
-                <x-label value="Titulo del post"></x-label>
-                <x-input type="text" class="w-full" wire:model="name"></x-input>
+                <x-label value="Número de teléfono"></x-label>
+                <x-input type="text" class="w-full" wire:model="phone_number"></x-input>
+                <x-input-error for="phone_number"></x-input-error>
+            </div>
 
-                <x-input-error for="name"></x-input-error>
+            <div class="mb-4">
+                <x-label value="Dirección"></x-label>
+                <x-input type="text" class="w-full" wire:model="address"></x-input>
+                <x-input-error for="address"></x-input-error>
 
             </div>
+
+
 
             {{-- {{$content}} --}}
 

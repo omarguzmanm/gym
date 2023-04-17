@@ -32,14 +32,13 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" {{-- Le estamos diciendo que vamos a utilizar el metodo order --}}
-                                class="w-24 cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('id')">
-                                ID
-
+                            <th scope="col" 
+                                class="w-32 cursor-pointer px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                wire:click="order('code')"> {{-- Le estamos diciendo que vamos a utilizar el metodo order --}}
+                                Código
                                 {{-- Sort --}}
-                                @if ($sort == 'id')
-                                    @if ($direction == 'asc')
+                                @if ($sort == 'code')
+                                    @if ($direction ==   'asc')
                                         <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
                                     @else
                                         <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
@@ -66,10 +65,26 @@
                             </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('phone_number')">
-                                Telefono
+                                wire:click="order('inscription')">
+                                Renovación
                                 {{-- Sort --}}
-                                @if ($sort == 'phone_number')
+                                @if ($sort == 'inscription')
+                                    @if ($direction == 'asc')
+                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
+                                    @else
+                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
+                                    @endif
+                                @else
+                                    <i class="fas fa-sort float-right mt-1"></i>
+                                @endif
+                            </th>
+
+                            <th scope="col"
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                wire:click="order('inscription')">
+                                Inscripción
+                                {{-- Sort --}}
+                                @if ($sort == 'inscription')
                                     @if ($direction == 'asc')
                                         <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
                                     @else
@@ -89,15 +104,20 @@
                         @foreach ($users as $item)
                             <tr>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $item->id }}</div>
+                                    <div class="text-sm text-gray-900">{{ $item->code }}</div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">{{ $item->name }}</div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">
-                                        {!! $item->phone_number !!}
+                                    <div class="text-sm text-gray-900 font-semibold	">
+                                        {{ \Carbon\Carbon::parse(strtotime($item->inscription . ' + 1 month'))->format('d/m/Y') }}
                                     </div>
+                                </td>
+
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">
+                                        {{ \Carbon\Carbon::parse($item->inscription)->format('d/m/Y') }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex">
                                     {{-- @livewire('edit-post', ['post' => $post], key($post->id)) Componentes de anidamiento --}}
@@ -105,8 +125,12 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteUser', {{$item}})">
+                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteUser', {{ $item }})">
                                         <i class="fas fa-trash"></i>
+                                    </a>
+                                    
+                                    <a class="btn btn-yellow ml-2" wire:click="edit({{ $item }})">
+                                        <i class="fas fa-add"></i>
                                     </a>
 
                                 </td>
@@ -156,12 +180,12 @@
             @endif
 
             <div class="mb-4">
-                <x-label value="Titulo del post"></x-label>
-                <x-input wire:model="user.name" type="text" class="w-full"></x-input>
+                <x-label value="Nombre"></x-label>
+                <x-input wire:model="user.name" type="number" class="w-full"></x-input>
             </div>
 
             <div class="mb-4">
-                <x-label value="Contenido del post"></x-label>
+                <x-label value="Contenido "></x-label>
                 <textarea wire:model="user.phone_number" rows="6" class="form-control w-full"></textarea>
             </div>
 
@@ -191,26 +215,26 @@
         <script>
             Livewire.on('deleteUser', userId => {
                 Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
 
 
-                    Livewire.emitTo('show-users', 'delete', userId);
+                        Livewire.emitTo('show-users', 'delete', userId);
 
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                }
-            })
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
             })
         </script>
     @endpush

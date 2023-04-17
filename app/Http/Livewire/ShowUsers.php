@@ -48,7 +48,7 @@ class ShowUsers extends Component
     {
         if($this->readyToLoad){
             $users = User::where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('phone_number', 'like', '%' . $this->search . '%')
+                        ->orWhere('inscription', 'like', '%' . $this->search . '%')
                         ->orderBy($this->sort, $this->direction)
                         ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
         }else{
