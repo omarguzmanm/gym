@@ -27,7 +27,7 @@
                 @livewire('create-user')
                 {{-- <input type="text" wire:model="search"> --}}
             </div>
-            {{-- Si existe por lo menos algùn post --}}
+            {{-- Si existe por lo menos algùn usuario --}}
             @if (count($users))
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -125,7 +125,7 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteUser', {{ $item }})">
+                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteUser', {{$item->id}})">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                     
@@ -160,9 +160,10 @@
         </div>
 
     </div>
+    {{-- Editar usuario --}}
     <x-dialog-modal wire:model="open_edit">
         <x-slot name="name">
-            Editar usuario {{ $user->name }}
+            Editar usuario 
         </x-slot>
 
         <x-slot name="content">
@@ -179,16 +180,37 @@
                 <img src="{{ Storage::url($user->image) }}" alt="">
             @endif
 
+            {{-- Editar nombre --}}
             <div class="mb-4">
                 <x-label value="Nombre"></x-label>
-                <x-input wire:model="user.name" type="number" class="w-full"></x-input>
+                <x-input wire:model="user.name" type="text" class="w-full"></x-input>
             </div>
 
+            {{-- Editar numero de telefono--}}
             <div class="mb-4">
-                <x-label value="Contenido "></x-label>
-                <textarea wire:model="user.phone_number" rows="6" class="form-control w-full"></textarea>
+                <x-label value="Teléfono"></x-label>
+                <x-input wire:model="user.phone_number" type="text" class="w-full"></x-input>
             </div>
 
+            {{-- Editar direcciòn --}}
+            <div class="mb-4">
+                <x-label value="Dirección"></x-label>
+                <x-input wire:model="user.address" type="text" class="w-full"></x-input>
+            </div>
+
+            {{-- Editar membresia --}}
+            <div class="mb-4">
+                <x-label  value="Membresia" />
+                {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
+                <select wire:model="user.membership" name="membership" id="membership" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    <option disabled selected>Selecciona una opción</option>
+                    <option value="1">Invitado (1 día)</option>
+                    <option value="2">Mensual</option>
+                    <option value="3">Trimestral</option>
+                    <option value="4">Anual</option>
+                </select>
+            </div>
+            {{-- Editar images --}}
             <div>
                 <input type="file" wire:model="image" id="{{ $identifier }}">
                 <x-input-error for="image"></x-input-error>
@@ -211,26 +233,26 @@
     </x-dialog-modal>
 
     @push('js')
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
+            // Escucha un evemto
             Livewire.on('deleteUser', userId => {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: '¡Sí, eliminar!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-
-
                         Livewire.emitTo('show-users', 'delete', userId);
-
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
+                            '¡Eliminado!',
+                            'El usuario ha sido eliminado',
                             'success'
                         )
                     }

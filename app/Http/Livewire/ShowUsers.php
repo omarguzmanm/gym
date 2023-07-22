@@ -41,7 +41,9 @@ class ShowUsers extends Component
 
     protected $rules = [
         'user.name'    => 'required',
-        'user.phone_number'  => 'required'
+        'user.phone_number'  => 'required',
+        'user.address'  => 'required',
+        'user.membership'  => 'required',
     ];
 
     public function render()
@@ -98,11 +100,12 @@ class ShowUsers extends Component
 
         $this->identifier = rand();
 
-        $this->emit('alert', 'El post se actualizó satisfactoriamente');
+        $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
     }
 
     public function delete(User $user){
-        Storage::delete([$user->image]);
+        // Se ocupan las imagenes para este metodo
+        // Storage::delete([$user->image]);
 
         $user->delete();
     }

@@ -5,7 +5,7 @@
 
     <x-dialog-modal wire:model="open">
         <x-slot name="name">
-            Editar el post {{$user->name}}
+            Editar el usuario {{$user->name}}
         </x-slot>
 
         <x-slot name="content">
@@ -32,6 +32,7 @@
                 <x-label value="Contenido del post"></x-label>
                 <textarea wire:model="user.phone_number" rows="6" class="form-control w-full"></textarea>
             </div>
+            
 
             <div>
                 <input type="file" wire:model="image" id="{{$identifier}}">
@@ -47,7 +48,7 @@
             </x-secondary-button>
 
             <x-danger-button wire:click="save" wire:loading.attr="disabled" class="disabled:opacity-25">
-                Actualizar
+                Actualizar1
             </x-danger-button>
 
         </x-slot>

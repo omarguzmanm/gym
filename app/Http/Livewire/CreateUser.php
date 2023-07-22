@@ -12,7 +12,7 @@ class CreateUser extends Component
 
     public $open = false;
 
-    public $name, $phone_number, $image, $identifier;
+    public $name, $phone_number, $address, $membership, $image, $identifier;
 
     public function mount()
     {
@@ -22,6 +22,8 @@ class CreateUser extends Component
     protected $rules = [
         'name'              => 'required',
         'phone_number'      =>  'required',
+        'address'           =>  'required',
+        'membership'        =>  'required',
         'image'             => 'required|image|max:2048'
     ];
 
@@ -35,11 +37,13 @@ class CreateUser extends Component
         User::create([
             'name'     =>  $this->name,
             'phone_number'   =>  $this->phone_number,
+            'address'   => $this->address,
+            'membership'   => $this->membership,
             'image'     =>  $image
         ]);
 
         //Borramos los valores de los inputs
-        $this->reset(['open', 'name', 'phone_number', 'image']);
+        $this->reset(['open', 'name', 'phone_number', 'address', 'image']);
 
         $this->identifier = rand();
 
@@ -57,7 +61,7 @@ class CreateUser extends Component
 
     public function updatingOpen(){
         if($this->open == false){
-            $this->reset(['name', 'phone_number', 'image']);
+            $this->reset(['name', 'phone_number','address', 'image']);
             $this->identifier = rand();
             $this->emit('resetCKEditor');
 

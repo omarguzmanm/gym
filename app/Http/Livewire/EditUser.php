@@ -13,8 +13,10 @@ class EditUser extends Component
     public $open = false;
     public $user, $image, $identifier;   //Propiedad post
     protected $rules = [
-        'post.name'    => 'required',
-        'post.phone_number'  => 'required'
+        'user.name'    => 'required',
+        'user.phone_number'  => 'required',
+        'user.address'  => 'required'
+
     ];
     public function mount(User $user){
         $this->user = $user;
@@ -28,7 +30,7 @@ class EditUser extends Component
             $this->user->image = $this->image->store('users');
         }
 
-        $this->post->save();
+        $this->user->save();
 
         //Borramos los valores de los inputs
         $this->reset(['open', 'image']);
