@@ -15,8 +15,12 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    {{-- Nav de analisis  --}}
+                    <x-nav-link href="{{ route('analysis') }}" :active="request()->routeIs('analysis')">
+                        {{ __('Analisis') }}
+                    </x-nav-link>
                     {{-- Nav de dietas  --}}
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('diets') }}" :active="request()->routeIs('diets')">
                         {{ __('Dietas') }}
                     </x-nav-link>
                     {{-- Nav de emergencia  --}}
