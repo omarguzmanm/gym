@@ -21,4 +21,8 @@ class Analysis extends Model
         return $this->hasMany(Diet::class, 'id_analysis');
     }
 
+    public function user(){
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
 }

@@ -1,23 +1,10 @@
 <div>
-    {{-- @livewire('analysis-user') --}}
-    {{-- <form wire:submit.prevent="submit">
-        <input type="text" wire:model="name">
-        @error('name') <span class="error">{{ $message }}</span> @enderror
-     
-        <input type="text" wire:model="email">
-        @error('email') <span class="error">{{ $message }}</span> @enderror
-     
-        <button type="submit">Save Contact</button>
-    </form> --}}
-    <div class="flex justify-center py-3">
-        <h1 class="text-2xl">Crear análisis</h1>
-    </div>
     <div class="grid grid-cols-4 gap-4 mx-28">
         <div>
             <form wire:submit.prevent="submit">
                 <x-label name="user">Nombre</x-label>
                 <select class="select-form" wire:model="user">
-                    <option selected="selected">Seleciona uno</option>
+                    <option value="selecciona" disabled>Elige una opción</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
@@ -29,7 +16,7 @@
         <div>
             <x-label name="gender">Genero</x-label>
             <select class="select-form" wire:model="gender">
-                <option selected="selected">Seleciona uno</option>
+                <option value="selecciona" disabled>Elige una opción</option>
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
                 <option value="otro">Otro</option>
@@ -62,7 +49,7 @@
         <div>
             <x-label name="activity">Actividad física</x-label>
             <select class="select-form" wire:model="activity">
-                <option selected="selected">Seleciona uno</option>
+                <option value="selecciona" disabled>Elige una opción</option>
                 <option value="baja">Baja (0-1 por semana)</option>
                 <option value="media">Media (2-4 por semana)</option>
                 <option value="alta">Alta (5-7 por semana)</option>
@@ -74,7 +61,7 @@
         <div>
             <x-label name="goal">Objetivos nutricionales</x-label>
             <select name="goal" id="goal" class="select-form" wire:model="goal">
-                <option selected="selected">Seleciona uno</option>
+                <option value="selecciona" disabled>Elige una opción</option>
                 <option value="perdida">Pérdida de peso</option>
                 <option value="ganancia">Ganancia de masa muscular</option>
                 <option value="mantenimiento">Mantenimiento del peso actual</option>
@@ -84,11 +71,18 @@
             @error('goal')
                 <span class="error">{{ $message }}</span>
             @enderror
+            <!-- Si la opción seleccionada es "otro", muestra el textarea -->
+            @if ($goal === 'otro')
+                <div>
+                    <x-label name="otherGoal">Especifica tus objetivos</x-label>
+                    <textarea wire:model="otherGoal" class="select-form"></textarea>
+                </div>
+            @endif
         </div>
         <div>
             <x-label name="meal_frecuency">Frecuencia de comidas</x-label>
             <select name="meal_frecuency" id="meal_frecuency" class="select-form" wire:model="meal_frecuency">
-                <option selected="selected">Seleciona uno</option>
+                <option value="selecciona" disabled>Elige una opción</option>
                 <option value="baja">Baja</option>
                 <option value="regular">Regular</option>
                 <option value="alta">Alta</option>
@@ -114,7 +108,7 @@
         <div>
             <x-label name="stress_levels">Niveles de estres</x-label>
             <select name="stress_levels" id="stress_levels" wire:model="stress_levels" class="select-form">
-                <option selected="selected">Seleciona uno</option>
+                <option value="selecciona" disabled>Elige una opción</option>
                 <option value="bajo">Bajo</option>
                 <option value="medio">Medio</option>
                 <option value="alto">Alto</option>
@@ -126,7 +120,7 @@
         <div>
             <x-label name="substance_use">Uso de sustancias</x-label>
             <select name="substance_use" id="substance_use" wire:model="substance_use" class="select-form">
-                <option selected="selected">Seleciona uno</option>
+                <option value="selecciona" disabled>Elige una opción</option>
                 <option value="si">Sí</option>
                 <option value="no">No</option>
             </select>
@@ -137,7 +131,7 @@
         <div class="col-start-2">
             <x-label name="regularly_consumed">Alimentos y bebidas de consumo regular</x-label>
             <textarea class="select-form" wire:model="regularly_consumed"></textarea>
-            @error('age')
+            @error('regularly_consumed')
                 <span class="error">{{ $message }}</span>
             @enderror
         </div>
@@ -153,8 +147,4 @@
         <button type="submit" class="btn btn-blue">Guardar</button>
     </div>
     </form>
-
-
-</div>
-</div>
 </div>

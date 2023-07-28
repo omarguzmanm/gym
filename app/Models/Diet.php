@@ -16,8 +16,4 @@ class Diet extends Model
         return $this->hasMany(Analysis::class, 'id_analysis');
     }
 
-    // public function analysis(){
-    //     return $this->belongsTo(Analysis::class, 'id_analysis');
-    // }
-
 }
