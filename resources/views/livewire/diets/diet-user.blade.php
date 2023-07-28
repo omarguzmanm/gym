@@ -1,24 +1,46 @@
-<div>
-    @if (session()->has('messageDiet'))
-        <!-- Mensaje de éxito o error -->
-        <div class="mx-28 mt-6 flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-200" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-            </svg>
+<div class="mt-6" wire:init="loadUser">
+        <div class="grid grid-cols-5 gap-4 mx-28 ">
+            <div class="col-start-2 col-end-4">
+                <x-input type="text" placeholder="Escriba el nombre del usuario" wire:model="search"></x-input>
+            </div>
             <div>
-              <span class="font-medium">{{ session('messageDiet') }}</span>
+                @livewire('create-diet-user')
+            </div>
+            <div class="col-start-2 col-end-4">
+                {{-- @livewire('show-diet-user') --}}
+                @foreach ($userDiet as $user )
+                        <p>{{$user}}</p>
+                @endforeach
             </div>
         </div>
-    @endif
-
-    <div class="flex justify-center gap-6 py-3">
-        <h1 class="text-base btn btn-analysis" wire:click="toggleForm(true)">Crear dieta</h1>
-        <h1 class="text-base btn btn-analysis" wire:click="toggleForm(false)">Mostrar dietas</h1>
     </div>
-
-    @if ($showForm)
-    @livewire('show-diet-user')
-    @else
-    @livewire('create-diet-user')
-    @endif
-</div>
+    
+    @push('js')
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Escucha un evento
+        Livewire.on('deleteUser', userId => {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: '¡Sí, eliminar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('show-diet-user', 'delete', userId);
+                    Swal.fire(
+                        '¡Eliminado!',
+                        'El usuario ha sido eliminado',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
+    @endpush
+    

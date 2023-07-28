@@ -7,6 +7,8 @@ use App\Models\Analysis;
 use App\Models\Diet;
 class CreateDietUser extends Component
 {
+    public $open = false;
+
     public $id_analysis;
     public $showForm = false;
 
@@ -18,8 +20,7 @@ class CreateDietUser extends Component
     ];
  
     public function mount(){
-        $this->id_analysis = $this->id_analysis ?? 'selecciona';
-        $this->resetForm();
+        // $this->resetForm();
     }
     public function resetForm()
     {
@@ -32,14 +33,18 @@ class CreateDietUser extends Component
 }
     public function submit()
     {
-        // $this->validate();
+        $this->validate();
         // Execution doesn't reach here if validation fails.
         Diet::create([
             'id_analysis' => $this->id_analysis,
             'description' => $this->description
         ]);
-        session()->flash('messageDiet', 'La dieta fue creada con éxito.');
-        $this->emit('toggleForm', false);
+        
+        //Reseteamos todos los valores del form/modal
+        $this->reset(['open','id_analysis', 'description']);
+        $this->emitTo('show-diet-user', 'render');
+        $this->emit('alert', 'La dieta se creó correctamente.');
+
     }
     
     public function render()

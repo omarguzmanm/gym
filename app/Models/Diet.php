@@ -13,7 +13,7 @@ class Diet extends Model
 
 
     public function analysis(){
-        return $this->hasMany(Analysis::class, 'id_analysis');
+        return $this->hasMany(Analysis::class, 'id_user');
     }
 
 }

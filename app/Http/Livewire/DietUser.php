@@ -11,16 +11,30 @@ use Livewire\Component;
 
 class DietUser extends Component
 {
-    public $showForm = true;
+    public $search = '';
+    public $readyToLoad = false;
 
-    public function toggleForm($showForm)
-{
-    $this->showForm = $showForm;
-}
     public function render()
     {
+        // $search = '';
+        if ($this->readyToLoad) {
+            $userDiet = Diet::where('id', $this->search)->get();
+            // $userDiet = Diet::with([
+            //     'analysis' => function ($query) use ($search) {
+            //         $query->where('id_user', $search);
+            //     }
+            // ])->get();
+            // dd($userDiet);
+        }else{
+            $userDiet = [];
+        }
+        // dd($userDiet);
+
         $userAnalysis = Analysis::with('user')->get();
-        return view('livewire.diets.diet-user', compact('userAnalysis'));
+        return view('livewire.diets.diet-user', compact('userAnalysis', 'userDiet'));
+    }
+    public function loadUser(){
+        $this->readyToLoad =  true;
     }
 
 }
