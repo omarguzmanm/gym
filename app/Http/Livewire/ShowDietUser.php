@@ -10,23 +10,17 @@ use Livewire\Component;
 class ShowDietUser extends Component
 {
     public $search = '';
-    public $readyToLoad = false;
-
 
     public function render()
     {
-        // $search = '';
-        // if ($this->readyToLoad) {
-        //     $userDiet = Diet::with([
-        //         'analysis' => function ($query) use ($search) {
-        //             $query->where('id_user', $search);
-        //         }
-        //     ])->get();
-        // }else{
-        //     $userDiet = [];
-        // }
-        // dd($userDiet);
+        $userDiet = Analysis::with('users', 'diets')
+            ->whereHas('users', function ($query) {
+                $query->where('name', 'LIKE', '%' . $this->search . '%');
+            })
+            ->whereNotNull('id_diet')
+            ->get();
 
-        return view('livewire.diets.show-diet-user' );
+        return view('livewire.diets.show-diet-user', compact('userDiet'));
+
     }
 }

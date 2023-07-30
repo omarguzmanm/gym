@@ -10,14 +10,15 @@
 
         <x-slot name="content">
             <div class="mb-4">
-                <x-label name="id_analysis">Nombre del paciente</x-label>
-                <select class="select-form" wire:model="id_analysis">
+                <x-label name="id_user">Nombre del paciente</x-label>
+                <select class="select-form" wire:model="id_user">
                     <option value="">Elige una opción</option>
                     @foreach ($userAnalysis as $user)
-                        <option value="{{ $user->id }}">{{ $user->user->name }}</option>
+                    {{-- @dd($user) --}}
+                        <option value="{{ $user->users->id }}">{{ $user->users->name }}</option>
                     @endforeach
                 </select>
-                <x-input-error for="id_analysis"></x-input-error>
+                <x-input-error for="id_user"></x-input-error>
             </div>
             <div class="mb-4"> 
                 <x-label name="description">Descripción de la dieta</x-label>

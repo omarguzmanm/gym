@@ -13,13 +13,7 @@ return new class extends Migration
     {
         Schema::create('diets', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('id_analysis');
-
             $table->text('description');
-
-            $table->foreign('id_analysis')->on('analysis')->references('id');
-
 
             $table->timestamps();
         });

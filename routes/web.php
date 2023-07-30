@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\DietUser;
 use App\Http\Livewire\AnalysisUser;
+use App\Http\Livewire\ShowDietUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowUsers;
 
@@ -28,8 +29,8 @@ Route::middleware([
     Route::get('/dashboard', ShowUsers::class)->name('dashboard');
 });
 
-Route::get('/diets', DietUser::class)->name('diets');
-Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
+Route::get('/diets', ShowDietUser::class)->name('diets');
+// Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
 
 Route::get('/analysis', AnalysisUser::class)->name('analysis');
 Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');

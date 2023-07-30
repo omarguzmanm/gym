@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('analysis', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('id_diet');
+            $table->unsignedBigInteger('id_user');
 
             //Personal information
-            $table->unsignedBigInteger('id_user')->nullable();
+            // $table->unsignedBigInteger('id_user')->nullable();
             $table->integer('age');
             $table->enum('gender', ['masculino', 'femenino', 'otro']);
             $table->float('weight');
@@ -36,14 +37,15 @@ return new class extends Migration
 
             //Lifestyle
             $table->float('hours_sleep');
-            $table->float('stress_levels');
+            $table->enum('stress_level', ['bajo', 'medio', 'alto']);
             $table->enum('substance_use', ['si', 'no']);
 
             //Hydration level
 
 
+            // $table->foreign('id_user')->on('users')->references('id');
+            $table->foreign('id_diet')->on('diets')->references('id');
             $table->foreign('id_user')->on('users')->references('id');
-
 
             $table->timestamps();
         });

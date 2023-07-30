@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function analysis(){
+        return $this->hasMany(Analysis::class, 'id_user');
+    }
+
 }

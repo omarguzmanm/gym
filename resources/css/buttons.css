@@ -1,5 +1,5 @@
 .btn{
-    @apply  font-bold text-white py-2 px-4 rounded cursor-pointer;
+    @apply  text-white py-2 px-4 rounded cursor-pointer;
 }
 
 .btn-red {
@@ -14,7 +14,7 @@
 
 
 .btn-green {
-    @apply  bg-green-600 hover:bg-green-500;
+    @apply  pt-0 pb-0 text-sm bg-green-600  hover:bg-green-500;
 }
 
 .btn-yellow {

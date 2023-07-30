@@ -9,14 +9,14 @@ class CreateDietUser extends Component
 {
     public $open = false;
 
-    public $id_analysis;
+    public $id_user;
     public $showForm = false;
 
     public $description;
  
     protected $rules = [
-        'id_analysis' => 'required',
-        'description' => 'required|text',
+        'id_user' => 'required',
+        'description' => 'required',
     ];
  
     public function mount(){
@@ -24,7 +24,7 @@ class CreateDietUser extends Component
     }
     public function resetForm()
     {
-        $this->id_analysis = null;
+        $this->id_user = null;
         $this->description = '';
     }
     public function toggleForm($showForm)
@@ -35,13 +35,15 @@ class CreateDietUser extends Component
     {
         $this->validate();
         // Execution doesn't reach here if validation fails.
-        Diet::create([
-            'id_analysis' => $this->id_analysis,
+        $diet = Diet::create([
             'description' => $this->description
         ]);
+        Analysis::where('id_user', $this->id_user)->update(['id_diet' => $diet->id]);
+        // $diet->analysis()->where('id_user', $this->id_user)->->toSql();
+        // Analysis::update(['id_diet' =>$this->id_analysis]);
         
         //Reseteamos todos los valores del form/modal
-        $this->reset(['open','id_analysis', 'description']);
+        $this->reset(['open','id_user', 'description']);
         $this->emitTo('show-diet-user', 'render');
         $this->emit('alert', 'La dieta se creó correctamente.');
 
@@ -49,7 +51,10 @@ class CreateDietUser extends Component
     
     public function render()
     {
-        $userAnalysis = Analysis::with('user')->get();
+        // $userAnalysis = Diet::with('analysis')->get();
+        $userAnalysis = Analysis::with('users')->get();
+        // dd($userAnalysis);
         return view('livewire.diets.create-diet-user', compact('userAnalysis'));
+        // return view('livewire.diets.create-diet-user');
     }
 }

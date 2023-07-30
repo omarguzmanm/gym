@@ -9,11 +9,17 @@ class Diet extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_analysis', 'description'];
+    protected $fillable = ['description'];
 
+
+    // public function analysis(){
+    //     return $this->hasMany(Analysis::class, 'id_user');
+    // }
 
     public function analysis(){
-        return $this->hasMany(Analysis::class, 'id_user');
+        return $this->hasMany(Analysis::class, 'id_diet');
     }
+
+
 
 }
