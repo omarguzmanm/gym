@@ -14,7 +14,10 @@
 
 
 .btn-green {
-    @apply  pt-0 pb-0 text-sm bg-green-600  hover:bg-green-500;
+    @apply  text-sm bg-green-600  hover:bg-green-500;
+}
+.btn-green-2 {
+    @apply  pt-0 pr-1.5 pl-1.5 pb-0 text-sm bg-green-600  hover:bg-green-500;
 }
 
 .btn-yellow {

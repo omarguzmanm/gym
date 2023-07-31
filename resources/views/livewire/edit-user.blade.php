@@ -2,7 +2,7 @@
     <a class="btn btn-green" wire:click="$set('open', true)">
         <i class="fas fa-edit"></i>
     </a>
-
+    
     <x-dialog-modal wire:model="open">
         <x-slot name="name">
             Editar el usuario {{$user->name}}
@@ -48,7 +48,7 @@
             </x-secondary-button>
 
             <x-danger-button wire:click="save" wire:loading.attr="disabled" class="disabled:opacity-25">
-                Actualizar1
+                Actualizar
             </x-danger-button>
 
         </x-slot>

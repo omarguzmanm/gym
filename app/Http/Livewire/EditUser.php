@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Analysis;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -11,6 +12,9 @@ class EditUser extends Component
 {
     use WithFileUploads;
     public $open = false;
+    public $open_edit = false;
+
+    public $analysis;
     public $user, $image, $identifier;   //Propiedad post
     protected $rules = [
         'user.name'    => 'required',
@@ -22,23 +26,16 @@ class EditUser extends Component
         $this->user = $user;
         $this->identifier = rand();
     }
-    public function save(){
-        $this->validate();
+    
+    public function edit(Analysis $analysis){
+        $this->analysis = $analysis;
+        $this->open_edit = true;
+    }
 
-        if($this->image){
-            Storage::delete([$this->user->image]);
-            $this->user->image = $this->image->store('users');
-        }
-
-        $this->user->save();
-
+    public function update(){
+        $this->analysis->save();
         //Borramos los valores de los inputs
-        $this->reset(['open', 'image']);
-
-        $this->identifier = rand();
-
-        $this->emitTo('show-users', 'render');
-
+        $this->reset(['open_edit']);
         $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
 
     }
