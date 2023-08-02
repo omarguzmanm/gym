@@ -13,6 +13,8 @@ class ShowDietUser extends Component
     public $diet, $identifier;
     public $open_edit = false;
 
+    protected $listeners = ['render', 'delete'];
+
     public function mount(){
         // $this->identifier = rand();
         $this->diet = new Diet(); 
@@ -50,6 +52,12 @@ class ShowDietUser extends Component
         $this->emit('alert', 'La dieta se actualizó satisfactoriamente');
 
     }
+
+    public function delete(Diet $diet){
+        Analysis::where('id_diet', $diet->id)->update(['id_diet' => null]);
+        $diet->delete();
+    }
+
 
     public function reportDiet($id)
     {

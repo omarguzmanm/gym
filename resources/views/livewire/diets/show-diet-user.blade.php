@@ -17,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // Escucha un evento
-        Livewire.on('deleteUser', userId => {
+        Livewire.on('deleteDiet', dietId => {
             Swal.fire({
                 title: '¿Estás seguro?',
                 text: "¡No podrás revertir esto!",
@@ -29,10 +29,10 @@
                 confirmButtonText: '¡Sí, eliminar!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('show-diet-user', 'delete', userId);
+                    Livewire.emitTo('show-diet-user', 'delete', dietId);
                     Swal.fire(
                         '¡Eliminado!',
-                        'El usuario ha sido eliminado',
+                        'La dieta ha sido eliminada',
                         'success'
                     )
                 }

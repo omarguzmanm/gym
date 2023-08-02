@@ -12,7 +12,7 @@ class CreateAnalysisUser extends Component
     $meal_schedule, $hours_sleep, $stress_levels, $substance_use,
     $regularly_consumed, $notes, $otherGoal;
 
-    public $showForm = false;
+    public $open = false;
 
     protected $rules = [
         // 'id_analysis' => 'required',
@@ -25,16 +25,11 @@ class CreateAnalysisUser extends Component
         'age.required' => 'La edad es requerida'
     ];
 
-    // Constructor del componente para establecer todas las propiedades en su estado inicial
-    public function __construct()
-    {
-        $this->resetForm();
-    }
 
     public function mount()
     {
        // Restablecer las propiedades cuando se monta el componente
-        $this->resetForm();
+        // $this->resetForm();
          // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
          $defaultProperties = ['user','gender','activity','goal',
             'meal_frecuency','stress_levels','substance_use',];
@@ -43,31 +38,15 @@ class CreateAnalysisUser extends Component
             $this->{$property} = $this->{$property} ?? 'selecciona';
         }
     }
-    public function resetForm()
-    {
-        $this->user = null;
-        $this->gender = null;
-        $this->age = null;
-        $this->weight = null;
-        $this->height = null;
-        $this->activity = null;
-        $this->goal = null;
-        $this->meal_frecuency = null;
-        $this->meal_schedule = null;
-        $this->hours_sleep = null;
-        $this->stress_levels = null;
-        $this->substance_use = null;
-        $this->regularly_consumed = null;
-        $this->notes = null;
-        $this->otherGoal = null;
-    }
 
 
     public function submit()
     {
         // dd($this->user);
         // Si la opción seleccionada es "otro", establece $otherGoal en blanco
-
+        if ($this->goal === 'otro') {
+            $this->otherGoal = '';
+        }
 
         $this->validate();
 
@@ -87,22 +66,17 @@ class CreateAnalysisUser extends Component
             'stress_levels' => $this->stress_levels,
             'substance_use' => $this->substance_use,
         ]);
-        // if ($this->goal === 'otro') {
-        //     $this->otherGoal = '';
-        // }
 
-        session()->flash('messageAnalysis', 'El análisis fue creado con exito.');
+        $this->reset(['open','user', 'gender', 'age', 'weight', 'height', 'activity', 'goal', 'meal_frecuency',
+        'meal_schedule', 'hours_sleep', 'stress_levels', 'substance_use',
+        'regularly_consumed', 'notes', 'otherGoal']);
+
+        $this->emitTo('show-analysis-user', 'render');
+        $this->emit('alert', 'El analisis se creó correctamente.');
+
+
     }
 
-    public function mostrarFormulario()
-    {
-        $this->showForm = true;
-    }
-
-    public function mostrarTabla()
-    {
-        $this->showForm = false;
-    }
 
     public function render()
     {

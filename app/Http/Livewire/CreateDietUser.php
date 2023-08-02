@@ -10,7 +10,6 @@ class CreateDietUser extends Component
     public $open = false;
 
     public $id_user;
-    public $showForm = false;
 
     public $description;
  
@@ -22,15 +21,7 @@ class CreateDietUser extends Component
     public function mount(){
         // $this->resetForm();
     }
-    public function resetForm()
-    {
-        $this->id_user = null;
-        $this->description = '';
-    }
-    public function toggleForm($showForm)
-{
-    $this->showForm = $showForm;
-}
+
     public function submit()
     {
         $this->validate();
@@ -38,7 +29,7 @@ class CreateDietUser extends Component
         $diet = Diet::create([
             'description' => $this->description
         ]);
-        Analysis::where('id_user', $this->id_user)->update(['id_diet' => $diet->id]);
+        Analysis::where('id_user', $this->id_user)->whereNull('id_diet')->update(['id_diet' => $diet->id]);
         // $diet->analysis()->where('id_user', $this->id_user)->->toSql();
         // Analysis::update(['id_diet' =>$this->id_analysis]);
         

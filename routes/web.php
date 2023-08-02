@@ -3,6 +3,7 @@
 use App\Http\Livewire\DietUser;
 use App\Http\Livewire\AnalysisUser;
 use App\Http\Livewire\ShowDietUser;
+use App\Http\Livewire\ShowAnalysisUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowUsers;
 
@@ -33,7 +34,7 @@ Route::get('/diets', ShowDietUser::class)->name('diets');
 Route::get('/diets/{id}/reportPDF', [ShowDietUser::class, 'reportDiet'])->name('diets.reportDiet');
 // Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
 
-Route::get('/analysis', AnalysisUser::class)->name('analysis');
-Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
+Route::get('/analysis', ShowAnalysisUser::class)->name('analysis');
+// Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
 
 
