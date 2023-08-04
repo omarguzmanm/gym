@@ -42,12 +42,12 @@
             <div class="mb-4">
                 <x-label  value="Membresia" />
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
-                <select name="membership" id="membership" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <select name="membership" wire:model="membership" id="membership" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                     <option disabled selected>Selecciona una opción</option>
-                    <option value="1">Invitado (1 día)</option>
-                    <option value="2">Mensual</option>
-                    <option value="3">Trimestral</option>
-                    <option value="4">Anual</option>
+                    <option value="invitado">Invitado (1 día)</option>
+                    <option value="mensual">Mensual</option>
+                    <option value="trimestral">Trimestral</option>
+                    <option value="anual">Anual</option>
                 </select>
             </div>
 

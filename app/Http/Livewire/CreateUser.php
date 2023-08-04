@@ -6,6 +6,9 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class CreateUser extends Component
 {
     use WithFileUploads;
@@ -30,17 +33,21 @@ class CreateUser extends Component
     public function save()
     {
         $this->validate();
+        // dd($this->name);
 
         $image = $this->image->store('users');
 
 
-        User::create([
+        $user = User::create([
             'name'     =>  $this->name,
             'phone_number'   =>  $this->phone_number,
             'address'   => $this->address,
             'membership'   => $this->membership,
             'image'     =>  $image
         ]);
+
+        $role = Role::where('name', 'nutriologo')->first();
+        $user->assignRole($role);
 
         //Borramos los valores de los inputs
         $this->reset(['open', 'name', 'phone_number', 'address', 'image']);
