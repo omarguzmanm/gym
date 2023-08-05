@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class CreateAnalysisUser extends Component
 {
-    public $user, $gender, $age, $weight, $height, $activity, $goal, $meal_frecuency,
+    public $user, $gender, $age, $weight, $height, $imc, $activity, $goal, $meal_frecuency,
     $meal_schedule, $hours_sleep, $stress_levels, $substance_use,
     $regularly_consumed, $notes, $otherGoal;
 
@@ -80,6 +80,12 @@ class CreateAnalysisUser extends Component
 
     public function render()
     {
+        // Calcular el IMC
+        if(isset($this->height) && isset($this->weight) ){
+            $height = $this->height / 100;
+            $imc = $this->weight / ($height * $height);
+            $this->imc = number_format($imc, 2);
+        }
         $users = User::select('id', 'name')->get();
         return view('livewire.analysis.create-analysis-user', compact('users'));
     }

@@ -19,6 +19,17 @@
             @if ($image)
                 <img class="mb-4" src="{{$image->temporaryUrl()}}">
             @endif
+
+            <div class="mb-4">
+                <x-label value="Tipo de usuario" />
+                {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
+                <select wire:model="user_type" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    <option disabled selected>Selecciona una opción</option>
+                    <option value="usuario">Usuario</option>
+                    <option value="nutriologo">Nutriologo</option>
+                    <option value="entrenador">Entrenador</option>
+                </select>
+            </div>
             
             <div class="mb-4">
                 <x-label value="Nombre"></x-label>
@@ -38,7 +49,7 @@
                 <x-input-error for="address"></x-input-error>
             </div>
 
-
+            @if ($user_type == 'usuario')
             <div class="mb-4">
                 <x-label  value="Membresia" />
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
@@ -50,18 +61,19 @@
                     <option value="anual">Anual</option>
                 </select>
             </div>
+            @endif
 
 
             {{-- {{$content}} --}}
 
             {{-- Con wire:ignore se renderiza todo el contenido menos el div --}}
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <x-label value="Contenido"></x-label>
                 <div wire:ignore>
                     <textarea rows="6" class="form-control" id="editor" wire:model.defer="phone_number"></textarea>
                 </div>
                 <x-input-error for="phone_number"></x-input-error>
-             </div>
+             </div> --}}
 
              <div>
                 <input type="file" wire:model="image" id="{{$identifier}}">

@@ -14,9 +14,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $role1 = Role::create(['name' => 'admin']);
-        $role2 = Role::create(['name' => 'nutriologo']);
-        $role3 = Role::create(['name' => 'entrenador']);
+        $role1 = Role::create(['name' => 'superAdministrador']);
+        $role2 = Role::create(['name' => 'administrador']);
+        $role3 = Role::create(['name' => 'nutriologo']);
+        $role4 = Role::create(['name' => 'entrenador']);
 
         $user = User::find(101);
         $user2 = User::find(102);

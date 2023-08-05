@@ -45,6 +45,11 @@
                     <x-input type="number" wire:model="height"></x-input>
                     <x-input-error for="height"></x-input-error>
                 </div>
+                <div class="mb-4 col-span-2">
+                    <x-label name="imc">IMC</x-label>
+                    <x-input type="number" wire:model="imc" readOnly></x-input>
+                    <x-input-error for="imc"></x-input-error>
+                </div>
                 <div class="mb-4 col-span-3">
                     <x-label name="activity">Actividad física</x-label>
                     <select class="select-form" wire:model="activity">

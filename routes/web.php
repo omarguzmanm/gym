@@ -30,11 +30,11 @@ Route::middleware([
     Route::get('/dashboard', ShowUsers::class)->name('dashboard');
 });
 
+
+
 Route::get('/diets', ShowDietUser::class)->name('diets');
 Route::get('/diets/{id}/reportPDF', [ShowDietUser::class, 'reportDiet'])->name('diets.reportDiet');
 // Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
 
 Route::get('/analysis', ShowAnalysisUser::class)->name('analysis');
 // Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
-
-

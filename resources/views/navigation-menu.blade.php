@@ -15,7 +15,7 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    {{-- @role('nutriologo') --}}
+                    @role(['nutriologo', 'administrador'])
                     {{-- Nav de analisis  --}}
                     <x-nav-link href="{{ route('analysis') }}" :active="request()->routeIs('analysis')">
                         {{ __('Analisis') }}
@@ -24,7 +24,7 @@
                     <x-nav-link href="{{ route('diets') }}" :active="request()->routeIs('diets')">
                         {{ __('Dietas') }}
                     </x-nav-link>
-                    {{-- @endrole('nutriologo') --}}
+                    @endrole('nutriologo')
                     {{-- Nav de emergencia  --}}
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Emergencia') }}

@@ -15,7 +15,7 @@ class CreateUser extends Component
 
     public $open = false;
 
-    public $name, $phone_number, $address, $membership, $image, $identifier;
+    public $user_type, $name, $phone_number, $address, $membership, $image, $identifier;
 
     public function mount()
     {
@@ -27,15 +27,15 @@ class CreateUser extends Component
         'phone_number'      =>  'required',
         'address'           =>  'required',
         'membership'        =>  'required',
-        'image'             => 'required|image|max:2048'
+        // 'image'             => 'required|image|max:2048'
     ];
 
     public function save()
     {
-        $this->validate();
+        // $this->validate();
         // dd($this->name);
 
-        $image = $this->image->store('users');
+        // $image = $this->image->store('users');
 
 
         $user = User::create([
@@ -43,10 +43,10 @@ class CreateUser extends Component
             'phone_number'   =>  $this->phone_number,
             'address'   => $this->address,
             'membership'   => $this->membership,
-            'image'     =>  $image
+            // 'image'     =>  $image
         ]);
 
-        $role = Role::where('name', 'nutriologo')->first();
+        $role = Role::where('name', $this->user_type)->first();
         $user->assignRole($role);
 
         //Borramos los valores de los inputs
