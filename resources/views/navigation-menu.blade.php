@@ -16,18 +16,18 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @role(['nutriologo', 'administrador'])
-                    {{-- Nav de analisis  --}}
-                    <x-nav-link href="{{ route('analysis') }}" :active="request()->routeIs('analysis')">
-                        {{ __('Analisis') }}
-                    </x-nav-link>
-                    {{-- Nav de dietas  --}}
-                    <x-nav-link href="{{ route('diets') }}" :active="request()->routeIs('diets')">
-                        {{ __('Dietas') }}
-                    </x-nav-link>
+                        {{-- Nav de analisis  --}}
+                        <x-nav-link href="{{ route('analysis') }}" :active="request()->routeIs('analysis')">
+                            {{ __('Analisis') }}
+                        </x-nav-link>
+                        {{-- Nav de dietas  --}}
+                        <x-nav-link href="{{ route('diets') }}" :active="request()->routeIs('diets')">
+                            {{ __('Dietas') }}
+                        </x-nav-link>
                     @endrole('nutriologo')
                     {{-- Nav de emergencia  --}}
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Emergencia') }}
+                    <x-nav-link href="{{ route('workouts') }}" :active="request()->routeIs('workouts')">
+                        {{ __('Entrenamientos') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -164,6 +164,20 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            @role(['nutriologo', 'administrador'])
+                {{-- Nav de analisis  --}}
+                <x-responsive-nav-link href="{{ route('analysis') }}" :active="request()->routeIs('analysis')">
+                    {{ __('Analisis') }}
+                </x-responsive-nav-link>
+                {{-- Nav de dietas  --}}
+                <x-responsive-nav-link href="{{ route('diets') }}" :active="request()->routeIs('diets')">
+                    {{ __('Dietas') }}
+                </x-responsive-nav-link>
+            @endrole('nutriologo')
+            {{-- Nav de emergencia  --}}
+            <x-responsive-nav-link href="{{ route('workouts') }}" :active="request()->routeIs('workouts')">
+                {{ __('Entrenamientos') }}
             </x-responsive-nav-link>
         </div>
 
