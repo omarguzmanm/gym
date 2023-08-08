@@ -63,3 +63,4 @@ Route::get('chat/{chat}/get_messages', [ChatController::class, 'get_messages'])-
 
 Route::post('message/sent', [MessageController::class, 'sent'])->name('message.sent');
 
+Route::get('/messages/received', [ChatController::class, 'received'])->name('message.received');

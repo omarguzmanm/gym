@@ -19,10 +19,10 @@ return new class extends Migration
         $role3 = Role::create(['name' => 'nutriologo']);
         $role4 = Role::create(['name' => 'entrenador']);
 
-        $user = User::find(101);
-        $user2 = User::find(102);
-        $user->assignRole($role1);
-        $user2->assignRole($role2);
+        // $user = User::find(101);
+        // $user2 = User::find(102);
+        // $user->assignRole($role1);
+        // $user2->assignRole($role2);
     }
 
     /**

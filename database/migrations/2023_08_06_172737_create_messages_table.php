@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->text('content');
-            $table->foreignId('user_id');
-            $table->foreignId('chat_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('chat_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->on('users')->references('id');
+            $table->foreign('chat_id')->on('chats')->references('id');
         });
     }
 

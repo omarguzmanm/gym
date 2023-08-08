@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chat;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class ChatController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    } 
+    }
 
     // Binding
     public function chat_with(User $user)
@@ -33,10 +34,25 @@ class ChatController extends Controller
 
     public function show(Chat $chat)
     {
-
+        $userAuth = auth()->user();
+        // Nos traemos todas las salas donde está vinculado el user auth
+        // $msgsUser = $userAuth->chats()->get();
+        $msgsUser = $userAuth->chats()
+            ->with([
+                'messages' => function ($query) {
+                    $query->orderBy('created_at', 'desc');
+                    $query->with('user'); // Cargar la relación "user" dentro de cada mensaje
+                }
+            ])
+            ->get();
+        // $messages = Message::where('user_id', auth()->id())->get();
+        // $msg = Chat::where('user_id', auth()->id())->get();
+        // dd($msgUser);
+        // La variable chat va a traer los usuario que estan en la misma sala
         abort_unless($chat->users->contains(auth()->id()), 403);
         return view('chat', [
-            'chat' => $chat
+            'chat' => $chat,
+            'msgsUser' => $msgsUser
         ]);
     }
 
@@ -56,4 +72,11 @@ class ChatController extends Controller
             'messages' => $messages
         ]);
     }
+
+    public function received(Chat $chat)
+    {
+        // La variable chat va a traer los usuario que estan en la misma sala
+        return view('chat');
+    }
+
 }

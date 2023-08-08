@@ -29,6 +29,10 @@
                     <x-nav-link href="{{ route('workouts') }}" :active="request()->routeIs('workouts')">
                         {{ __('Entrenamientos') }}
                     </x-nav-link>
+                    {{-- Nav de mensajes  --}}
+                    <x-nav-link href="{{ route('message.received') }}" :active="request()->routeIs('message.received')">
+                        {{ __('Mensajes') }}
+                    </x-nav-link>
                 </div>
             </div>
 
