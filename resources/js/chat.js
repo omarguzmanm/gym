@@ -4,8 +4,7 @@ import Echo from "laravel-echo";
 const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
-const PERSON_IMG =
-    "https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png";
+const PERSON_IMG ="https://icons-for-free.com/iconfiles/png/512/business+costume+male+man+office+user+icon-1320196264882354682.png";
 const chatWith = get(".chatWith");
 const typing = get(".typing");
 const chatStatus = get(".chatStatus");
@@ -13,7 +12,7 @@ const chatId = window.location.pathname.substring(6);
 let authUser;
 let typingTimer = false;
 
-// Agregamos el comportamiento para evitar errores de que no encuentra la funcion
+// Agregamos el comportamiento para evitar errores de que no encuentra la funcion   
 msgerInput.addEventListener('input', sendTypingEvent);
 
 

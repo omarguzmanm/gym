@@ -35,16 +35,25 @@ class ChatController extends Controller
     public function show(Chat $chat)
     {
         $userAuth = auth()->user();
-        // Nos traemos todas las salas donde está vinculado el user auth
+        // Nos traemos todas las salas y los mensajes donde esté vinculado el user auth
         // $msgsUser = $userAuth->chats()->get();
         $msgsUser = $userAuth->chats()
-            ->with([
-                'messages' => function ($query) {
-                    $query->orderBy('created_at', 'desc');
-                    $query->with('user'); // Cargar la relación "user" dentro de cada mensaje
-                }
-            ])
-            ->get();
+        ->with([
+            'messages' => function ($query) use ($userAuth) {
+                $query->whereIn('id', function ($subquery) use ($userAuth) {
+                    $subquery->selectRaw('MAX(id)')
+                        ->from('messages')
+                        ->where('user_id', '!=', $userAuth->id)
+                        ->groupBy('user_id');
+                });
+                $query->orderBy('created_at', 'desc');
+                $query->with('user'); // Cargar la relación "user" dentro de cada mensaje
+            }
+        ])
+        ->get();
+    
+    
+            // dd($msgsUser);
         // $messages = Message::where('user_id', auth()->id())->get();
         // $msg = Chat::where('user_id', auth()->id())->get();
         // dd($msgUser);
