@@ -6,6 +6,7 @@ use App\Http\Livewire\DietUser;
 use App\Http\Livewire\AnalysisUser;
 use App\Http\Livewire\ShowDietUser;
 use App\Http\Livewire\ShowAnalysisUser;
+use App\Http\Livewire\ShowMessages;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowUsers;
 
@@ -63,4 +64,5 @@ Route::get('chat/{chat}/get_messages', [ChatController::class, 'get_messages'])-
 
 Route::post('message/sent', [MessageController::class, 'sent'])->name('message.sent');
 
-Route::get('/messages/received', [ChatController::class, 'received'])->name('message.received');
+Route::get('/messages', [ChatController::class, 'received'])->name('messages');
+// Route::get('/messages', ShowMessages::class)->name('messages');

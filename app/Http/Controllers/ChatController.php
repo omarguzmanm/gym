@@ -34,41 +34,17 @@ class ChatController extends Controller
 
     public function show(Chat $chat)
     {
-        $userAuth = auth()->user();
-        // Nos traemos todas las salas y los mensajes donde esté vinculado el user auth
-        // $msgsUser = $userAuth->chats()->get();
-        $msgsUser = $userAuth->chats()
-        ->with([
-            'messages' => function ($query) use ($userAuth) {
-                $query->whereIn('id', function ($subquery) use ($userAuth) {
-                    $subquery->selectRaw('MAX(id)')
-                        ->from('messages')
-                        ->where('user_id', '!=', $userAuth->id)
-                        ->groupBy('user_id');
-                });
-                $query->orderBy('created_at', 'desc');
-                $query->with('user'); // Cargar la relación "user" dentro de cada mensaje
-            }
-        ])
-        ->get();
-    
-    
-            // dd($msgsUser);
-        // $messages = Message::where('user_id', auth()->id())->get();
-        // $msg = Chat::where('user_id', auth()->id())->get();
-        // dd($msgUser);
         // La variable chat va a traer los usuario que estan en la misma sala
         abort_unless($chat->users->contains(auth()->id()), 403);
-        return view('chat', [
-            'chat' => $chat,
-            'msgsUser' => $msgsUser
+        return view('chat.chat', [
+            'chat' => $chat
         ]);
     }
 
     public function get_users(Chat $chat)
     {
         $users = $chat->users;
-
+        // dd($users);
         return response()->json([
             'users' => $users
         ]);
@@ -82,10 +58,9 @@ class ChatController extends Controller
         ]);
     }
 
-    public function received(Chat $chat)
+    public function received()
     {
-        // La variable chat va a traer los usuario que estan en la misma sala
-        return view('chat');
+        return view('chat.messages');
     }
 
 }

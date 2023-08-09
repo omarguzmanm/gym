@@ -30,7 +30,7 @@
                         {{ __('Entrenamientos') }}
                     </x-nav-link>
                     {{-- Nav de mensajes  --}}
-                    <x-nav-link href="{{ route('message.received') }}" :active="request()->routeIs('message.received')">
+                    <x-nav-link href="{{ route('messages') }}" :active="request()->routeIs('message.received')">
                         {{ __('Mensajes') }}
                     </x-nav-link>
                 </div>
