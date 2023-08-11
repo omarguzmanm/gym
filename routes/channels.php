@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -18,9 +19,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('chat.{chat_id}', function ($user, $chat_id){
-
-    if ($user->chats->contains($chat_id)) {
-        return $user;
-    }
+Broadcast::channel('chat.{receiver}', function (User $user, $receiver) {
+    #check if user is same as receiver
+    return (int) $user->id === (int) $receiver;
 });

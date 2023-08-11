@@ -19,8 +19,8 @@
         <h2 class="text-sm btn btn-analysis" wire:click="$set('showForm', false)">Mostrar análisis</h2>
     </div>
     @if ($showForm)        
-        @livewire('create-analysis-user')
+        @livewire('analysis.create-analysis-user')
     @else
-        @livewire('show-analysis-user')
+        @livewire('analysis.show-analysis-user')
     @endif
 </div>

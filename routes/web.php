@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
+use App\Http\Livewire\Chat\CreateChat;
+use App\Http\Livewire\Chat\Main;
 use App\Http\Livewire\DietUser;
 use App\Http\Livewire\AnalysisUser;
 use App\Http\Livewire\ShowDietUser;
@@ -54,15 +56,20 @@ Route::get('/diets/{id}/reportPDF', [ShowDietUser::class, 'reportDiet'])->name('
 
 Route::get('/analysis', ShowAnalysisUser::class)->name('analysis');
 
-Route::get('chat/{chat}', [ChatController::class, 'show'])->name('chat.show');
+// Rutas del chat con livewire
+Route::get('/users', CreateChat::class)->name('users');
+Route::get('/chat/{key?}', Main::class)->name('chat');
 
-Route::get('chat/with/{user}', [ChatController::class, 'chat_with'])->name('chat.with');
 
-Route::get('chat/{chat}/get_users', [ChatController::class, 'get_users'])->name('chat.get_users');
+// Route::get('chat/{chat}', [ChatController::class, 'show'])->name('chat.show');
 
-Route::get('chat/{chat}/get_messages', [ChatController::class, 'get_messages'])->name('chat.get_messages');
+// Route::get('chat/with/{user}', [ChatController::class, 'chat_with'])->name('chat.with');
 
-Route::post('message/sent', [MessageController::class, 'sent'])->name('message.sent');
+// Route::get('chat/{chat}/get_users', [ChatController::class, 'get_users'])->name('chat.get_users');
 
-Route::get('/messages', [ChatController::class, 'received'])->name('messages');
+// Route::get('chat/{chat}/get_messages', [ChatController::class, 'get_messages'])->name('chat.get_messages');
+
+// Route::post('message/sent', [MessageController::class, 'sent'])->name('message.sent');
+
+// Route::get('/messages', [ChatController::class, 'received'])->name('messages');
 // Route::get('/messages', ShowMessages::class)->name('messages');

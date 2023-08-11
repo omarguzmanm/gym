@@ -4,7 +4,7 @@
             <x-input type="text" placeholder="Escriba el nombre del usuario" wire:model="search"></x-input>
         </div>
         <div class="col-start-4 justify-self-center">
-            @livewire('create-diet-user')
+            @livewire('diets.create-diet-user')
         </div>
         <div class="col-start-2 col-end-5">
             @include('livewire.diets.card-diet-user')
