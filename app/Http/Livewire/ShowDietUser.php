@@ -62,7 +62,7 @@ class ShowDietUser extends Component
     public function reportDiet($id)
     {
         $diets = Analysis::with('diets', 'users')->where('id_user', $id)->get();
-        $pdf = Pdf::loadView('livewire.reports.report-diet', compact('diets'));
+        $pdf = Pdf::loadView('reports.report-diet', compact('diets'));
         return $pdf->stream('usersReportPDF.pdf');
     }
 }

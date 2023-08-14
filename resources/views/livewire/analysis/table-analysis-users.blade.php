@@ -15,7 +15,7 @@
                 </div>
 
                 <x-input type="text" class="flex-1 mx-4" placeholder="Escriba el nombre del usuario" wire:model="search"></x-input>
-                @livewire('analysis.create-analysis-user')
+                @livewire('create-analysis-user')
 
 
                 {{-- <input type="text" wire:model="search"> --}}

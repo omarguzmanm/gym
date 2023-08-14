@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\UserController;
 use App\Http\Livewire\Chat\CreateChat;
 use App\Http\Livewire\Chat\Main;
+use App\Http\Livewire\CreateUser;
 use App\Http\Livewire\DietUser;
 use App\Http\Livewire\AnalysisUser;
 use App\Http\Livewire\ShowDietUser;
@@ -35,17 +37,10 @@ Route::middleware([
     Route::get('/dashboard', ShowUsers::class)->name('dashboard');
 });
 
-Route::get('/auth/user', function () {
-    if (auth()->check()) {
 
-        return response()->json([
-            'authUser' => auth()->user()
-        ]);
-        return null;
-    }
-});
-
-
+Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
+Route::get('/newUser', [UserController::class, 'create'])->name('user.create');
+Route::post('/newUser-store', [UserController::class, 'store'])->name('user.store');
 
 // Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
 Route::get('/workouts', ShowDietUser::class)->name('workouts');

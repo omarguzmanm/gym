@@ -21,12 +21,12 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/sass/chat.scss', 'resources/js/app.js', 'resources/vendor/fontawesome-free/css/all.min.css', 'resources/css/form.css', 'resources/css/buttons.css'])
 
-    <style>
+    {{-- <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
     </style>
-    
+     --}}
     <!-- Styles -->
     @livewireStyles
 

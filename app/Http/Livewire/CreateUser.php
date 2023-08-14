@@ -8,6 +8,10 @@ use Livewire\WithFileUploads;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CreateUser extends Component
 {
@@ -23,10 +27,10 @@ class CreateUser extends Component
     }
 
     protected $rules = [
-        'name'              => 'required',
-        'phone_number'      =>  'required',
-        'address'           =>  'required',
-        'membership'        =>  'required',
+        'name' => 'required',
+        'phone_number' => 'required',
+        'address' => 'required',
+        'membership' => 'required',
         // 'image'             => 'required|image|max:2048'
     ];
 
@@ -39,10 +43,10 @@ class CreateUser extends Component
 
 
         $user = User::create([
-            'name'     =>  $this->name,
-            'phone_number'   =>  $this->phone_number,
-            'address'   => $this->address,
-            'membership'   => $this->membership,
+            'name' => $this->name,
+            'phone_number' => $this->phone_number,
+            'address' => $this->address,
+            'membership' => $this->membership,
             // 'image'     =>  $image
         ]);
 
@@ -59,19 +63,39 @@ class CreateUser extends Component
         $this->emitTo('show-users', 'render');
 
         $this->emit('alert', 'El usuario se creó satisfactoriamente');
+
+        if ($this->user_type == 'usuario') {
+            return redirect()->route('ticket', $user->id);
+        }
+
     }
 
-    public function render()
+
+    public function ticketUser($id)
     {
-        return view('livewire.create-user');
+        $codigoQR = QrCode::size(100)->generate('http://127.0.0.1:8000/newUser');
+        $codigoQRBase64 = 'data:image/png;base64,' . base64_encode($codigoQR);
+        $users = User::where('id', $id)->get();        
+        $ticket = Pdf::loadView('reports.ticket-user', compact('users', 'codigoQRBase64'));
+        $ticket->setPaper('a6', 'portrait');
+
+        return $ticket->stream('Ticket.pdf');
     }
 
-    public function updatingOpen(){
-        if($this->open == false){
-            $this->reset(['name', 'phone_number','address', 'image']);
+
+    public function updatingOpen()
+    {
+        if ($this->open == false) {
+            $this->reset(['name', 'phone_number', 'address', 'image']);
             $this->identifier = rand();
             $this->emit('resetCKEditor');
 
         }
+    }
+
+
+    public function render()
+    {
+        return view('livewire.create-user');
     }
 }
