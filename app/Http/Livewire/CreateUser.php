@@ -24,6 +24,12 @@ class CreateUser extends Component
     public function mount()
     {
         $this->identifier = rand();
+         // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
+         $defaultProperties = ['user_type', 'membership'];
+
+        foreach ($defaultProperties as $property) {
+            $this->{$property} = $this->{$property} ?? 'selecciona';
+        }
     }
 
     protected $rules = [
