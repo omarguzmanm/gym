@@ -36,6 +36,9 @@
                     <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                         {{ __('Usuarios') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('memberships') }}" :active="request()->routeIs('memberships')">
+                        {{ __('Membresias') }}
+                    </x-nav-link>
                 </div>
             </div>
 

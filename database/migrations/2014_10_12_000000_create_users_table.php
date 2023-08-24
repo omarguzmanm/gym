@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             $table->date('inscription')->nullable();
-            $table->enum('membership', ['invitado', 'mensual', 'trimestral', 'anual'])->nullable();
+            // $table->enum('membership', ['invitado', 'mensual', 'trimestral', 'anual'])->nullable();
 
             // $table->string('image');
             $table->timestamp('email_verified_at')->nullable();

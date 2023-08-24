@@ -8,6 +8,7 @@ use App\Http\Livewire\Chat\Main;
 use App\Http\Livewire\CreateUser;
 use App\Http\Livewire\DietUser;
 use App\Http\Livewire\AnalysisUser;
+use App\Http\Livewire\Memberships\AdminMemberships;
 use App\Http\Livewire\ShowDietUser;
 use App\Http\Livewire\ShowAnalysisUser;
 use App\Http\Livewire\ShowMessages;
@@ -37,6 +38,7 @@ Route::middleware([
     Route::get('/dashboard', ShowUsers::class)->name('dashboard');
 });
 
+Route::get('/memberships', AdminMemberships::class)->name('memberships');
 
 Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
 Route::get('/newUser', [UserController::class, 'create'])->name('user.create');

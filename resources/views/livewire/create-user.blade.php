@@ -4,38 +4,40 @@
     </x-secondary-button>
 
 
-    <x-dialog-modal wire:model="open" >
+    <x-dialog-modal wire:model="open">
         <x-slot name="name">
             Crear nuevo usuario
         </x-slot>
 
         <x-slot name="content">
             {{-- Alerta cuando la imagen se está procesando --}}
-            <div wire:loading wire:target="image" class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <div wire:loading wire:target="image"
+                class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">¡Imagen cargando!</strong>
                 <span class="block sm:inline">Espere un momento hasta que la imagen se haya procesado.</span>
-              </div>            
+            </div>
 
             @if ($image)
-                <img class="mb-4" src="{{$image->temporaryUrl()}}">
+                <img class="mb-4" src="{{ $image->temporaryUrl() }}">
             @endif
 
             <div class="mb-4">
                 <x-label value="Tipo de usuario" />
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
-                <select wire:model="user_type" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                <select wire:model="user_type"
+                    class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                     <option value="selecciona" disabled>Elige una opción</option>
                     <option value="usuario">Usuario</option>
                     <option value="nutriologo">Nutriologo</option>
                     <option value="entrenador">Entrenador</option>
                 </select>
             </div>
-            
+
             <div class="mb-4">
                 <x-label value="Nombre"></x-label>
                 <x-input type="text" class="w-full" wire:model="name"></x-input>
                 <x-input-error for="name"></x-input-error>
-            </div>  
+            </div>
 
             <div class="mb-4">
                 <x-label value="Número de teléfono"></x-label>
@@ -50,17 +52,36 @@
             </div>
 
             @if ($user_type == 'usuario')
-            <div class="mb-4">
-                <x-label  value="Membresia" />
-                {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
-                <select name="membership" wire:model="membership" id="membership" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                    <option value="selecciona" disabled>Elige una opción</option>
-                    <option value="invitado">Invitado (1 día)</option>
-                    <option value="mensual">Mensual</option>
-                    <option value="trimestral">Trimestral</option>
-                    <option value="anual">Anual</option>
-                </select>
-            </div>
+                <div class="mb-4 flex justify-between items-center">
+                    <div>
+                        <x-label value="Membresia" />
+                        {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
+                        <select name="type" wire:model="type" id="type"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                            <option value="selecciona" disabled>Elige una opción</option>
+                            <option value="invitado">Invitado (1 día)</option>
+                            <option value="mensual">Mensual</option>
+                            <option value="trimestral">Semestral</option>
+                            <option value="anual">Anual</option>
+                        </select>
+                        <x-input-error for="type"></x-input-error>
+                    </div>
+                    <div>
+                        <x-label value="Plan"></x-label>
+                        <select name="plan" wire:model="plan" id="plan"
+                            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                            <option value="selecciona" disabled>Elige una opción</option>
+                            <option value="classic">Classic</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                        <x-input-error for="plan"></x-input-error>
+                    </div>
+                    <div>
+                        <x-label value="Precio" />
+                        <x-input type="text" class="w-full" wire:model="price" readOnly></x-input>
+                        <x-input-error for="price"></x-input-error>
+                    </div>
+                </div>
             @endif
 
 
@@ -75,11 +96,11 @@
                 <x-input-error for="phone_number"></x-input-error>
              </div> --}}
 
-             <div>
-                <input type="file" wire:model="image" id="{{$identifier}}">
+            <div>
+                <input type="file" wire:model="image" id="{{ $identifier }}">
                 <x-input-error for="image" enctype="multipart/form-data"></x-input-error>
 
-             </div>
+            </div>
 
         </x-slot>
 
@@ -89,7 +110,8 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image" class="disabled:opacity-25">
+            <x-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image"
+                class="disabled:opacity-25">
                 Crear usuario
             </x-danger-button>
 
@@ -100,18 +122,18 @@
         <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
         <script>
             ClassicEditor
-                .create( document.querySelector( '#editor' ) )
+                .create(document.querySelector('#editor'))
                 .then(function(editor) {
-                    editor.model.document.on('change:data', ()  => {
+                    editor.model.document.on('change:data', () => {
                         @this.set('phone_number', editor.getData());
                     });
-                    Livewire.on('resetCKEditor', ()=> {
+                    Livewire.on('resetCKEditor', () => {
                         editor.setData('');
                     })
                 })
-                .catch( error => {
-                    console.error( error );
-                } );
-        </script>        
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
     @endpush
 </div>

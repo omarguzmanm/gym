@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- @livewire('analysis-user') --}}
-            @livewire('users.show-users', ['name' => 'Este es un titulo de prueba'])
+            @livewire('show-users', ['name' => 'Este es un titulo de prueba'])
         </div>
     </div>
 </x-app-layout>

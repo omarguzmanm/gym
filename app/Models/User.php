@@ -78,5 +78,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+    public function memberships()
+    {
+        return $this->belongsToMany(Membership::class, 'user_membership');
+    }
 
 }

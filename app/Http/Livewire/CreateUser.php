@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Membership;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -19,13 +20,14 @@ class CreateUser extends Component
 
     public $open = false;
 
-    public $user_type, $name, $phone_number, $address, $membership, $image, $identifier;
+    public $user_type, $name, $phone_number, $address, $image, $identifier;
+    public $type, $plan, $price, $status;
 
     public function mount()
     {
         $this->identifier = rand();
          // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
-         $defaultProperties = ['user_type', 'membership'];
+         $defaultProperties = ['user_type', 'type', 'plan'];
 
         foreach ($defaultProperties as $property) {
             $this->{$property} = $this->{$property} ?? 'selecciona';
@@ -36,7 +38,7 @@ class CreateUser extends Component
         'name' => 'required',
         'phone_number' => 'required',
         'address' => 'required',
-        'membership' => 'required',
+        // 'membership' => 'required',
         // 'image'             => 'required|image|max:2048'
     ];
 
@@ -52,12 +54,22 @@ class CreateUser extends Component
             'name' => $this->name,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'membership' => $this->membership,
+            // 'membership' => $this->membership,
+            'code' => random_int(10000, 99999)
             // 'image'     =>  $image
         ]);
+        // Membership
+        $membership = Membership::create([
+            'id_user' => $user->id,
+            // 'type' => 
+        ]);
+        
+
 
         $role = Role::where('name', $this->user_type)->first();
         $user->assignRole($role);
+
+
 
         //Borramos los valores de los inputs
         $this->reset(['open', 'name', 'phone_number', 'address', 'image']);

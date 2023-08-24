@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('id_user');
+            // $table->unsignedBigInteger('id_user');
 
-            $table->enum('type', ['invitado', 'semanal', 'mensual', 'semestral', 'anual']);
-            $table->enum('plan', ['classic', 'premium']);
+            $table->enum('type', ['Invitado', 'Semanal', 'Mensual', 'Semestral', 'Anual']);
+            $table->enum('plan', ['Sin plan', 'Classic', 'Premium'])->default('Sin plan');
             $table->string('price');
-            $table->boolean('status');
+            // $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users');
+            // $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
