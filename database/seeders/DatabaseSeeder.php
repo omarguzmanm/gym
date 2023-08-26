@@ -24,45 +24,45 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         Membership::create([
-            'type' => 'invitado',
+            'type' => 'Invitado',
             'plan' => 'Sin plan',
             'price' => 50
         ]);
         Membership::create([
-            'type' => 'semanal',
+            'type' => 'Semanal',
             'plan' => 'Sin plan',
             'price' => 150
         ]);
         Membership::create([
-            'type' => 'mensual',
-            'plan' => 'classic',
+            'type' => 'Mensual',
+            'plan' => 'Classic',
             'price' => 400
         ]);
         Membership::create([
-            'type' => 'semestral',
-            'plan' => 'classic',
+            'type' => 'Semestral',
+            'plan' => 'Classic',
             'price' => 2000
         ]);
         Membership::create([
-            'type' => 'anual',
-            'plan' => 'classic',
+            'type' => 'Anual',
+            'plan' => 'Classic',
             'price' => 3800
         ]);
 
 
         Membership::create([
-            'type' => 'mensual',
-            'plan' => 'premium',
+            'type' => 'Mensual',
+            'plan' => 'Premium',
             'price' => 700
         ]);
         Membership::create([
-            'type' => 'semestral',
-            'plan' => 'premium',
+            'type' => 'Semestral',
+            'plan' => 'Premium',
             'price' => 3500
         ]);
         Membership::create([
-            'type' => 'anual',
-            'plan' => 'premium',
+            'type' => 'Anual',
+            'plan' => 'Premium',
             'price' => 5000
         ]);
 

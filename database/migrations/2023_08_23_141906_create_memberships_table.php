@@ -16,8 +16,8 @@ return new class extends Migration
 
             // $table->unsignedBigInteger('id_user');
 
-            $table->enum('type', ['Invitado', 'Semanal', 'Mensual', 'Semestral', 'Anual']);
-            $table->enum('plan', ['Sin plan', 'Classic', 'Premium'])->default('Sin plan');
+            $table->string('type');
+            $table->string('plan');
             $table->string('price');
             // $table->boolean('status');
             $table->timestamps();

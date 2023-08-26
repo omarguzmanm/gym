@@ -10,15 +10,13 @@ class EditDietUser extends Component
 {
     public $open = false;
     public $analysis, $identifier;
-    public $userToEdit;
+    // public $userToEdit;
 
 
     public function mount(Analysis $analysis){
         $this->analysis = $analysis;
         // $this->identifier = rand();
     }
-
-
 
 
     public function render()
