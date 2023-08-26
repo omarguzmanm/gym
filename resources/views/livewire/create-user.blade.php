@@ -26,7 +26,7 @@
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                 <select wire:model="user_type"
                     class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                    <option value="selecciona" disabled>Elige una opción</option>
+                    <option value="selecciona">Elige una opción</option>
                     <option value="usuario">Usuario</option>
                     <option value="nutriologo">Nutriologo</option>
                     <option value="entrenador">Entrenador</option>
@@ -58,11 +58,10 @@
                         {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                         <select name="type" wire:model="type" id="type"
                             class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                            <option value="selecciona" disabled>Elige una opción</option>
-                            <option value="invitado">Invitado (1 día)</option>
-                            <option value="mensual">Mensual</option>
-                            <option value="trimestral">Semestral</option>
-                            <option value="anual">Anual</option>
+                            <option value="" class="normal-case">Seleccione una membresia</option>
+                            @foreach ($types as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                         <x-input-error for="type"></x-input-error>
                     </div>
@@ -70,9 +69,12 @@
                         <x-label value="Plan"></x-label>
                         <select name="plan" wire:model="plan" id="plan"
                             class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                            <option value="selecciona" disabled>Elige una opción</option>
-                            <option value="classic">Classic</option>
-                            <option value="premium">Premium</option>
+                            @if ($plans->count() == 0)
+                                <option value="">Debe seleccionar una membresia</option>
+                            @endif
+                            @foreach ($plans as $item)
+                                <option value="{{ $item->id }}">{{ $item->plan }}</option>
+                            @endforeach
                         </select>
                         <x-input-error for="plan"></x-input-error>
                     </div>

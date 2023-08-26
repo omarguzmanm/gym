@@ -21,17 +21,35 @@ class CreateUser extends Component
     public $open = false;
 
     public $user_type, $name, $phone_number, $address, $image, $identifier;
-    public $type, $plan, $price, $status;
+    public $type, $plan, $price, $id_membership;
+    public $types = [], $plans = [], $prices = [];
 
     public function mount()
     {
         $this->identifier = rand();
-         // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
-         $defaultProperties = ['user_type', 'type', 'plan'];
+        // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
+        $defaultProperties = ['user_type', 'type', 'plan'];
 
         foreach ($defaultProperties as $property) {
             $this->{$property} = $this->{$property} ?? 'selecciona';
         }
+        $this->types = Membership::pluck('type')->unique();
+        $this->plans = collect();
+    }
+
+    public function updatedType($value)
+    {
+        $this->plans = Membership::where('type', $value)->get();
+        $this->plan = $this->plans->first()->id ?? null;
+        $this->price = $this->plans->first()->price ?? null;
+        $this->id_membership = $this->plans->first()->id ?? null;
+    }
+
+    public function updatedPlan($value)
+    {
+        $this->prices = Membership::where('id', $value)->get();
+        $this->price = $this->prices->first()->price ?? null;
+        $this->id_membership = $this->prices->first()->id ?? null;
     }
 
     protected $rules = [
@@ -45,25 +63,26 @@ class CreateUser extends Component
     public function save()
     {
         // $this->validate();
-        // dd($this->name);
+        // dd($this->id_membership);
 
         // $image = $this->image->store('users');
-
-
         $user = User::create([
             'name' => $this->name,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            // 'membership' => $this->membership,
             'code' => random_int(10000, 99999)
-            // 'image'     =>  $image
         ]);
+
+        $user->memberships()->attach($this->id_membership, ['created_at' => now(), 'updated_at' => now()]);
+
+
+
         // Membership
-        $membership = Membership::create([
-            'id_user' => $user->id,
-            // 'type' => 
-        ]);
-        
+        // $membership = Membership::create([
+        //     'id_user' => $user->id,
+        //     // 'type' => 
+        // ]);
+
 
 
         $role = Role::where('name', $this->user_type)->first();
@@ -72,7 +91,7 @@ class CreateUser extends Component
 
 
         //Borramos los valores de los inputs
-        $this->reset(['open', 'name', 'phone_number', 'address', 'image']);
+        $this->reset(['open', 'user_type','name', 'phone_number', 'address', 'image', 'type', 'plan', 'price']);
 
         $this->identifier = rand();
 
@@ -82,9 +101,9 @@ class CreateUser extends Component
 
         $this->emit('alert', 'El usuario se creó satisfactoriamente');
 
-        if ($this->user_type == 'usuario') {
-            return redirect()->route('ticket', $user->id);
-        }
+        // if ($this->user_type == 'usuario') {
+        //     return redirect()->route('ticket', $user->id);
+        // }
 
     }
 
@@ -93,7 +112,7 @@ class CreateUser extends Component
     {
         $codigoQR = QrCode::size(100)->generate('http://127.0.0.1:8000/newUser');
         $codigoQRBase64 = 'data:image/png;base64,' . base64_encode($codigoQR);
-        $users = User::where('id', $id)->get();        
+        $users = User::where('id', $id)->get();
         $ticket = Pdf::loadView('reports.ticket-user', compact('users', 'codigoQRBase64'));
         $ticket->setPaper('a6', 'portrait');
 

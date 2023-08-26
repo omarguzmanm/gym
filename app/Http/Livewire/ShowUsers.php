@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
-use Livewire\WithPagination;    //Paginación dinamica
+use Livewire\WithPagination; //Paginación dinamica
 
 class ShowUsers extends Component
 {
@@ -14,53 +14,58 @@ class ShowUsers extends Component
     use WithPagination;
 
     public $user, $image, $identifier;
-    public $search = ''; 
+    public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = '10';
     public $readyToLoad = false;
     public $open_edit = false;
 
+
+
     protected $listeners = ['render', 'delete'];
 
     protected $queryString = [
-        'cant'              =>          ['except' => '10'],
-        'sort'              =>          ['except' => 'id'],
-        'direction'         =>          ['except' => 'desc'],
-        'search'            =>          ['except' =>  '']
+        'cant' => ['except' => '10'],
+        'sort' => ['except' => 'id'],
+        'direction' => ['except' => 'desc'],
+        'search' => ['except' => '']
     ];
 
-    public function mount(){
+    public function mount()
+    {
         $this->identifier = rand();
-        $this->user = new User(); 
+        $this->user = new User();
     }
 
-    public function updatingSearch(){
+    public function updatingSearch()
+    {
         $this->resetPage();
     }
 
     protected $rules = [
-        'user.name'    => 'required',
-        'user.phone_number'  => 'required',
-        'user.address'  => 'required',
-        'user.membership'  => 'required',
+        'user.name' => 'required',
+        'user.phone_number' => 'required',
+        'user.address' => 'required',
+        'user.membership' => 'required',
     ];
 
     public function render()
     {
-        if($this->readyToLoad){
+        if ($this->readyToLoad) {
             $users = User::where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('inscription', 'like', '%' . $this->search . '%')
-                        ->orderBy($this->sort, $this->direction)
-                        ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
-        }else{
+                ->orWhere('inscription', 'like', '%' . $this->search . '%')
+                ->orderBy($this->sort, $this->direction)
+                ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
+        } else {
             $users = [];
         }
         return view('livewire.show-users', compact('users'));
     }
-    
-    public function loadUser(){
-        $this->readyToLoad =  true;
+
+    public function loadUser()
+    {
+        $this->readyToLoad = true;
     }
 
     public function order($sort)
@@ -71,24 +76,26 @@ class ShowUsers extends Component
             } else {
                 $this->direction = 'desc';
             }
-            
+
         } else {
             $this->sort = $sort;
             $this->direction = 'asc';
         }
-        
-        $this->sort = $sort;
-    }    
 
-    public function edit(User $user){
+        $this->sort = $sort;
+    }
+
+    public function edit(User $user)
+    {
         $this->user = $user;
         $this->open_edit = true;
     }
 
-    public function update(){
+    public function update()
+    {
         $this->validate();
 
-        if($this->image){
+        if ($this->image) {
             Storage::delete([$this->user->image]);
             $this->user->image = $this->image->store('users');
         }
@@ -103,7 +110,8 @@ class ShowUsers extends Component
         $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
     }
 
-    public function delete(User $user){
+    public function delete(User $user)
+    {
         // Se ocupan las imagenes para este metodo
         // Storage::delete([$user->image]);
 

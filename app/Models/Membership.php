@@ -9,10 +9,10 @@ class Membership extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type', 'plan', 'price', ];
+    protected $fillable = ['type', 'plan', 'price' ];
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_membership');
+        return $this->belongsToMany(User::class, 'user_membership')->withTimestamps();;
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Memberships;
 
 use App\Models\Membership;
 use Livewire\Component;
+use Illuminate\Validation\Rule;
+
 
 class CreateMembership extends Component
 {
@@ -11,8 +13,20 @@ class CreateMembership extends Component
     public $type, $plan, $price;
 
 
+
     public function submit()
     {
+
+        $this->validate([
+            'type' => [
+                'required',
+                Rule::unique('memberships') // Verifica que el valor sea único en la columna 'type'
+            ],
+            'plan' => 'required',
+            'price' => 'required'
+        ]);
+
+
         Membership::create([
             'type' => $this->type,
             'plan' => $this->plan,
