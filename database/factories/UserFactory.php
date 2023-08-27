@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email'                     => $this->faker->email(),
             'phone_number'              => $this->faker->phoneNumber(),
             'address'                   => $this->faker->address(),
-            'inscription'               =>  $this->faker->date(),
+            // 'inscription'               =>  $this->faker->date(),
             // 'membership'                =>  rand(1,4),
             'email_verified_at'         => now(),
             'password'                  => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
