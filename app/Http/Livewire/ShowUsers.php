@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Membership;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,10 @@ class ShowUsers extends Component
     public $cant = '10';
     public $readyToLoad = false;
     public $open_edit = false;
+    public $open_editRenew = false;
+    public $type, $plan, $price, $id_membership;
+    public $types = [], $plans = [], $prices = [];
+
 
 
 
@@ -36,8 +41,24 @@ class ShowUsers extends Component
     {
         $this->identifier = rand();
         $this->user = new User();
+        $this->types = Membership::pluck('type')->unique();
+        $this->plans = collect();
     }
 
+    public function updatedType($value)
+    {
+        $this->plans = Membership::where('type', $value)->get();
+        $this->plan = $this->plans->first()->id ?? null;
+        $this->price = $this->plans->first()->price ?? null;
+        $this->id_membership = $this->plans->first()->id ?? null;
+    }
+
+    public function updatedPlan($value)
+    {
+        $this->prices = Membership::where('id', $value)->get();
+        $this->price = $this->prices->first()->price ?? null;
+        $this->id_membership = $this->prices->first()->id ?? null;
+    }
     public function updatingSearch()
     {
         $this->resetPage();
@@ -47,13 +68,13 @@ class ShowUsers extends Component
         'user.name' => 'required',
         'user.phone_number' => 'required',
         'user.address' => 'required',
-        'user.membership' => 'required',
+        // 'user.membership' => 'required',
     ];
 
     public function render()
     {
         if ($this->readyToLoad) {
-            $users = User::where('name', 'like', '%' . $this->search . '%')
+            $users = User::with('memberships')->where('name', 'like', '%' . $this->search . '%')
                 ->orWhere('inscription', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
@@ -117,4 +138,34 @@ class ShowUsers extends Component
 
         $user->delete();
     }
+
+    public function editRenew(User $user)
+    {
+        $this->user = $user;
+        $this->user->load('memberships'); // Carga las relaciones nuevamente
+        // dd($user->memberships->pluck('plan'));
+        $this->type = $user->memberships->pluck('type');
+        $this->plans = Membership::where('type', $this->type)->get();
+        $this->price = $user->memberships->pluck('price');
+        $this->open_editRenew = true;
+    }
+
+    public function updateRenew()
+    {
+        // dd($this->user->id);
+        $this->user->memberships()
+            ->wherePivot('user_id', $this->user->id)
+            ->update([
+                'membership_id' => $this->id_membership,
+                // Reemplaza con el nuevo ID de membresía
+                'status' => 1,
+                'renew_date' => now(),
+            ]);
+        //Borramos los valores de los inputs
+        $this->reset(['open_editRenew']);
+
+        $this->emit('alert', 'La membresia se renovó con exito!');
+    }
+
+
 }

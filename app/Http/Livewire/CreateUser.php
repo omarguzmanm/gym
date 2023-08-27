@@ -73,22 +73,10 @@ class CreateUser extends Component
             'code' => random_int(10000, 99999)
         ]);
 
-        $user->memberships()->attach($this->id_membership, ['created_at' => now(), 'updated_at' => now()]);
-
-
-
-        // Membership
-        // $membership = Membership::create([
-        //     'id_user' => $user->id,
-        //     // 'type' => 
-        // ]);
-
-
+        $user->memberships()->attach($this->id_membership, ['created_at' => now()]);
 
         $role = Role::where('name', $this->user_type)->first();
         $user->assignRole($role);
-
-
 
         //Borramos los valores de los inputs
         $this->reset(['open', 'user_type','name', 'phone_number', 'address', 'image', 'type', 'plan', 'price']);
