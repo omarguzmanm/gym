@@ -26,7 +26,7 @@
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                 <select wire:model="user_type"
                     class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                    <option value="selecciona">Elige una opción</option>
+                    <option value="">Elige una opción</option>
                     <option value="usuario">Usuario</option>
                     <option value="nutriologo">Nutriologo</option>
                     <option value="entrenador">Entrenador</option>

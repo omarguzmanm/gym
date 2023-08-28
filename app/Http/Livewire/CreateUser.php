@@ -28,11 +28,11 @@ class CreateUser extends Component
     {
         $this->identifier = rand();
         // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
-        $defaultProperties = ['user_type', 'type', 'plan'];
+        // $defaultProperties = ['user_type', 'type', 'plan'];
 
-        foreach ($defaultProperties as $property) {
-            $this->{$property} = $this->{$property} ?? 'selecciona';
-        }
+        // foreach ($defaultProperties as $property) {
+        //     $this->{$property} = $this->{$property} ?? 'selecciona';
+        // }
         $this->types = Membership::pluck('type')->unique();
         $this->plans = collect();
     }
@@ -70,10 +70,17 @@ class CreateUser extends Component
             'name' => $this->name,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'code' => random_int(10000, 99999)
+            'code' => random_int(1000, 9999)
         ]);
 
-        $user->memberships()->attach($this->id_membership, ['created_at' => now()]);
+        $user->memberships()->attach($this->id_membership, [
+            'inscription' => now(),
+            'renew_date' => $this->type == 'Semanal' ? now()->nextWeekendDay() :
+                            ($this->type == 'Mensual' ? now()->addMonth() : 
+                           ($this->type == 'Semestral' ? now()->addMonths(6) :
+                           ($this->type == 'Anual' ? now()->addYears(1) : null))),
+            'status' => 1
+        ]);
 
         $role = Role::where('name', $this->user_type)->first();
         $user->assignRole($role);

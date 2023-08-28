@@ -78,22 +78,6 @@
                                     <i class="fas fa-sort float-right mt-1"></i>
                                 @endif
                             </th>
-
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                wire:click="order('inscription')">
-                                Inscripción
-                                {{-- Sort --}}
-                                @if ($sort == 'inscription')
-                                    @if ($direction == 'asc')
-                                        <i class="fas fa-sort-alpha-up-alt float-right mt-1"></i>
-                                    @else
-                                        <i class="fas fa-sort-alpha-down-alt float-right mt-1"></i>
-                                    @endif
-                                @else
-                                    <i class="fas fa-sort float-right mt-1"></i>
-                                @endif
-                            </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 wire:click="order('inscription')">
@@ -117,15 +101,15 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach ($users as $item)
-                        {{-- @dd($item) --}}
-                            <tr>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $item->code }}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $item->name }}</div>
-                                </td>
-                                <td class="px-6 py-4">
+                            @foreach ($item->memberships as $membership)
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">{{ $item->code }}</div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">{{ $item->name }}</div>
+                                    </td>
+                                    {{-- <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900 font-semibold	">
                                         {{ \Carbon\Carbon::parse(strtotime($item->inscription . ' + 1 month'))->format('d/m/Y') }}
                                     </div>
@@ -134,30 +118,38 @@
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-900">
                                         {{ \Carbon\Carbon::parse($item->inscription)->format('d/m/Y') }}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">{{ $item->name }}</div>
-                                </td>
+                                </td> --}}
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">
+                                            {{ \Carbon\Carbon::parse($membership->pivot->renew_date)->addMonth()->format('d/m/Y') }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">
+                                            {{ $membership->pivot->status == 1 ? 'Activo' : 'Pendiente' }}</div>
+                                    </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex">
-                                    {{-- @livewire('edit-post', ['post' => $post], key($post->id)) Componentes de anidamiento --}}
-                                    <a class="btn btn-green" wire:click="edit({{ $item }})">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex">
+                                        {{-- @livewire('edit-post', ['post' => $post], key($post->id)) Componentes de anidamiento --}}
+                                        <a class="btn btn-green" wire:click="edit({{ $item }})">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
 
-                                    <a class="btn btn-red ml-2" wire:click="$emit('deleteUser', {{ $item->id }})">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                        <a class="btn btn-red ml-2"
+                                            wire:click="$emit('deleteUser', {{ $item->id }})">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
 
-                                    {{-- <a class="btn btn-yellow ml-2" wire:click="edit({{ $item }})">
+                                        {{-- <a class="btn btn-yellow ml-2" wire:click="edit({{ $item }})">
                                         <i class="fas fa-add"></i>
                                     </a> --}}
-                                    <a class="btn btn-yellow ml-2" wire:click="editRenew({{ $item }})">
-                                        <i class="fas fa-arrows-rotate"></i>
-                                    </a>
+                                        <a class="btn btn-yellow ml-2" wire:click="editRenew({{ $item }})">
+                                            <i class="fas fa-arrows-rotate"></i>
+                                        </a>
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>

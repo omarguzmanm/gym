@@ -25,9 +25,6 @@ class ShowUsers extends Component
     public $type, $plan, $price, $id_membership;
     public $types = [], $plans = [], $prices = [];
 
-
-
-
     protected $listeners = ['render', 'delete'];
 
     protected $queryString = [
@@ -75,7 +72,7 @@ class ShowUsers extends Component
     {
         if ($this->readyToLoad) {
             $users = User::with('memberships')->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('inscription', 'like', '%' . $this->search . '%')
+                ->orWhere('code', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
         } else {
@@ -143,9 +140,11 @@ class ShowUsers extends Component
     {
         $this->user = $user;
         $this->user->load('memberships'); // Carga las relaciones nuevamente
-        // dd($user->memberships->pluck('plan'));
+        // dd($user->memberships->pluck('price'));
+        $this->price = $user->memberships->pluck('price');
         $this->type = $user->memberships->pluck('type');
-        $this->plans = Membership::where('type', $this->type)->get();
+        $this->plans = Membership::where('type', $this->type)->where('price', $this->price)->get();
+        $this->plan = $this->plans->first()->id ?? null;
         $this->price = $user->memberships->pluck('price');
         $this->open_editRenew = true;
     }
