@@ -121,7 +121,7 @@
                                 </td> --}}
                                     <td class="px-6 py-4">
                                         <div class="text-sm text-gray-900">
-                                            {{ \Carbon\Carbon::parse($membership->pivot->renew_date)->addMonth()->format('d/m/Y') }}
+                                            {{ \Carbon\Carbon::parse($membership->pivot->renew_date)->format('d/m/Y') }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">

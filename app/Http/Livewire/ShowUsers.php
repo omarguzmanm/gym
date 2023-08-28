@@ -22,7 +22,7 @@ class ShowUsers extends Component
     public $readyToLoad = false;
     public $open_edit = false;
     public $open_editRenew = false;
-    public $type, $plan, $price, $id_membership;
+    public $type, $plan, $price, $id_membership, $status;
     public $types = [], $plans = [], $prices = [];
 
     protected $listeners = ['render', 'delete'];
@@ -139,13 +139,24 @@ class ShowUsers extends Component
     public function editRenew(User $user)
     {
         $this->user = $user;
-        $this->user->load('memberships'); // Carga las relaciones nuevamente
-        // dd($user->memberships->pluck('price'));
-        $this->price = $user->memberships->pluck('price');
-        $this->type = $user->memberships->pluck('type');
-        $this->plans = Membership::where('type', $this->type)->where('price', $this->price)->get();
-        $this->plan = $this->plans->first()->id ?? null;
-        $this->price = $user->memberships->pluck('price');
+
+        // Carga las relaciones nuevamente
+        $this->user->load('memberships');
+    
+        $memberships = $this->user->memberships;
+        $this->price = $memberships->pluck('price');
+        $this->type = $memberships->pluck('type');
+    
+        // Obtiene el estado de la membresía actual del usuario
+        $this->status = $memberships->firstWhere('pivot.user_id', $this->user->id)->pivot->status;
+    
+        // Guardamos todos los planes de la mebresia seleccionada
+        $this->plans = Membership::whereIn('type', $this->type)->get();
+        // Filtra los planes de membresía disponibles 
+        $planSelected = Membership::whereIn('type', $this->type)->whereIn('price', $this->price)->first();
+        // Define el plan seleccionado
+        $this->plan = $planSelected->id;
+        
         $this->open_editRenew = true;
     }
 
@@ -157,8 +168,11 @@ class ShowUsers extends Component
             ->update([
                 'membership_id' => $this->id_membership,
                 // Reemplaza con el nuevo ID de membresía
+                'renew_date' => $this->type == 'Semanal' ? now()->nextWeekendDay() :
+                                ($this->type == 'Mensual' ? now()->addMonth() : 
+                                ($this->type == 'Semestral' ? now()->addMonths(6) :
+                                ($this->type == 'Anual' ? now()->addYears(1) : null))),
                 'status' => 1,
-                'renew_date' => now(),
             ]);
         //Borramos los valores de los inputs
         $this->reset(['open_editRenew']);

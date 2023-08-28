@@ -19,10 +19,13 @@
         </div>
         <div class="mb-4">
             <x-label value="Plan"></x-label>
-            <select wire:model="plan" 
+            <select wire:model="plan"
                 class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                 @foreach ($plans as $item)
-                    <option value="{{ $item->id }}">{{ $item->plan }}</option>
+                {{-- @dd($plan) --}}
+                    <option value="{{ $item->id }}" {{ $item->id == $plan ? 'selected' : '' }}>
+                        {{ $item->plan }}
+                    </option>
                 @endforeach
             </select>
             <x-input-error for="plan"></x-input-error>
@@ -37,10 +40,10 @@
         <x-secondary-button class="mr-3" wire:click="$set('open_editRenew', false)">
             Cancelar
         </x-secondary-button>
-
-        <x-danger-button wire:click="updateRenew" wire:loading.attr="disabled" 
+        <x-danger-button wire:click="updateRenew" wire:loading.attr="disabled" :disabled="$status == 1"
             class="disabled:opacity-25">
             Renovar
         </x-danger-button>
+
     </x-slot>
 </x-dialog-modal>
