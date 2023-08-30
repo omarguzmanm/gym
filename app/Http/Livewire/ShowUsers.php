@@ -71,7 +71,7 @@ class ShowUsers extends Component
     public function render()
     {
         if ($this->readyToLoad) {
-            $users = User::with('memberships')->where('name', 'like', '%' . $this->search . '%')
+            $users = User::with('memberships')->where('id', '!=', auth()->id())->where('name', 'like', '%' . $this->search . '%')
                 ->orWhere('code', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
@@ -145,16 +145,16 @@ class ShowUsers extends Component
     
         $memberships = $this->user->memberships;
         $this->price = $memberships->pluck('price');
-        $this->type = $memberships->pluck('type');
-    
+        $this->type = $memberships->pluck('type')->first();
+         // dd($this->type);
         // Obtiene el estado de la membresía actual del usuario
         $this->status = $memberships->firstWhere('pivot.user_id', $this->user->id)->pivot->status;
     
         // Guardamos todos los planes de la mebresia seleccionada
-        $this->plans = Membership::whereIn('type', $this->type)->get();
+        $this->plans = Membership::where('type', $this->type)->get();
         // Filtra los planes de membresía disponibles 
-        $planSelected = Membership::whereIn('type', $this->type)->whereIn('price', $this->price)->first();
-        // Define el plan seleccionado
+        $planSelected = Membership::where('type', $this->type)->whereIn('price', $this->price)->first();
+        // Define el plan seleccionado (id_membership)
         $this->plan = $planSelected->id;
         
         $this->open_editRenew = true;
@@ -162,11 +162,10 @@ class ShowUsers extends Component
 
     public function updateRenew()
     {
-        // dd($this->user->id);
         $this->user->memberships()
             ->wherePivot('user_id', $this->user->id)
             ->update([
-                'membership_id' => $this->id_membership,
+                'membership_id' => $this->plan,
                 // Reemplaza con el nuevo ID de membresía
                 'renew_date' => $this->type == 'Semanal' ? now()->nextWeekendDay() :
                                 ($this->type == 'Mensual' ? now()->addMonth() : 

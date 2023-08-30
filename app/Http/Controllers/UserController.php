@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function create()
     {
-        return view('form');
+        return view('new-user-form');
     }
 
     public function store(Request $request)
@@ -20,20 +20,24 @@ class UserController extends Controller
         $user = User::where('code', $request->code)->first();
 
         $rules = [
-            'code' => ['required', 'string', 'max:255', 'unique:users'],
+            'code' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             // 'password' => $this->passwordRules(),
         ];
         $messages = [];
 
-        $request->validate($rules, $messages);
+        if($user){
+            $request->validate($rules, $messages);
+    
+            $user->update([
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+        }else{
+            dd('Error');
+        }
 
-        $user->update([
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
-
-        return redirect()->back();
+        return redirect()->route('login');
     }
 
 
