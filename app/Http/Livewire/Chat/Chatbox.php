@@ -153,8 +153,6 @@ class Chatbox extends Component
     /*---------------------------------------------------------------------*/
     public function loadConversation(Conversation $conversation, User $receiver)
     {
-
-
         //  dd($conversation,$receiver);
         $this->selectedConversation = $conversation;
         $this->receiverInstance = $receiver;

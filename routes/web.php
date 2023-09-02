@@ -14,6 +14,7 @@ use App\Http\Livewire\ShowAnalysisUser;
 use App\Http\Livewire\ShowMessages;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowUsers;
+use App\Http\Livewire\Auth\CreateClient;
 
 
 Route::get('/', function () {
@@ -31,8 +32,9 @@ Route::middleware([
 Route::get('/memberships', AdminMemberships::class)->name('memberships');
 
 Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
-Route::get('/user', [UserController::class, 'create'])->name('user.create');
-Route::post('/user-store', [UserController::class, 'store'])->name('user.store');
+Route::get('/user', CreateClient::class)->name('user.create');
+
+// Route::post('/user-store', [UserController::class, 'store'])->name('user.store');
 
 // Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
 Route::get('/workouts', ShowDietUser::class)->name('workouts');

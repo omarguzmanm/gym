@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function create()
     {
-        return view('new-user-form');
+        return view('auth.new-user');
     }
 
     public function store(Request $request)
@@ -22,7 +22,7 @@ class UserController extends Controller
         $rules = [
             'code' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => $this->passwordRules(),
+            'password' => $this->passwordRules(),
         ];
         $messages = [];
 
