@@ -32,7 +32,7 @@ Route::middleware([
 Route::get('/memberships', AdminMemberships::class)->name('memberships');
 
 Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
-Route::get('/user', CreateClient::class)->name('user.create');
+Route::get('/user', CreateClient::class)->name('user');
 
 // Route::post('/user-store', [UserController::class, 'store'])->name('user.store');
 
