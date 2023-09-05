@@ -65,7 +65,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function analysis(){
+    public function analysis()
+    {
         return $this->hasMany(Analysis::class, 'id_user');
     }
 
@@ -82,7 +83,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Membership::class, 'membership_user')
             ->withPivot(['inscription', 'renew_date', 'status']);
-            // ->withTimestamps(); // Esto cargará automáticamente created_at y updated_at en la tabla pivote
+        // ->withTimestamps(); // Esto cargará automáticamente created_at y updated_at en la tabla pivote
     }
 
+    public function appointments()
+    {
+        return $this->hasMany(User::class);
+    }
 }
