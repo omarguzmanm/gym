@@ -40,6 +40,15 @@ Route::middleware([
     Route::get('/dashboard', ShowUsers::class)->name('dashboard');
 });
 
+
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->name('admin');
+Route::get('/table', function () {
+    return view('admin.table');
+})->name('admin');
+
+
 Route::get('/memberships', AdminMemberships::class)->name('memberships');
 
 Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
