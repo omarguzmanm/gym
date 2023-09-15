@@ -13,8 +13,24 @@ use App\Http\Livewire\Auth\CreateClient;
 
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('landing-page.index');
+})->name('home');
+
+Route::get('/membresias', function () {
+    return view('landing-page.memberships');
+})->name('membresias');
+
+Route::get('/servicios', function () {
+    return view('landing-page.services');
+})->name('servicios');
+
+Route::get('/sucursales', function () {
+    return view('landing-page.sedes');
+})->name('sucursales');
+
+Route::get('/contacto', function () {
+    return view('landing-page.contact');
+})->name('contacto');
 
 Route::middleware([
     'auth:sanctum',
@@ -45,4 +61,3 @@ Route::get('/chat/{key?}', Main::class)->name('chat');
 
 // Citas
 Route::get('/appoinment', CreateAppointment::class)->name('dates')->middleware('auth');
-
