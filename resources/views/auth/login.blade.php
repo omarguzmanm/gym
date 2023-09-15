@@ -4,6 +4,7 @@
     <!-- Inicio form -->
     <div class="md:flex md:justify-center md:items-center lg:flex lg:justify-center lg:items-center h-screen lg:h-[80vh] border-t border-gray-300">
         <div class="custom-height sm:w-full md:w-2/3 lg:w-1/3 p-6 bg-white shadow-xl">
+
             <h2 class="text-2xl font-normal text-black tracking-tight mb-5 text-center">Ingresar a Mi Espacio</h2>
             <div class="grid grid-cols-5 gap-4 sm:gap-2 mb-6">
                 <!-- Primera columna vacía -->
@@ -15,6 +16,7 @@
                     <!-- Espacio vertical para centrar el contenido -->
                     <div class="h-full flex flex-col justify-center items-center">
                         <!-- Contenido del formulario -->
+
                         <form class="w-full max-w-xs"  method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-4">
@@ -35,6 +37,7 @@
                         @if (Route::has('password.request'))
                             <a href="#" class="text-blue-700 underline underline-offset-1">¿Olvidaste tu contraseña?</a>
                         @endif
+
                     </div>
                 </div>
                 
@@ -45,5 +48,3 @@
     </div>
     <!-- Fin form -->
 </x-guest-layout>
-
-
