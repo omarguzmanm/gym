@@ -32,6 +32,12 @@ Route::get('/contacto', function () {
     return view('landing-page.contact');
 })->name('contacto');
 
+Route::get('/panel', function () {
+    return view('admin.panel');
+})->name('panel');
+
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
