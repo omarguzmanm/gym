@@ -93,7 +93,12 @@
                                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->code}}</th>
                                             <td class="px-4 py-3">{{$item->name}}</td>
                                             <td class="px-4 py-3">{{ \Carbon\Carbon::parse($membership->pivot->renew_date)->format('d/m/Y') }}</td>
-                                            <td class="px-4 py-3">{{ $membership->pivot->status == 1 ? 'Activo' : 'Pendiente' }}</td>
+                                            <td class="px-4 py-3">
+                                                <span class="px-2 py-1 font-semibold leading-tight
+                                                {{ $membership->pivot->status == 1 ? 'text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100'
+                                                 :'text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700' }}">
+                                                    {{ $membership->pivot->status == 1 ? 'Activo' : 'Pendiente' }}</td>
+                                                </span>
                                             <td class="px-4 py-3">$2999</td>
                                             <td class="px-4 py-3 flex items-center justify-end">
                                                 <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">

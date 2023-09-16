@@ -32,9 +32,9 @@ Route::get('/contacto', function () {
     return view('landing-page.contact');
 })->name('contacto');
 
-Route::get('/panel', function () {
-    return view('admin.panel');
-})->name('panel');
+// Route::get('/panel', function () {
+//     return view('admin.panel');
+// })->name('panel');
 
 
 
@@ -43,7 +43,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', ShowUsers::class)->name('dashboard');
+    // Route::get('/dashboard', ShowUsers::class)->name('dashboard');
+    Route::get('/dashboard', function(){return view('admin.dashboard');})->name('dashboard');
 });
 
 Route::get('/memberships', AdminMemberships::class)->name('memberships');
@@ -55,15 +56,15 @@ Route::get('/user', CreateClient::class)->name('user');
 // Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
 Route::get('/workouts', ShowDietUser::class)->name('workouts');
 
-Route::get('/diets', ShowDietUser::class)->name('diets');
-Route::get('/diets/{id}/reportPDF', [ShowDietUser::class, 'reportDiet'])->name('diets.reportDiet');
+Route::get('/dietas', ShowDietUser::class)->name('dietas');
+Route::get('/dietas/{id}/reporte', [ShowDietUser::class, 'reportDiet'])->name('dieta-reporte');
 // Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
 
-Route::get('/analysis', ShowAnalysisUser::class)->name('analysis');
+Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
 
 // Rutas del chat con livewire
 Route::get('/users', CreateChat::class)->name('users');
 Route::get('/chat/{key?}', Main::class)->name('chat');
 
 // Citas
-Route::get('/appoinment', CreateAppointment::class)->name('dates')->middleware('auth');
+Route::get('/citas', CreateAppointment::class)->name('citas')->middleware('auth');

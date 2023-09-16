@@ -28,7 +28,7 @@
                 <x-label value="Tipo de usuario" />
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                 <select wire:model="user_type"
-                    class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    class="block mt-1 w-full border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                     <option value="">Elige una opción</option>
                     <option value="cliente">Cliente</option>
                     <option value="nutriologo">Nutriologo</option>
@@ -60,7 +60,7 @@
                     <x-label value="Membresia" />
                     {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                     <select name="type" wire:model="type" id="type"
-                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        class="block mt-1 w-full border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                         <option value="" class="normal-case">Seleccione una membresia</option>
                         @foreach ($types as $item)
                             <option value="{{ $item }}">{{ $item }}</option>
@@ -71,7 +71,7 @@
                 <div class="mb-4">
                     <x-label value="Plan"></x-label>
                     <select name="plan" wire:model="plan" id="plan"
-                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        class="block mt-1 w-full border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                         @if ($plans->count() == 0)
                             <option value="">Debe seleccionar una membresia</option>
                         @endif
@@ -102,7 +102,7 @@
              </div> --}}
 
             <div>
-                <input type="file" wire:model="image" id="{{ $identifier }}">
+                <input type="file" wire:model="image" id="{{ $identifier }}" class="">
                 <x-input-error for="image" enctype="multipart/form-data"></x-input-error>
 
             </div>
