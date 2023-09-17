@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Appointments\ShowAppointments;
 use App\Http\Livewire\Appointments\CreateAppointment;
 use App\Http\Livewire\Chat\CreateChat;
 use App\Http\Livewire\Chat\Main;
@@ -46,9 +47,9 @@ Route::middleware([
     Route::get('/dashboard', ShowUsers::class)->name('dashboard');
     Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
     // Route::get('/dashboard', function(){return view('admin.dashboard');})->name('dashboard');
+    Route::get('/membresias', AdminMemberships::class)->name('membresias');
 });
 
-Route::get('/memberships', AdminMemberships::class)->name('memberships');
 
 Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
 Route::get('/user', CreateClient::class)->name('user');
@@ -68,3 +69,4 @@ Route::get('/chat/{key?}', Main::class)->name('chat');
 
 // Citas
 Route::get('/citas', CreateAppointment::class)->name('citas')->middleware('auth');
+Route::get('/showCitas', ShowAppointments::class)->name('show-citas')->middleware('auth');

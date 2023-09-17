@@ -9,6 +9,7 @@ use Livewire\Component;
 class CreateAppointment extends Component
 {
     public $day, $selectedHour, $reason;
+
     public function render()
     {
         $sheduleSelected = Appointment::where('day', $this->day)->get(['day', 'hour']);
@@ -36,6 +37,7 @@ class CreateAppointment extends Component
         ]);
         $this->resetForm();
 
+        $this->emitTo('appointments.show-appointments', 'render');
         $this->emit('alert', 'La cita se creó correctamente.');
     }
     private function resetForm()

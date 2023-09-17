@@ -125,9 +125,9 @@
                             </div>
                         @endif
             </section>
-            <div class="flex justify-center">
+            {{-- <div class="flex justify-center">
                 <img wire:loading src="{{ asset('img/loading_4.gif') }}" class="w-40 p-10">
-            </div>
+            </div> --}}
        </div>
     </div>
     @include('livewire.edit-user')

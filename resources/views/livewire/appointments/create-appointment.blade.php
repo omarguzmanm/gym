@@ -19,7 +19,7 @@
         <x-input-error for="date"></x-input-error>
 
         @if ($day)
-            <div class="flex flex-wrap justify-around">
+            <div class="flex flex-wrap">
                 @foreach (range(9, 15) as $hour)
                     @php
                         $isOccupied = false;
@@ -32,9 +32,14 @@
                     @endphp
                     @if (!$isOccupied)
                         <div wire:model="selectedHour" wire:click="selectHour({{ $hour }})"
-                            class="mb-3 btn {{ $selectedHour == $hour ? 'btn-appointment-selected' : 'btn-appointment' }}">
+                            class="mx-2 my-2 btn {{ $selectedHour == $hour ? 'btn-appointment-selected' : 'btn-appointment' }}">
                             {{ sprintf('%02d', $hour) }}:00
                         </div>
+                    @else
+                        <p class="my-1 text-md font-normal text-red-500 sm:text-right dark:text-red-400">
+                            No hay citas disponibles en el día seleccionado
+                        </p>
+                        @break
                     @endif
                 @endforeach
             </div>
@@ -43,7 +48,7 @@
 
         <x-label for="reason" class="mb-1">Motivo de la cita</x-label>
         <div>
-            <select class="select-form mb-3" id="reason" wire:model="reason" required>
+            <select class="modal-select mb-3" id="reason" wire:model="reason" required>
                 <option value="" selected>Selecciona una opción</option>
                 <option value="dieta">Plan de dieta</option>
                 <option value="control">Control de peso</option>
@@ -53,7 +58,14 @@
 
             {{-- <input type="text" class="select-form mb-2" wire:model="motivo" name="motivo"> --}}
         </div>
-        <x-button>Agendar Cita</x-button>
+        <div class="flex items-center justify-end">
+            <button type="submit" wire:loading.attr="disabled" class="flex items-center justify-end text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                </svg>
+                AGENDAR CITA
+            </button>
+        </div>
     </form>
 
 </div>
