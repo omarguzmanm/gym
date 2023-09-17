@@ -43,8 +43,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    // Route::get('/dashboard', ShowUsers::class)->name('dashboard');
-    Route::get('/dashboard', function(){return view('admin.dashboard');})->name('dashboard');
+    Route::get('/dashboard', ShowUsers::class)->name('dashboard');
+    Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
+    // Route::get('/dashboard', function(){return view('admin.dashboard');})->name('dashboard');
 });
 
 Route::get('/memberships', AdminMemberships::class)->name('memberships');
@@ -57,10 +58,9 @@ Route::get('/user', CreateClient::class)->name('user');
 Route::get('/workouts', ShowDietUser::class)->name('workouts');
 
 Route::get('/dietas', ShowDietUser::class)->name('dietas');
-Route::get('/dietas/{id}/reporte', [ShowDietUser::class, 'reportDiet'])->name('dieta-reporte');
+Route::get('/dietas/{id}/reporte', [ShowDietUser::class, 'reportDiet'])->name('reporte-dieta');
 // Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
 
-Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
 
 // Rutas del chat con livewire
 Route::get('/users', CreateChat::class)->name('users');

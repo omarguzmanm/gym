@@ -41,7 +41,7 @@ class ShowAnalysisUser extends Component
     ];
     public function render()
     {
-        $users = User::all();
+        // $users = User::all();
         if ($this->readyToLoad) {
             $userAnalysis = Analysis::with('users', 'diets')
                 ->whereHas('users', function ($query) {
@@ -52,7 +52,7 @@ class ShowAnalysisUser extends Component
         } else {
             $userAnalysis = [];
         }
-        return view('livewire.analysis.show-analysis-user', compact('userAnalysis', 'users'));
+        return view('livewire.analysis.show-analysis-user', compact('userAnalysis'));
     }
 
     public function loadUser()

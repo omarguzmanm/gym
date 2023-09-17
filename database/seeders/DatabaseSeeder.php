@@ -19,9 +19,12 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('users');
 
         User::factory(100)->create();
+        $this->call(MembershipSeeder::class);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        
     }
 }

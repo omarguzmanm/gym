@@ -8,8 +8,7 @@ use Livewire\Component;
 
 class CreateAnalysisUser extends Component
 {
-    public $user, $gender, $age, $weight, $height, $imc, $activity, $goal, $meal_frecuency,
-    $meal_schedule, $hours_sleep, $stress_levels, $substance_use,
+    public $user, $gender, $age, $weight, $height, $imc, $activity, $goal, $hours_sleep, $stress_levels, $substance_use,
     $regularly_consumed, $notes, $otherGoal;
 
     public $open = false;
@@ -31,8 +30,7 @@ class CreateAnalysisUser extends Component
        // Restablecer las propiedades cuando se monta el componente
         // $this->resetForm();
          // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
-         $defaultProperties = ['user','gender','activity','goal',
-            'meal_frecuency','stress_levels','substance_use',];
+         $defaultProperties = ['user','gender','activity','goal','stress_levels','substance_use',];
 
         foreach ($defaultProperties as $property) {
             $this->{$property} = $this->{$property} ?? 'selecciona';
@@ -59,16 +57,15 @@ class CreateAnalysisUser extends Component
             'activity' => $this->activity,
             'notes' => $this->notes,
             'goal' => $this->goal,
-            'meal_frecuency' => $this->meal_frecuency,
-            'meal_schedule' => $this->meal_schedule,
+            // 'meal_frecuency' => $this->meal_frecuency,
+            // 'meal_schedule' => $this->meal_schedule,
             'regularly_consumed' => $this->regularly_consumed,
             'hours_sleep' => $this->hours_sleep,
             'stress_levels' => $this->stress_levels,
             'substance_use' => $this->substance_use,
         ]);
 
-        $this->reset(['open','user', 'gender', 'age', 'weight', 'height', 'activity', 'goal', 'meal_frecuency',
-        'meal_schedule', 'hours_sleep', 'stress_levels', 'substance_use',
+        $this->reset(['open','user', 'gender', 'age', 'weight', 'height', 'activity', 'goal', 'hours_sleep', 'stress_levels', 'substance_use',
         'regularly_consumed', 'notes', 'otherGoal']);
 
         $this->emitTo('show-analysis-user', 'render');

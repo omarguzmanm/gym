@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('analysis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_diet');
+            $table->unsignedBigInteger('id_diet')->nullable();
             $table->unsignedBigInteger('id_user');
 
             //Personal information
@@ -31,8 +31,8 @@ return new class extends Migration
             $table->enum('goal', ['perdida','ganancia','mantenimiento','mejora','otro']);
            
             //Current habits
-            $table->enum('meal_frecuency', ['baja', 'regular', 'alta']);
-            $table->string('meal_schedule');
+            // $table->enum('meal_frecuency', ['baja', 'regular', 'alta']);
+            // $table->string('meal_schedule');
             $table->text('regularly_consumed');
 
             //Lifestyle

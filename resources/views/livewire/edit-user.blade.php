@@ -43,7 +43,7 @@
                 <x-label value="Membresia" />
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                 <select wire:model="user.membership" name="membership" id="membership"
-                    class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    class="modal-select">
                     <option value="selecciona" disabled>Selecciona una opción</option>
                     <option value="1">Invitado (1 día)</option>
                     <option value="2">Mensual</option>

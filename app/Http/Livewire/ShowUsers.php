@@ -70,15 +70,14 @@ class ShowUsers extends Component
 
     public function render()
     {
-        // $users = User::all();
-        // if ($this->readyToLoad) {
+        if ($this->readyToLoad) {
             $users = User::with('memberships')->where('id', '!=', auth()->id())->where('name', 'like', '%' . $this->search . '%')
                 ->orWhere('code', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
-        // } else {
-        //     $users = [];
-        // }
+        } else {
+            $users = [];
+        }
         return view('livewire.show-users', compact('users'));
     }
 

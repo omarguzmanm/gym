@@ -10,7 +10,7 @@
         <div class="mb-4">
             <x-label value="Membresia"></x-label>
             <select wire:model="type"
-                class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                class="modal-select">
                 {{-- <option value="" class="normal-case">Seleccione una membresia</option> --}}
                 @foreach ($types as $type)
                     <option value="{{ $type }}">{{ $type }}</option>
@@ -20,7 +20,7 @@
         <div class="mb-4">
             <x-label value="Plan"></x-label>
             <select wire:model="plan"
-                class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                class="modal-select">
                 @foreach ($plans as $item)
                 {{-- @dd($plan) --}}
                     <option value="{{ $item->id }}" {{ $item->id == $plan ? 'selected' : '' }}>

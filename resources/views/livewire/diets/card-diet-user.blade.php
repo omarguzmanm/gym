@@ -27,7 +27,7 @@
                     <x-label for="description" class="my-2 mb-2">Descripción</x-label>
                     <x-input type="text" readOnly placeholder="{{ $user->diets->description }}"></x-input>
                     <x-label for="diet" class="my-2 mb-1">Dieta</x-label>
-                    <a href="{{ route('diets.reportDiet', $user->users->id) }}" class="btn btn-green-2">
+                    <a href="{{ route('reporte-dieta', $user->users->id) }}" class="btn btn-green-2">
                         {{ $user->diets->created_at->format('d-m-Y') }}
                     </a>
                     {{-- <button class="btn btn-green" wire:click="reportDiet">PDF</button> --}}

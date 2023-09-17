@@ -33,7 +33,7 @@ class ShowDietUser extends Component
             })
             ->whereNotNull('id_diet')
             ->orderBy('id', 'asc')
-            ->get();
+            ->paginate(10);
 
         return view('livewire.diets.show-diet-user', compact('userDiet'));
     }
