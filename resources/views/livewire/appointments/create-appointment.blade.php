@@ -13,12 +13,16 @@
             </div>
         </div>
     @endif
+
     <form wire:submit.prevent="save">
         <x-label for="date" class="mb-1">Selecciona una fecha:</x-label>
-        <x-input type="date" id="date" wire:model="day" class="mb-2" required></x-input>
-        <x-input-error for="date"></x-input-error>
-
+        <x-input type="date" id="date" wire:model="day" class="mb-2" required min="{{ date('Y-m-d') }}"></x-input>
+        <x-input-error for="day"></x-input-error>
+        
         @if ($day)
+            @php
+                $allHoursOccupied = true;
+            @endphp
             <div class="flex flex-wrap">
                 @foreach (range(9, 15) as $hour)
                     @php
@@ -29,23 +33,27 @@
                                 break;
                             }
                         }
+                        if (!$isOccupied) {
+                            $allHoursOccupied = false;
+                        }
                     @endphp
+        
                     @if (!$isOccupied)
-                        <div wire:model="selectedHour" wire:click="selectHour({{ $hour }})"
+                        <div wire:click="selectHour({{ $hour }})"
                             class="mx-2 my-2 btn {{ $selectedHour == $hour ? 'btn-appointment-selected' : 'btn-appointment' }}">
                             {{ sprintf('%02d', $hour) }}:00
                         </div>
-                    @else
-                        <p class="my-1 text-md font-normal text-red-500 sm:text-right dark:text-red-400">
-                            No hay citas disponibles en el día seleccionado
-                        </p>
-                        @break
                     @endif
                 @endforeach
             </div>
+        
+            @if ($allHoursOccupied)
+                <p class="my-1 text-md font-normal text-red-500 sm:text-left dark:text-red-400">
+                    No hay citas disponibles en el día seleccionado
+                </p>
+            @endif
         @endif
-
-
+        
         <x-label for="reason" class="mb-1">Motivo de la cita</x-label>
         <div>
             <select class="modal-select mb-3" id="reason" wire:model="reason" required>

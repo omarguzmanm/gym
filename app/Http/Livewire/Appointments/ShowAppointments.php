@@ -17,6 +17,17 @@ class ShowAppointments extends Component
         $this->current_date = now();
     }
 
+
+    public function nextDay()
+    {
+        $this->current_date->addDay();
+    }
+
+    public function previousDay()
+    {
+        $this->current_date->subDay();
+    }
+
     public function render()
     {
         $appointments = Appointment::with('users')->where('day', $this->current_date->format('Y/m/d'))->get();

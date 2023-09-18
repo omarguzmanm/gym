@@ -48,6 +48,7 @@ Route::middleware([
     Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
     // Route::get('/dashboard', function(){return view('admin.dashboard');})->name('dashboard');
     Route::get('/membresias', AdminMemberships::class)->name('membresias');
+    Route::get('/citas', ShowAppointments::class)->name('citas');
 });
 
 
@@ -68,5 +69,5 @@ Route::get('/users', CreateChat::class)->name('users');
 Route::get('/chat/{key?}', Main::class)->name('chat');
 
 // Citas
-Route::get('/citas', CreateAppointment::class)->name('citas')->middleware('auth');
-Route::get('/showCitas', ShowAppointments::class)->name('show-citas')->middleware('auth');
+// Route::get('/citas', CreateAppointment::class)->name('citas')->middleware('guest');
+// Route::get('/showCitas', ShowAppointments::class)->name('show-citas')->middleware('auth');

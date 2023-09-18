@@ -1,4 +1,4 @@
-<div class="p-4 sm:ml-64" wire:init="loadUser">
+<div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         <div class="gap-4 mb-4">
              <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
@@ -87,9 +87,6 @@
                      </div>
                  </div>
              </section>
-             <div class="flex justify-center">
-                 <img wire:loading src="{{ asset('img/loading_4.gif') }}" class="w-40 p-10">
-             </div>
         </div>
      </div>
 </div>

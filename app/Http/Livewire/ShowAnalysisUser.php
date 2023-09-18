@@ -42,16 +42,16 @@ class ShowAnalysisUser extends Component
     public function render()
     {
         // $users = User::all();
-        if ($this->readyToLoad) {
+        // if ($this->readyToLoad) {
             $userAnalysis = Analysis::with('users', 'diets')
                 ->whereHas('users', function ($query) {
                     $query->where('name', 'LIKE', '%' . $this->search . '%');
                 })
                 ->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant);
-        } else {
-            $userAnalysis = [];
-        }
+        // } else {
+        //     $userAnalysis = [];
+        // }
         return view('livewire.analysis.show-analysis-user', compact('userAnalysis'));
     }
 

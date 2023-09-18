@@ -115,7 +115,7 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image"
+            <x-danger-button wire:click="save" wire:loading.attr="disabled cursor-not-allowed" wire:target="save, image"
                 class="disabled:opacity-25">
                 Crear usuario
             </x-danger-button>

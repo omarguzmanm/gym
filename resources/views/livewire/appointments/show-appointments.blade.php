@@ -10,20 +10,25 @@
                         <h2 class="text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
                           Proximas citas
                         </h2>
-                  
-                        <div class="mt-4">
-                          <a href="#" wire:model="current_date"
-                            class="inline-flex items-center text-lg font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                {{\Carbon\Carbon::parse($current_date)->format('d/m/Y')}}
-                            <svg aria-hidden="true" class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                              fill="currentColor">
-                              <path fill-rule="evenodd"
-                                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
+                        <div class="mt-4 inline-flex items-center">
+                          {{-- @if () --}}
+                            <svg wire:click="previousDay" class="mt-2 w-5 h-5 mx-5 cursor-pointer text-primary-600 dark:text-primary-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 15 17">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
                             </svg>
+                          {{-- @endif --}}
+                        
+                          <a wire:model="current_date" class="text-lg font-medium text-primary-600 dark:text-primary-500">
+                            {{\Carbon\Carbon::parse($current_date)->format('d/m/Y')}}
                           </a>
+                        
+                          <svg wire:click="nextDay" class="mt-2 w-5 h-5 mx-5 cursor-pointer text-primary-600 dark:text-primary-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 15 17">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                          </svg>
                         </div>
-                      </div>
+                        
+                        
+                        
+                    </div>
                       <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-10">
                           <div class="-my-4 divide-y divide-gray-200 dark:divide-gray-700">
                             @foreach ($appointments as $item)
@@ -33,18 +38,21 @@
                             {{ sprintf('%02d', $item->hour) }}:00 - {{ sprintf('%02d', $item->hour + 1) }}:00
                               </p>
                               <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                <a href="#" class="hover:underline">{{$item->users->name}}</a>
+                                {{-- <a href="#" class="hover:underline">{{$item->users->name}}</a> --}}
+                                <button class="hover:underline" data-modal-toggle="small-modal-{{$item->users->id}}" type="button">
+                                  {{$item->users->name}}
+                                </button>
+                                @include('partials.modal')
                               </h3>
                             </div>
                             @endforeach
-                    
                           </div>
                       </div>
                 </div>
                 <div class="col-span-2">
                     <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-32">
-                        <h3 class="mb-3 text-md font-semibold text-gray-900 dark:text-white">
-                            <a href="#" class="hover:underline">Agendar nueva cita</a>
+                        <h3 class="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
+                            Agendar nueva cita
                           </h3>
                         @livewire('appointments.create-appointment')
                     </div>
@@ -54,6 +62,4 @@
           </section>
        </div>
     </div>
-
-
  </div>
