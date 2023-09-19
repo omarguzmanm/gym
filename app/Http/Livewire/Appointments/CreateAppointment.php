@@ -8,12 +8,24 @@ use Livewire\Component;
 
 class CreateAppointment extends Component
 {
-    public $day, $selectedHour, $reason;
+    public $day, $selectedHour, $reason, $noHoursAvailable;
 
     public function render()
     {
         $sheduleSelected = Appointment::where('day', $this->day)->get(['day', 'hour']);
-        return view('livewire.appointments.create-appointment', compact('sheduleSelected'));
+
+        $availableHours = range(9, 15);
+        
+        foreach ($sheduleSelected as $schedule) {
+            $index = array_search($schedule->hour, $availableHours); //return the key
+            if ($index !== false) {
+                unset($availableHours[$index]);
+            }
+        }
+
+        $this->noHoursAvailable = count($availableHours) === 0;
+
+        return view('livewire.appointments.create-appointment', compact('sheduleSelected', 'availableHours'));
     }
 
     protected $rules = [
