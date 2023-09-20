@@ -49,7 +49,8 @@ Route::middleware([
     // Route::get('/dashboard', function(){return view('admin.dashboard');})->name('dashboard');
     Route::get('/membresias', AdminMemberships::class)->name('membresias');
     Route::get('/citas', ShowAppointments::class)->name('citas');
-});
+    Route::get('/rutinas', ShowAppointments::class)->name('rutinas');
+}); 
 
 
 Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
