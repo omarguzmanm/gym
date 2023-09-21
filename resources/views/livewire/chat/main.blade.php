@@ -1,15 +1,15 @@
 <div>
 
 
-    <div class="chat_container">
+    <div class="chat_container bg-white dark:bg-gray-700">
 
-        <div class="chat_list_container">
+        <div class="chat_list_container dark:bg-gray-700">
 
             @livewire('chat.chat-list')
 
         </div>
 
-        <div class="chat_box_container">
+        <div class="chat_box_container dark:bg-gray-700">
 
             @livewire('chat.chatbox')
 

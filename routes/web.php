@@ -13,32 +13,15 @@ use App\Http\Livewire\ShowUsers;
 use App\Http\Livewire\Auth\CreateClient;
 
 
-Route::get('/', function () {
-    return view('landing-page.index');
-})->name('home');
-
-Route::get('/membresias', function () {
-    return view('landing-page.memberships');
-})->name('membresias');
-
-Route::get('/servicios', function () {
-    return view('landing-page.services');
-})->name('servicios');
-
-Route::get('/sucursales', function () {
-    return view('landing-page.sedes');
-})->name('sucursales');
-
-Route::get('/contacto', function () {
-    return view('landing-page.contact');
-})->name('contacto');
-
-// Route::get('/panel', function () {
-//     return view('admin.panel');
-// })->name('panel');
+// Landing page views
+Route::view('/', 'landing-page.index')->name('home');
+Route::view('/membresias', 'landing-page.memberships')->name('membresias');
+Route::view('/servicios', 'landing-page.services')->name('servicios');
+Route::view('/sucursales', 'landing-page.sedes')->name('sucursales');
+Route::view('/contacto', 'landing-page.contact')->name('contacto');
 
 
-
+// Auth Methods
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -46,10 +29,11 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', ShowUsers::class)->name('dashboard');
     Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
-    // Route::get('/dashboard', function(){return view('admin.dashboard');})->name('dashboard');
     Route::get('/membresias', AdminMemberships::class)->name('membresias');
     Route::get('/citas', ShowAppointments::class)->name('citas');
     Route::get('/rutinas', ShowAppointments::class)->name('rutinas');
+    Route::get('/users', CreateChat::class)->name('users');
+    Route::get('/chat/{key?}', Main::class)->name('chat');
 }); 
 
 
@@ -65,9 +49,6 @@ Route::get('/dietas/{id}/reporte', [ShowDietUser::class, 'reportDiet'])->name('r
 // Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
 
 
-// Rutas del chat con livewire
-Route::get('/users', CreateChat::class)->name('users');
-Route::get('/chat/{key?}', Main::class)->name('chat');
 
 // Citas
 // Route::get('/citas', CreateAppointment::class)->name('citas')->middleware('guest');

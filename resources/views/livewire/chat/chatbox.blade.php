@@ -2,7 +2,7 @@
     {{-- Stop trying to control. --}}
 
     @if ($selectedConversation)
-        <div class="chatbox_header">
+        <div class="chatbox_header dark:bg-gray-700" >
 
             <div class="return">
                 <i class="bi bi-arrow-left"></i>
@@ -14,7 +14,7 @@
             </div>
 
 
-            <div class="name">
+            <div class="name text-black dark:text-white">
                 {{ $receiverInstance->name }}
             </div>
 
@@ -35,9 +35,9 @@
             </div>
         </div>
 
-        <div class="chatbox_body">
+        <div class="chatbox_body dark:bg-gray-700">
             @foreach ($messages as $message)
-                <div class="msg_body  {{ auth()->id() == $message->sender_id ? 'msg_body_me' : 'msg_body_receiver' }}"
+                <div class="msg_body {{ auth()->id() == $message->sender_id ? 'msg_body_me bg-gray-200 text-black dark:text-white dark:bg-gray-400 dark:bg-opacity-80' : 'msg_body_receiver' }}"
                     style="width:80%;max-width:80%;max-width:max-content">
 
                     {{ $message->body }}
@@ -99,8 +99,8 @@
             });
         </script>
     @else
-        <div class="fs-4 text-center text-primary mt-5">
-            no conversasion selected
+        <div class="fs-4 text-center text-primary mt-5 dark:text-white">
+            Selecciona un chat o inicia una nueva conversación
         </div>
 
 
