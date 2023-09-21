@@ -11,7 +11,7 @@ use App\Http\Livewire\ShowAnalysisUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowUsers;
 use App\Http\Livewire\Auth\CreateClient;
-
+use App\Http\Livewire\Exercises\ShowExercises;
 
 // Landing page views
 Route::view('/', 'landing-page.index')->name('home');
@@ -27,11 +27,12 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', ShowUsers::class)->name('dashboard');
+    Route::get('/', ShowUsers::class)->name('dashboard');
     Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
     Route::get('/membresias', AdminMemberships::class)->name('membresias');
     Route::get('/citas', ShowAppointments::class)->name('citas');
     Route::get('/rutinas', ShowAppointments::class)->name('rutinas');
+    Route::get('/ejercicios', ShowExercises::class)->name('ejercicios');
     Route::get('/users', CreateChat::class)->name('users');
     Route::get('/chat/{key?}', Main::class)->name('chat');
 }); 
