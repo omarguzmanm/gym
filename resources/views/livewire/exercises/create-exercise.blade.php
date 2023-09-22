@@ -18,32 +18,52 @@
                 <x-input-error for="name"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="description">Descripción de la dieta</x-label>
+                <x-label id="description">Descripción</x-label>
                 <textarea class="modal-select" wire:model="description"></textarea>
                 <x-input-error for="description"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="muscle-group">Grupo muscular</x-label>
-                <select class="modal-select" wire:model="muscle-group">
-                    <option value=""></option>
+                <x-label id="mmuscle_group">Grupo muscular</x-label>
+                <select class="modal-select" wire:model="muscle_group">
+                    <option value="biceps">Biceps</option>
+                    <option value="triceps">Triceps</option>
+                    <option value="pectorales">Pectorales</option>
+                    <option value="hombros">Hombros</option>
+                    <option value="espalda">Espalda</option>
+                    <option value="cuadriceps">Cuadriceps</option>
+                    <option value="femorales">Femorales</option>
+                    <option value="gluteos">Gluteos</option>
+                    <option value="pantorrilla">Pantorrilla</option>
                 </select>
+                <x-input-error for="muscle_group"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="type">Tipo</x-label>
-                <select class="modal-select" wire:model="muscle-group">
-                    <option value=""></option>
+                <x-label id="type">Tipo de ejercicio</x-label>
+                <select class="modal-select" wire:model="type">
+                    <option value="fuerza">Fuerza</option>
+                    <option value="cardio">Cardio</option>
+                    <option value="flexibilidad">Flexibilidad</option>
                 </select>
+                <x-input-error for="type"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="description">Equipo requerido</x-label>
-                <select class="modal-select" wire:click="equipment">
-                    
+                <x-label id="equipment">Equipo requerido</x-label>
+                <select class="modal-select" wire:model="equipment">
+                    <option value="niguno">Ninguno</option>
+                    <option value="mancuernas">Mancuernas</option>
+                    <option value="pesas_rusas">Pesas Rusas</option>
+                    <option value="polea">Polea</option>
+                    <option value="barra">Barra de pesas</option>
+                    <option value="banco">Banco de pesas</option>
+                    <option value="maquina_cardio">Maquina de cardio</option>
                 </select>
+                <x-input-error for="equipment"></x-input-error>
             </div>
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <x-label id="media">Media</x-label>
                 <x-input type="file" wire:click="media"></x-input>
-            </div>
+                <x-input-error for="media"></x-input-error>
+            </div> --}}
   
         </x-slot>
 
@@ -52,7 +72,7 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="submit" wire:target="submit" wire:loading.attr="disabled"
+            <x-danger-button wire:click="save" wire:target="save" wire:loading.attr="disabled"
                 class="disabled:opacity-25">
                 Crear ejercicio
             </x-danger-button>

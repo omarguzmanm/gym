@@ -88,6 +88,15 @@ class User extends Authenticatable
 
     public function appointments()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsToMany(Routine::class, 'user_routine', 'user_id', 'routine_id');
     }
+
+    public function routines()
+    {
+        return $this->belongsToMany(Routine::class, 'exercise_routine_user', 'user_id', 'routine_id')
+            ->withPivot('exercise_id');
+    }
+
+
+
 }
