@@ -49,7 +49,7 @@
             <div class="mb-4">
                 <x-label id="equipment">Equipo requerido</x-label>
                 <select class="modal-select" wire:model="equipment">
-                    <option value="niguno">Ninguno</option>
+                    <option value="ninguno">Ninguno</option>
                     <option value="mancuernas">Mancuernas</option>
                     <option value="pesas_rusas">Pesas Rusas</option>
                     <option value="polea">Polea</option>

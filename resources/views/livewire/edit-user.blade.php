@@ -3,7 +3,6 @@
         <x-slot name="name">
             Editar usuario
         </x-slot>
-
         <x-slot name="content">
             {{-- Alerta cuando la imagen se está procesando --}}
             <div wire:loading wire:target="image"

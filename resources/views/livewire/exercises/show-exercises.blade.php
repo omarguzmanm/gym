@@ -3,7 +3,7 @@
         <div class="gap-4 mb-4">
             <section class="bg-white dark:bg-gray-900 antialiased">
                 <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-8">
-                    <div class="grid grid-cols-6">
+                    <div class="grid grid-cols-6 gap-x-16">
                         <div class="col-span-6 text-left mb-6">
                             <h2 class="text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
                                 Ejercicios
@@ -61,11 +61,33 @@
                                 @endif
                             </div>
                         </div>    
-                        @if ($selectedExercise)
-                            <div class="col-start-5 col-end-7">
-                                <h2>{{ $selectedExercise->name }}</h2>
-                                <p>{{ $selectedExercise->description }}</p>
-                            </div>
+                        @if ($exercise->id)
+                            <div class="col-span-3">                                
+                                <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                    <a href="#">
+                                        <img class="p-6 rounded-t-lg" src="{{asset('img/servicio-box.jpg')}}" alt="product image" />
+                                    </a>
+                                    <div class="px-5 pb-3">
+                                        <div>
+                                            <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$exercise->name}}</h5>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400">{{$exercise->description}}</h5>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400 capitalize">{{$exercise->muscle_group}}</h5>
+                                        </div>
+                                        <div>
+                                            <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400 capitalize">{{$exercise->type}}</h5>
+                                        </div>
+                                    </div>
+                                        <div class="flex items-center justify-center">
+                                            {{-- <span class="text-3xl font-bold text-gray-900 dark:text-white">$599</span> --}}
+                                            <a wire:click="$emit('deleteExercise', {{ $exercise->id }})" class="cursor-pointer mx-3 my-3 text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Eliminar</a>
+                                            <a wire:click="edit({{$exercise}})" class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Editar</a>
+                                        </div>
+                                </div>
+                            </div> 
                         @endif
 
 
@@ -73,4 +95,32 @@
             </section>
         </div>
     </div>
+    @include('livewire.exercises.edit-exercise')
+    @push('js')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            // Escucha un evemto
+            Livewire.on('deleteExercise', userId => {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: '¡Sí, eliminar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emitTo('exercises.show-exercises', 'delete', userId);
+                        Swal.fire(
+                            '¡Eliminado!',
+                            'El usuario ha sido eliminado',
+                            'success'
+                        )
+                    }
+                })
+            })
+        </script>
+@endpush
 </div>
