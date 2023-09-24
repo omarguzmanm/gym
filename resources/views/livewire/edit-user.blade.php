@@ -9,15 +9,16 @@
                 class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <strong class="font-bold">¡Imagen cargando!</strong>
                 <span class="block sm:inline">Espere un momento hasta que la imagen se haya procesado.</span>
-            </div>
-
-
-            
-            {{-- @if ($image)
-                <img class="mb-4" src="{{ $image->temporaryUrl() }}">
-            @elseif ($user->image)
-                <img src="{{ Storage::url($user->image) }}" alt="">
-            @endif --}}
+            </div>       
+            @if ($image)
+                <div class="w-36 h-36 mx-auto rounded-full overflow-hidden">
+                    <img class="object-cover object-center w-full h-full" src="{{ $image->temporaryUrl() }}" alt="Imagen de perfil">
+                </div>
+            @else
+                <div class="w-36 h-36 mx-auto rounded-full overflow-hidden">
+                    <img class="object-cover object-center w-full h-full" src="{{ Storage::url($user->profile_photo_path)  }}" alt="Imagen de perfil">
+                </div>
+            @endif
 
             {{-- Editar nombre --}}
             <div class="mb-4">

@@ -106,6 +106,8 @@ class ShowUsers extends Component
     public function edit(User $user)
     {
         $this->user = $user;
+        // dd($this->user);
+        // dd(Storage::url($user->profile_photo_path));
         $this->open_edit = true;
     }
 
@@ -114,8 +116,8 @@ class ShowUsers extends Component
         $this->validate();
 
         if ($this->image) {
-            Storage::delete([$this->user->image]);
-            $this->user->image = $this->image->store('users');
+            Storage::delete([$this->user->profile_photo_path]);
+            $this->user->profile_photo_path = $this->image->store('users');
         }
 
         $this->user->save();
@@ -131,8 +133,7 @@ class ShowUsers extends Component
     public function delete(User $user)
     {
         // Se ocupan las imagenes para este metodo
-        // Storage::delete([$user->image]);
-
+        Storage::delete([$user->image]);
         $user->delete();
     }
 

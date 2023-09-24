@@ -12,18 +12,36 @@
         </x-slot>
 
         <x-slot name="content">
+            {{-- Alerta cuando la imagen se está procesando --}}
+            <div wire:loading wire:target="media"
+                class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">¡Imagen cargando!</strong>
+                <span class="block sm:inline">Espere un momento hasta que la imagen se haya procesado.</span>
+            </div>
+
+             @if ($media) 
+                <div class="w-36 h-36 mx-auto rounded-full overflow-hidden">
+                    <img class="object-cover object-center w-full h-full" src="{{ $media->temporaryUrl() }}" alt="Imagen">
+                </div> 
+                {{-- <iframe class="w-full aspect-video" src="{{$media}}"></iframe> --}}
+            @endif 
+
+                {{-- <iframe class="w-full aspect-video" src="{{$media}}"></iframe> --}}
+
+
+
             <div class="mb-4">
-                <x-label id="name">Nombre</x-label>
+                <x-label for="name">Nombre</x-label>
                 <x-input type="text" wire:model="name"></x-input>
                 <x-input-error for="name"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="description">Descripción</x-label>
+                <x-label for="description">Descripción</x-label>
                 <textarea class="modal-select" wire:model="description"></textarea>
                 <x-input-error for="description"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="mmuscle_group">Grupo muscular</x-label>
+                <x-label for="mmuscle_group">Grupo muscular</x-label>
                 <select class="modal-select" wire:model="muscle_group">
                     <option value="biceps">Biceps</option>
                     <option value="triceps">Triceps</option>
@@ -38,7 +56,7 @@
                 <x-input-error for="muscle_group"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="type">Tipo de ejercicio</x-label>
+                <x-label for="type">Tipo de ejercicio</x-label>
                 <select class="modal-select" wire:model="type">
                     <option value="fuerza">Fuerza</option>
                     <option value="cardio">Cardio</option>
@@ -47,7 +65,7 @@
                 <x-input-error for="type"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label id="equipment">Equipo requerido</x-label>
+                <x-label for="equipment">Equipo requerido</x-label>
                 <select class="modal-select" wire:model="equipment">
                     <option value="ninguno">Ninguno</option>
                     <option value="mancuernas">Mancuernas</option>
@@ -59,11 +77,19 @@
                 </select>
                 <x-input-error for="equipment"></x-input-error>
             </div>
-            {{-- <div class="mb-4">
-                <x-label id="media">Media</x-label>
-                <x-input type="file" wire:click="media"></x-input>
+            <div class="mb-4">
+                <x-label for="media">Media</x-label>
+                {{-- <div class="my-2">
+                    <button class="btn-add" type="submit" class="btn" wire:click="addImg">Imagen</button>
+                    <button class="btn-add" type="submit" class="btn" wire:click="addUrl">URL</button>
+                </div> --}}
+                    {{-- @if($url) --}}
+                        {{-- <x-input type="text" wire:model="media" id="{{ $identifier }}"></x-input> --}}
+                    {{-- @else --}}
+                        <x-input type="file" wire:model="media" id="{{ $identifier }}"></x-input>
+                    {{-- @endif  --}}
                 <x-input-error for="media"></x-input-error>
-            </div> --}}
+            </div>
   
         </x-slot>
 
@@ -72,7 +98,7 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="save" wire:target="save" wire:loading.attr="disabled"
+            <x-danger-button wire:click="save" wire:target="save, media" wire:loading.attr="disabled"
                 class="disabled:opacity-25">
                 Crear ejercicio
             </x-danger-button>

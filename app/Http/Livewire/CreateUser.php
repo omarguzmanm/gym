@@ -57,28 +57,29 @@ class CreateUser extends Component
         'phone_number' => 'required',
         'address' => 'required',
         // 'membership' => 'required',
-        // 'image'             => 'required|image|max:2048'
+        'image' => 'required|image|max:2048'
     ];
 
     public function save()
     {
-        // $this->validate();
+        $this->validate();
         // dd($this->id_membership);
 
-        // $image = $this->image->store('users');
+        $image = $this->image->store('users');
         $user = User::create([
             'name' => $this->name,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
-            'code' => random_int(1000, 9999)
+            'code' => random_int(1000, 9999),
+            'profile_photo_path' => $image
         ]);
 
         $user->memberships()->attach($this->id_membership, [
             'inscription' => now(),
             'renew_date' => $this->type == 'Semanal' ? now()->nextWeekendDay() :
-                            ($this->type == 'Mensual' ? now()->addMonth() : 
-                           ($this->type == 'Semestral' ? now()->addMonths(6) :
-                           ($this->type == 'Anual' ? now()->addYears(1) : null))),
+                            ($this->type == 'Mensual' ? now()->addMonth() :
+                            ($this->type == 'Semestral' ? now()->addMonths(6) :
+                            ($this->type == 'Anual' ? now()->addYears(1) : null))),
             'status' => 1
         ]);
 
@@ -86,7 +87,7 @@ class CreateUser extends Component
         $user->assignRole($role);
 
         //Borramos los valores de los inputs
-        $this->reset(['open', 'user_type','name', 'phone_number', 'address', 'image', 'type', 'plan', 'price']);
+        $this->reset(['open', 'user_type', 'name', 'phone_number', 'address', 'image', 'type', 'plan', 'price']);
 
         $this->identifier = rand();
 

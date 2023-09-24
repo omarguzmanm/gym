@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Exercises;
 
 use App\Models\Exercise;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
 
 class ShowExercises extends Component
 {
@@ -11,7 +12,7 @@ class ShowExercises extends Component
     public $open_edit;
     public $exercise;
 
-    protected $listeners = ['render'];
+    protected $listeners = ['render', 'delete'];
 
 
     protected $rules = [
@@ -55,11 +56,15 @@ class ShowExercises extends Component
 
         //Borramos los valores de los inputs
         $this->reset(['open_edit']);
-
-
-        $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
+        $this->emit('alert', 'El ejercicio se actualizó satisfactoriamente');
     }
 
+    public function delete(Exercise $exercise)
+    {
+        // Se ocupan las imagenes para este metodo
+        Storage::delete([$exercise->media]);
+        $exercise->delete();
 
+    }
 
 }

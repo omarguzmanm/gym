@@ -21,7 +21,9 @@
             </div>
 
             @if ($image)
-                <img class="mb-4" src="{{ $image->temporaryUrl() }}">
+                <div class="w-36 h-36 mx-auto rounded-full overflow-hidden">
+                    <img class="object-cover object-center w-full h-full" src="{{ $image->temporaryUrl() }}" alt="Imagen">
+                </div>
             @endif
 
             <div class="mb-4">
@@ -102,8 +104,8 @@
              </div> --}}
 
             <div>
-                <input type="file" wire:model="image" id="{{ $identifier }}" class="">
-                <x-input-error for="image" enctype="multipart/form-data"></x-input-error>
+                <x-input type="file" wire:model="image" id="{{ $identifier }}"></x-input>
+                <x-input-error for="image"></x-input-error>
 
             </div>
 
@@ -115,7 +117,7 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="save" wire:loading.attr="disabled cursor-not-allowed" wire:target="save, image"
+            <x-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image"
                 class="disabled:opacity-25">
                 Crear usuario
             </x-danger-button>
