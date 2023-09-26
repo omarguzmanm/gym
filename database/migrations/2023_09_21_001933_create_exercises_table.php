@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('muscle_group');
-            $table->string('type');
+            // $table->string('type');
             $table->string('equipment');
             $table->string('media');
             $table->timestamps();

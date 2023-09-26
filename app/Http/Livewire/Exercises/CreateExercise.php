@@ -30,7 +30,7 @@ class CreateExercise extends Component
         'name' => 'required',
         'description' => 'required',
         'muscle_group' => 'required',
-        'type' => 'required',
+        // 'type' => 'required',
         'equipment' => 'required',
         'media' => 'required',
     ];
@@ -44,12 +44,12 @@ class CreateExercise extends Component
             'name' => $this->name,
             'description' => $this->description,
             'muscle_group' => $this->muscle_group,
-            'type' => $this->type,
+            // 'type' => $this->type,
             'equipment' => $this->equipment,
             'media' => $image
         ]);
 
-        $this->reset(['open','name', 'description', 'muscle_group', 'type', 'equipment', 'media']);
+        $this->reset(['open','name', 'description', 'muscle_group', 'equipment', 'media']);
         $this->emitTo('exercises.show-exercises', 'render');
 
         $this->emit('alert', 'El ejercicio se creó satisfactoriamente');

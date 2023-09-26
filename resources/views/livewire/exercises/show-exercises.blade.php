@@ -64,7 +64,7 @@
                         @if ($exercise->id)
                             <div class="col-span-3">                                
                                 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <img class="w-40 h-40 object-cover object-center rounded-t-lg" src="{{ Storage::url($exercise->media) }}" alt="Imagen Ejercicio" />
+                                    <img class="rounded-t-lg" src="{{ Storage::url($exercise->media) }}" alt="Imagen Ejercicio" />
                                     <div class="px-5 pb-3">
                                         <div>
                                             <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$exercise->name}}</h5>
@@ -76,7 +76,7 @@
                                             <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400 capitalize">{{$exercise->muscle_group}}</h5>
                                         </div>
                                         <div>
-                                            <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400 capitalize">{{$exercise->type}}</h5>
+                                            <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400 capitalize">{{$exercise->equipment}}</h5>
                                         </div>
                                     </div>
                                         <div class="flex items-center justify-center">

@@ -39,9 +39,8 @@
             </div>
 
             {{-- Editar membresia --}}
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <x-label value="Membresia" />
-                {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                 <select wire:model="user.membership" name="membership" id="membership"
                     class="modal-select">
                     <option value="selecciona" disabled>Selecciona una opción</option>
@@ -50,12 +49,12 @@
                     <option value="3">Trimestral</option>
                     <option value="4">Anual</option>
                 </select>
-            </div>
+            </div> --}}
             {{-- Editar images --}}
-            <div>
-                <input type="file" wire:model="image" id="{{ $identifier }}">
+            <div class="mb-4">
+                <x-label for="image">Imagen</x-label>
+                <x-input type="file" wire:model="image"></x-input>
                 <x-input-error for="image"></x-input-error>
-
             </div>
 
         </x-slot>

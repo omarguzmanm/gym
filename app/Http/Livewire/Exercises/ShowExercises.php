@@ -5,12 +5,15 @@ namespace App\Http\Livewire\Exercises;
 use App\Models\Exercise;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 
 class ShowExercises extends Component
 {
+    use WithFileUploads;
+
     public $search = '';
     public $open_edit;
-    public $exercise;
+    public $exercise, $image, $identifier;
 
     protected $listeners = ['render', 'delete'];
 
@@ -19,7 +22,8 @@ class ShowExercises extends Component
         'exercise.name' => 'required',
         'exercise.description' => 'required',
         'exercise.muscle_group' => 'required',
-        'exercise.type' => 'required',
+        'exercise.media' => 'required',
+        // 'exercise.type' => 'required',
         'exercise.equipment' => 'required',
         // 'exercise.type' => 'required',
     ];
@@ -27,7 +31,12 @@ class ShowExercises extends Component
 
     public function mount()
     {
+        $this->identifier = rand();
         $this->exercise = new Exercise();
+    }
+
+    public function updatingSearch(){
+        $this->resetPage();
     }
 
     public function render()
@@ -52,10 +61,14 @@ class ShowExercises extends Component
     public function update()
     {
         $this->validate();
+        if($this->image){
+            Storage::delete([$this->exercise->media]);
+            $this->exercise->media = $this->image->store('exercise');
+        }
         $this->exercise->save();
 
         //Borramos los valores de los inputs
-        $this->reset(['open_edit']);
+        $this->reset(['open_edit', 'image']);
         $this->emit('alert', 'El ejercicio se actualizó satisfactoriamente');
     }
 

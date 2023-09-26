@@ -20,8 +20,9 @@
             </div>
 
              @if ($media) 
-                <div class="w-36 h-36 mx-auto rounded-full overflow-hidden">
+                <div class="w-36 h-36 mx-auto overflow-hidden">
                     <img class="object-cover object-center w-full h-full" src="{{ $media->temporaryUrl() }}" alt="Imagen">
+                    {{-- {{$media}} --}}
                 </div> 
                 {{-- <iframe class="w-full aspect-video" src="{{$media}}"></iframe> --}}
             @endif 
@@ -55,7 +56,7 @@
                 </select>
                 <x-input-error for="muscle_group"></x-input-error>
             </div>
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <x-label for="type">Tipo de ejercicio</x-label>
                 <select class="modal-select" wire:model="type">
                     <option value="fuerza">Fuerza</option>
@@ -63,17 +64,24 @@
                     <option value="flexibilidad">Flexibilidad</option>
                 </select>
                 <x-input-error for="type"></x-input-error>
-            </div>
+            </div> --}}
             <div class="mb-4">
                 <x-label for="equipment">Equipo requerido</x-label>
                 <select class="modal-select" wire:model="equipment">
                     <option value="ninguno">Ninguno</option>
                     <option value="mancuernas">Mancuernas</option>
-                    <option value="pesas_rusas">Pesas Rusas</option>
+                    <option value="pesas rusas">Pesas Rusas</option>
                     <option value="polea">Polea</option>
-                    <option value="barra">Barra de pesas</option>
-                    <option value="banco">Banco de pesas</option>
-                    <option value="maquina_cardio">Maquina de cardio</option>
+                    <option value="barra">Barra</option>
+                    <option value="banco">Banco</option>
+                    <option value="máquina de cardio">Máquina de cardio</option>
+                    <option value="máquina especial">Maquina especial</option>
+                    {{-- <option value="maquina_cardio">Barra para dominadas</option>
+                    <option value="maquina_cardio">Maquina de remo</option>
+                    <option value="maquina_cardio">Prensa</option>
+                    <option value="maquina_cardio">Maquina para sentadilla libre</option>
+                    <option value="maquina_cardio">Maquina para sentadilla smith</option>
+                    <option value="maquina_cardio">Maquina para extensión de </option> --}}
                 </select>
                 <x-input-error for="equipment"></x-input-error>
             </div>

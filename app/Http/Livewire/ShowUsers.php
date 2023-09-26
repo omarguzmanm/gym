@@ -65,6 +65,7 @@ class ShowUsers extends Component
         'user.name' => 'required',
         'user.phone_number' => 'required',
         'user.address' => 'required',
+        'user.profile_photo_path' => 'required',
         // 'user.membership' => 'required',
     ];
 
@@ -114,7 +115,6 @@ class ShowUsers extends Component
     public function update()
     {
         $this->validate();
-
         if ($this->image) {
             Storage::delete([$this->user->profile_photo_path]);
             $this->user->profile_photo_path = $this->image->store('users');
@@ -127,13 +127,15 @@ class ShowUsers extends Component
 
         $this->identifier = rand();
 
+        $this->emitTo('show-posts', 'render');
+        
         $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
     }
 
     public function delete(User $user)
     {
         // Se ocupan las imagenes para este metodo
-        Storage::delete([$user->image]);
+        Storage::delete([$user->profile_photo_path]);
         $user->delete();
     }
 

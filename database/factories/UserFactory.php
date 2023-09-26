@@ -26,7 +26,7 @@ class UserFactory extends Factory
     {
         return [
             'name'                      => $this->faker->name(),
-            'code'                      => rand(100000,999999),
+            'code'                      => rand(1000,9999),
             'email'                     => $this->faker->email(),
             'phone_number'              => $this->faker->phoneNumber(),
             'address'                   => $this->faker->address(),
@@ -37,9 +37,9 @@ class UserFactory extends Factory
             'two_factor_secret'         => null,
             'two_factor_recovery_codes' => null,
             'remember_token'            => Str::random(10),
-            'profile_photo_path'        => null,
+            // 'profile_photo_path'        => null,
             'current_team_id'           => null,
-            // 'image'                     =>  'users/' . $this->faker->image('public/storage/users',640,480,null,false)
+            'profile_photo_path'        =>  'users/' . $this->faker->image('public/storage/users',640,480,null,false)
         ];
     }
 
