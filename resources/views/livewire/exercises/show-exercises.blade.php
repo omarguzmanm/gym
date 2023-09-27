@@ -64,7 +64,7 @@
                         @if ($exercise->id)
                             <div class="col-span-3">                                
                                 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <img class="rounded-t-lg" src="{{ Storage::url($exercise->media) }}" alt="Imagen Ejercicio" />
+                                    <img class="rounded-t-lg h-52 w-full" src="{{ Storage::url($exercise->media) }}" alt="Imagen Ejercicio" />
                                     <div class="px-5 pb-3">
                                         <div>
                                             <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$exercise->name}}</h5>

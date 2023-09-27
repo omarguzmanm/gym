@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('level');
-            $table->integer('duration');
-            $table->decimal('rating');
+            $table->string('duration');
+            $table->decimal('rating')->default(0);
             $table->timestamps();
         });
     }

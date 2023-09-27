@@ -63,7 +63,7 @@ class ShowExercises extends Component
         $this->validate();
         if($this->image){
             Storage::delete([$this->exercise->media]);
-            $this->exercise->media = $this->image->store('exercise');
+            $this->exercise->media = $this->image->store('exercises');
         }
         $this->exercise->save();
 

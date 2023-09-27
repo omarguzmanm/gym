@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\ShowUsers;
 use App\Http\Livewire\Auth\CreateClient;
 use App\Http\Livewire\Exercises\ShowExercises;
+use App\Http\Livewire\Routines\ShowRoutines;
 
 // Landing page views
 Route::view('/', 'landing-page.index')->name('home');
@@ -31,7 +32,7 @@ Route::middleware([
     Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
     Route::get('/membresias', AdminMemberships::class)->name('membresias');
     Route::get('/citas', ShowAppointments::class)->name('citas');
-    Route::get('/rutinas', ShowAppointments::class)->name('rutinas');
+    Route::get('/rutinas', ShowRoutines::class)->name('rutinas');
     Route::get('/ejercicios', ShowExercises::class)->name('ejercicios');
     Route::get('/users', CreateChat::class)->name('users');
     Route::get('/chat/{key?}', Main::class)->name('chat');
