@@ -81,7 +81,7 @@
             </section>
         </div>
     </div>
-    {{-- @include('livewire.exercises.edit-exercise') --}}
+    @include('livewire.routines.edit-routine')
     @push('js')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
