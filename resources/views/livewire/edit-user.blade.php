@@ -1,4 +1,5 @@
-    {{-- Editar usuario --}}
+{{-- Editar usuario --}}
+<div>
     <x-dialog-modal wire:model="open_edit">
         <x-slot name="name">
             Editar usuario
@@ -71,3 +72,4 @@
         </x-slot>
 
     </x-dialog-modal>
+</div>

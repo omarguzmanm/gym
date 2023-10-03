@@ -97,6 +97,7 @@
                                                     </span>
                                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
                                                     <a class="cursor-pointer" wire:click="edit({{ $item }})">
+                                                        {{-- @livewire('edit-user') --}}
                                                     <i class="fas fa-edit text-lg"></i></a>
 
                                                     <a class="cursor-pointer ml-4" wire:click="$emit('deleteUser', {{ $item->id }})">
@@ -135,7 +136,6 @@
 
 
     @push('js')
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             // Escucha un evemto
             Livewire.on('deleteUser', userId => {

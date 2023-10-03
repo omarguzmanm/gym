@@ -81,9 +81,10 @@
             </section>
         </div>
     </div>
+    {{-- @livewire('routines.edit-routine') --}}
     @include('livewire.routines.edit-routine')
     @push('js')
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
         <script>
             // Escucha un evemto
             Livewire.on('deleteRoutine', routineId => {

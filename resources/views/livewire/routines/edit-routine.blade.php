@@ -1,4 +1,5 @@
-    {{-- Editar usuario --}}
+ <div>
+ {{-- Editar usuario --}}
     <x-dialog-modal wire:model="open_edit">
         <x-slot name="name">
             Editar rutina
@@ -52,25 +53,58 @@
             {{-- Editar ejercicios --}}
             <div class="mb-4">
                 {{-- @dd($selectedExercises) --}}
-                <x-label for="exercises">Ejercicios</x-label>
+                <x-label for="exercises" class="mb-3">Ejercicios</x-label>
+                {{-- @foreach ($exercises as $item)
+                        {{$item->id}}
+                @endforeach --}}
                 {{-- <x-input wire:model="exercises.name" type="text" class="w-full"></x-input> --}}
 
-                {{-- <div class="modal-select">
-                    <select
+                {{-- <div class="modal-select"> --}}
+                    <div class="flex space-x-2">
+                        @foreach ($exercises as $item)
+                            <a href="">
+                            <span class="flex px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">{{$item->name}}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </span>
+                            </a>                    
+                        @endforeach
+                    </div>
+                    {{-- <select
                     data-te-select-init
                     data-te-select-placeholder="Selecciona los ejercicios"
                     multiple>
-                    @foreach ($selectedExercises as $exercise)
-                        <option value="{{$exercise->id}}">{{ $exercise->name}}</option>
+                    @foreach ($exercises as $item)
+                        <option value="{{$item->id}}">{{ $item->name}}</option>
                     @endforeach
-                  </select>
-                </div> --}}
+                  </select> --}}
+                {{-- </div> --}}
                 {{-- @foreach ($exercises as $exercise) --}}
                     {{-- <label>
                         <input type="checkbox" wire:model="selectedExercises" value="{{ $exercises->id }}">
                         {{ $exercises->name }}
                     </label> --}}
                 {{-- @endforeach --}}
+            </div>
+            <div class="mb-4">
+                <x-label for="exercises">Ejercicios</x-label>
+                {{-- <div class="modal-select"> --}}
+                    {{-- <select wire:model="selectedExercises"
+                    data-te-select-init
+                    data-te-select-placeholder="Selecciona los ejercicios"
+                    multiple>
+                    @foreach ($allExercises as $exercise)
+                        <option value="{{$exercise->id}}">{{ $exercise->name}}</option>
+                    @endforeach
+                  </select> --}}
+                {{-- </div> --}}
+                {{-- @foreach ($exercises as $exercise)
+                    <label>
+                        <input type="checkbox" wire:model="selectedExercises" value="{{ $exercise->id }}">
+                        {{ $exercise->name }}
+                    </label>
+                @endforeach --}}
             </div>
 
             {{-- Editar membresia --}}
@@ -106,3 +140,8 @@
         </x-slot>
 
     </x-dialog-modal>
+
+</div>
+
+
+

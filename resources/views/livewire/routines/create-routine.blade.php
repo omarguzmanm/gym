@@ -28,8 +28,6 @@
 
                 {{-- <iframe class="w-full aspect-video" src="{{$media}}"></iframe> --}}
 
-
-
             <div class="mb-4">
                 <x-label for="name">Nombre</x-label>
                 <x-input type="text" wire:model="name"></x-input>
@@ -84,6 +82,7 @@
                 @endforeach --}}
             </div>
 
+            
             {{-- <div class="mb-4"> --}}
                 {{-- <x-label for="media">Media</x-label> --}}
                 {{-- <div class="my-2">
