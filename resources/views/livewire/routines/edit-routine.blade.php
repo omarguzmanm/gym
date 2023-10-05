@@ -71,14 +71,14 @@
                             </a>                    
                         @endforeach
                     </div>
-                    {{-- <select
+                    <select
                     data-te-select-init
                     data-te-select-placeholder="Selecciona los ejercicios"
                     multiple>
                     @foreach ($exercises as $item)
                         <option value="{{$item->id}}">{{ $item->name}}</option>
                     @endforeach
-                  </select> --}}
+                  </select>
                 {{-- </div> --}}
                 {{-- @foreach ($exercises as $exercise) --}}
                     {{-- <label>

@@ -19,8 +19,9 @@ class ShowUsers extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = '10';
-    public $readyToLoad = false;
-    public $open_edit = false;
+    // public $readyToLoad = false;
+    // public $open_edit = false;
+    // public $editingUserId;
     public $open_editRenew = false;
     public $type, $plan, $price, $id_membership, $status;
     public $types = [], $plans = [], $prices = [];
@@ -82,10 +83,10 @@ class ShowUsers extends Component
         return view('livewire.show-users', compact('users'));
     }
 
-    public function loadUser()
-    {
-        $this->readyToLoad = true;
-    }
+    // public function loadUser()
+    // {
+    //     $this->readyToLoad = true;
+    // }
 
     public function order($sort)
     {
@@ -104,33 +105,33 @@ class ShowUsers extends Component
         $this->sort = $sort;
     }
 
-    public function edit(User $user)
-    {
-        $this->user = $user;
-        // dd($this->user);
-        // dd(Storage::url($user->profile_photo_path));
-        $this->open_edit = true;
-    }
+    // public function edit(User $user)
+    // {
+    //     $this->user = $user;
+    //     // dd($this->user);
+    //     // dd(Storage::url($user->profile_photo_path));
+    //     $this->open_edit = true;
+    // }
 
-    public function update()
-    {
-        $this->validate();
-        if ($this->image) {
-            Storage::delete([$this->user->profile_photo_path]);
-            $this->user->profile_photo_path = $this->image->store('users');
-        }
+    // public function update()
+    // {
+    //     $this->validate();
+    //     if ($this->image) {
+    //         Storage::delete([$this->user->profile_photo_path]);
+    //         $this->user->profile_photo_path = $this->image->store('users');
+    //     }
 
-        $this->user->save();
+    //     $this->user->save();
 
-        //Borramos los valores de los inputs
-        $this->reset(['open_edit', 'image']);
+    //     //Borramos los valores de los inputs
+    //     $this->reset(['open_edit', 'image']);
 
-        $this->identifier = rand();
+    //     $this->identifier = rand();
 
-        $this->emitTo('show-posts', 'render');
+    //     $this->emitTo('show-posts', 'render');
         
-        $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
-    }
+    //     $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
+    // }
 
     public function delete(User $user)
     {
@@ -181,6 +182,14 @@ class ShowUsers extends Component
 
         $this->emit('alert', 'La membresia se renovó con exito!');
     }
-
+    // public function openEditForm($userId)
+    // {
+    //     $this->editingUserId = $userId;
+    // }
+    
+    // public function closeEditForm()
+    // {
+    //     $this->editingUserId = null;
+    // }
 
 }

@@ -31,6 +31,15 @@
                                     @livewire('routines.create-routine')
                                 </div>
                             </div>
+
+                            {{-- <div class="modal-select">
+                                <select wire:model="selectedExercises"
+                                data-te-select-init
+                                data-te-select-placeholder="Selecciona los ejercicios"
+                                multiple>
+                                <option value=""></option>
+                              </select>
+                            </div> --}}
                                   {{-- <div class="overflow-x-auto">
 
                                 </div> --}}
@@ -81,10 +90,12 @@
             </section>
         </div>
     </div>
+
+
+    
     {{-- @livewire('routines.edit-routine') --}}
     @include('livewire.routines.edit-routine')
     @push('js')
-    
         <script>
             // Escucha un evemto
             Livewire.on('deleteRoutine', routineId => {
@@ -109,5 +120,5 @@
                 })
             })
         </script>
-@endpush
+    @endpush
 </div>

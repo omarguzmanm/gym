@@ -1,5 +1,7 @@
-{{-- Editar usuario --}}
 <div>
+    <a class="cursor-pointer" wire:click="edit({{ $user }})">
+        <i class="fas fa-edit text-lg"></i></a>
+
     <x-dialog-modal wire:model="open_edit">
         <x-slot name="name">
             Editar usuario

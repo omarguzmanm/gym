@@ -83,6 +83,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- <button class="cursor-pointer" wire:click="openEditForm({{ $user->id }})">
+                                        <i class="fas fa-edit text-lg"></i>
+                                    </button> --}}
                                     @foreach ($users as $item)
                                         @foreach ($item->memberships as $membership)
                                             <tr class="border-b dark:border-gray-700">
@@ -96,10 +99,15 @@
                                                         {{ $membership->pivot->status == 1 ? 'Activo' : 'Pendiente' }}</td>
                                                     </span>
                                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
-                                                    <a class="cursor-pointer" wire:click="edit({{ $item }})">
-                                                        {{-- @livewire('edit-user') --}}
-                                                    <i class="fas fa-edit text-lg"></i></a>
-
+                                                    {{-- <a class="cursor-pointer" wire:click="edit({{ $item }})">
+                                                        <i class="fas fa-edit text-lg"></i></a> --}}
+                                                        {{-- @if ($editingUserId !== $item->id) --}}
+                                                            @livewire('edit-user', ['user' => $item], key($item->id))
+                                                        {{-- @else
+                                                            <button class="cursor-pointer ml-4" wire:click="openEditForm({{ $item->id }})">
+                                                                <i class="fas fa-edit text-lg"></i>
+                                                            </button>
+                                                        @endif --}}
                                                     <a class="cursor-pointer ml-4" wire:click="$emit('deleteUser', {{ $item->id }})">
                                                     <i class="fas fa-trash text-lg"></i></a>
 
@@ -131,8 +139,7 @@
             </div> --}}
        </div>
     </div>
-    @include('livewire.edit-user')
-    @include('livewire.edit-renew')
+
 
 
     @push('js')
