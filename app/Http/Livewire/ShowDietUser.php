@@ -11,7 +11,6 @@ class ShowDietUser extends Component
 {
     public $search = '';
     public $diet, $identifier;
-    public $open_edit = false;
 
     protected $listeners = ['render', 'delete'];
 
@@ -36,21 +35,6 @@ class ShowDietUser extends Component
             ->paginate(10);
 
         return view('livewire.diets.show-diet-user', compact('userDiet'));
-    }
-
-    public function edit(Diet $diet){
-        $this->diet = $diet;
-        $this->open_edit = true;
-    }
-
-    public function update(){
-        $this->diet->save();
-        //Borramos los valores de los inputs
-        $this->reset(['open_edit']);
-        // $this->identifier = rand();
-
-        $this->emit('alert', 'La dieta se actualizó satisfactoriamente');
-
     }
 
     public function delete(Diet $diet){

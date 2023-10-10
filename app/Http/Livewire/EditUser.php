@@ -16,8 +16,7 @@ class EditUser extends Component
     public $open = false;
     public $open_edit = false;
 
-    public $analysis;
-    public $user, $image, $identifier;   //Propiedad post
+    public $user, $image, $identifier;  
     protected $rules = [
         'user.name'    => 'required',
         'user.phone_number'  => 'required',
@@ -34,7 +33,7 @@ class EditUser extends Component
         $this->user = $user;
         // dd($this->user);
         // dd(Storage::url($user->profile_photo_path));
-        $this->editingUserId = $user->id;
+        // $this->editingUserId = $user->id;
 
         $this->open_edit = true;
     }

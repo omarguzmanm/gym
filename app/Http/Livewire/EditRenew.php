@@ -5,41 +5,30 @@ namespace App\Http\Livewire;
 use App\Models\Membership;
 use Livewire\Component;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
-use Livewire\WithFileUploads;
-use Livewire\WithPagination; //Paginación dinamica
 
-class ShowUsers extends Component
+class EditRenew extends Component
 {
-    use WithFileUploads;
-    use WithPagination;
-
     public $user, $image, $identifier;
-    public $search = '';
-    public $sort = 'id';
-    public $direction = 'desc';
-    public $cant = '10';
-    // public $readyToLoad = false;
-    // public $open_edit = false;
     public $open_editRenew = false;
     public $type, $plan, $price, $id_membership, $status;
     public $types = [], $plans = [], $prices = [];
+    protected $rules = [
+        'user.name'    => 'required',
+        'user.phone_number'  => 'required',
+        'user.address'  => 'required'
 
-    protected $listeners = ['render', 'delete'];
-
-    protected $queryString = [
-        'cant' => ['except' => '10'],
-        'sort' => ['except' => 'id'],
-        'direction' => ['except' => 'desc'],
-        'search' => ['except' => '']
     ];
-
     public function mount()
     {
         $this->identifier = rand();
         $this->user = new User();
         $this->types = Membership::pluck('type')->unique();
         $this->plans = collect();
+    }
+
+    public function render()
+    {
+        return view('livewire.edit-renew');
     }
 
     public function updatedType($value)
@@ -56,60 +45,7 @@ class ShowUsers extends Component
         $this->price = $this->prices->first()->price ?? null;
         $this->id_membership = $this->prices->first()->id ?? null;
     }
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
 
-    protected $rules = [
-        'user.name' => 'required',
-        'user.phone_number' => 'required',
-        'user.address' => 'required',
-        'user.profile_photo_path' => 'required',
-        // 'user.membership' => 'required',
-    ];
-
-    public function render()
-    {
-        // if ($this->readyToLoad) {
-            $users = User::with('memberships')->where('id', '!=', auth()->id())->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('code', 'like', '%' . $this->search . '%')
-                // ->orderBy($this->sort, $this->direction)
-                ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
-        // } else {
-        //     $users = [];
-        // }
-        return view('livewire.show-users', compact('users'));
-    }
-
-    // public function loadUser()
-    // {
-    //     $this->readyToLoad = true;
-    // }
-
-    public function order($sort)
-    {
-        if ($this->sort == $sort) {
-            if ($this->direction == 'desc') {
-                $this->direction = 'asc';
-            } else {
-                $this->direction = 'desc';
-            }
-
-        } else {
-            $this->sort = $sort;
-            $this->direction = 'asc';
-        }
-
-        $this->sort = $sort;
-    }
-
-    public function delete(User $user)
-    {
-        // Se ocupan las imagenes para este metodo
-        Storage::delete([$user->profile_photo_path]);
-        $user->delete();
-    }
 
     public function editRenew(User $user)
     {

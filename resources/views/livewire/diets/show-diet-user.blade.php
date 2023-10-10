@@ -60,6 +60,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($userDiet as $item)
+                                    {{-- @dd($item) --}}
                                         @if ($item->users)
                                             <tr class="border-b dark:border-gray-700">
                                                 <th scope="row"
@@ -68,8 +69,7 @@
                                                 <td class="px-4 py-3">{{$item->diets->created_at->format('d-m-Y')}}</td>
                                                 <td class="px-4 py-3">{{$item->diets->description}}</td>
                                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
-                                                    <a class="cursor-pointer" wire:click="edit({{$item->diets->id}})">
-                                                        <i class="fas fa-edit text-lg"></i></a>
+                                                    @livewire('edit-diet-user', ['diet' => $item->diets], key($item->diets->id))
 
                                                     <a class="cursor-pointer ml-4"
                                                         wire:click="$emit('deleteDiet', {{$item->diets->id}})">
@@ -101,7 +101,7 @@
             </div> --}}
         </div>
     </div>
-    @include('livewire.diets.edit-diet-user')
+    {{-- @include('livewire.diets.edit-diet-user') --}}
 
     @push('js')
         <script>

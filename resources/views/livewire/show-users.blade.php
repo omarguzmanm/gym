@@ -99,18 +99,9 @@
                                                         {{ $membership->pivot->status == 1 ? 'Activo' : 'Pendiente' }}</td>
                                                     </span>
                                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
-                                                    {{-- <a class="cursor-pointer" wire:click="edit({{ $item }})">
-                                                        <i class="fas fa-edit text-lg"></i></a> --}}
-                                                        {{-- @if ($editingUserId !== $item->id) --}}
-                                                            @livewire('edit-user', ['user' => $item], key($item->id))
-                                                        {{-- @else
-                                                            <button class="cursor-pointer ml-4" wire:click="openEditForm({{ $item->id }})">
-                                                                <i class="fas fa-edit text-lg"></i>
-                                                            </button>
-                                                        @endif --}}
+                                                    @livewire('edit-user', ['user' => $item], key($item->id))
                                                     <a class="cursor-pointer ml-4" wire:click="$emit('deleteUser', {{ $item->id }})">
                                                     <i class="fas fa-trash text-lg"></i></a>
-
                                                     <a class="cursor-pointer ml-4" wire:click="editRenew({{ $item }})">
                                                         <i class="fas fa-arrows-rotate text-lg"></i></a>
                                                 </td>
@@ -140,7 +131,7 @@
        </div>
     </div>
 
-
+@include('livewire.edit-renew')
 
     @push('js')
         <script>
