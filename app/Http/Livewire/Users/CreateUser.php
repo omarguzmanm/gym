@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Users;
 
+use Livewire\Component;
 use App\Models\Membership;
 use App\Models\User;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 
 use Spatie\Permission\Models\Role;
@@ -93,7 +93,7 @@ class CreateUser extends Component
 
         // Emitimos un evento
         // $this->emit('render');
-        $this->emitTo('show-users', 'render');
+        $this->emitTo('users.show-users', 'render');
 
         $this->emit('alert', 'El usuario se creó satisfactoriamente');
 
@@ -129,6 +129,6 @@ class CreateUser extends Component
 
     public function render()
     {
-        return view('livewire.create-user');
+        return view('livewire.users.create-user');
     }
 }

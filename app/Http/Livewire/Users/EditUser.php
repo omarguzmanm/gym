@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Users;
+
+use Livewire\Component;
 
 use App\Models\Analysis;
 use App\Models\User;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
 class EditUser extends Component
 {
+
     use WithFileUploads;
     // public $editingUserId = null;
 
@@ -61,14 +63,13 @@ class EditUser extends Component
 
         $this->identifier = rand();
 
-        $this->emitTo('show-users', 'render');
+        $this->emitTo('users.show-users', 'render');
         
         $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
     }
 
-
     public function render()
     {
-        return view('livewire.edit-user');
+        return view('livewire.users.edit-user');
     }
 }

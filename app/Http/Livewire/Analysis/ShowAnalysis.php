@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Analysis;
+
 
 use App\Models\Analysis;
 use App\Models\User;
@@ -9,7 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination; //Paginación dinamica
 
-class ShowAnalysisUser extends Component
+
+class ShowAnalysis extends Component
 {
     use WithFileUploads;
     use WithPagination;
@@ -41,6 +43,7 @@ class ShowAnalysisUser extends Component
     ];
     public function render()
     {
+        
         // $users = User::all();
         // if ($this->readyToLoad) {
             $userAnalysis = Analysis::with('users', 'diets')
@@ -52,7 +55,7 @@ class ShowAnalysisUser extends Component
         // } else {
         //     $userAnalysis = [];
         // }
-        return view('livewire.analysis.show-analysis-user', compact('userAnalysis'));
+        return view('livewire.analysis.show-analysis', compact('userAnalysis'));
     }
 
     public function loadUser()
@@ -76,4 +79,9 @@ class ShowAnalysisUser extends Component
 
         $this->sort = $sort;
     }
+    public function delete(Analysis $analysis){
+        // Analysis::where('id_diet', $diet->id)->update(['id_diet' => null]);
+        $analysis->delete();
+    }
+
 }

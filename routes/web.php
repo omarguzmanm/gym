@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Livewire\Analysis\ShowAnalysis;
 use App\Http\Livewire\Appointments\ShowAppointments;
 use App\Http\Livewire\Chat\CreateChat;
 use App\Http\Livewire\Chat\Main;
 use App\Http\Livewire\CreateUser;
 use App\Http\Livewire\Memberships\AdminMemberships;
-use App\Http\Livewire\ShowAnalysisUser;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\ShowUsers;
+use App\Http\Livewire\Users\ShowUsers;
 use App\Http\Livewire\Auth\CreateClient;
 use App\Http\Livewire\Diets\ShowDiets;
 use App\Http\Livewire\Exercises\ShowExercises;
@@ -28,7 +28,8 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/', ShowUsers::class)->name('dashboard');
-    Route::get('/analisis', ShowAnalysisUser::class)->name('analisis');
+    Route::get('/analisis', ShowAnalysis::class)->name('analisis');
+    
     Route::get('/dietas', ShowDiets::class)->name('dietas');
     Route::get('/dietas/{id}/reporte', [ShowDiets::class, 'reportDiet'])->name('reporte-dieta');
 

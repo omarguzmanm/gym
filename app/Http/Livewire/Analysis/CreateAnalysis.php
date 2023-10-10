@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Analysis;
 
+use Livewire\Component;
 use App\Models\User;
 use App\Models\Analysis;
-use Livewire\Component;
 
-class CreateAnalysisUser extends Component
+class CreateAnalysis extends Component
 {
     public $user, $gender, $age, $weight, $height, $imc, $activity, $goal, $hours_sleep, $stress_levels, $substance_use,
     $regularly_consumed, $notes, $otherGoal;
@@ -68,12 +68,11 @@ class CreateAnalysisUser extends Component
         $this->reset(['open','user', 'gender', 'age', 'weight', 'height', 'activity', 'goal', 'hours_sleep', 'stress_levels', 'substance_use',
         'regularly_consumed', 'notes', 'otherGoal']);
 
-        $this->emitTo('show-analysis-user', 'render');
+        $this->emitTo('analysis.show-analysis', 'render');
         $this->emit('alert', 'El analisis se creó correctamente.');
 
 
     }
-
 
     public function render()
     {
@@ -84,6 +83,6 @@ class CreateAnalysisUser extends Component
             $this->imc = number_format($imc, 2);
         }
         $users = User::select('id', 'name')->get();
-        return view('livewire.analysis.create-analysis-user', compact('users'));
+        return view('livewire.analysis.create-analysis', compact('users'));
     }
 }
