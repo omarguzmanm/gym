@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Diets;
 
+use Livewire\Component;
 use App\Models\Analysis;
 use App\Models\Diet;
-use Livewire\Component;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-class ShowDietUser extends Component
+class ShowDiets extends Component
 {
     public $search = '';
     public $diet, $identifier;
@@ -23,19 +23,18 @@ class ShowDietUser extends Component
         'diet.description' => 'required',
     ];
 
-
     public function render()
     {
         $userDiet = Analysis::with('users', 'diets')
-            ->whereHas('users', function ($query) {
-                $query->where('name', 'LIKE', '%' . $this->search . '%');
-            })
-            ->whereNotNull('id_diet')
-            ->orderBy('id', 'asc')
-            ->paginate(10);
-
-        return view('livewire.diets.show-diet-user', compact('userDiet'));
+        ->whereHas('users', function ($query) {
+            $query->where('name', 'LIKE', '%' . $this->search . '%');
+        })
+        ->whereNotNull('id_diet')
+        ->orderBy('id', 'asc')
+        ->paginate(10);
+        return view('livewire.diets.show-diets', compact('userDiet'));
     }
+
 
     public function delete(Diet $diet){
         Analysis::where('id_diet', $diet->id)->update(['id_diet' => null]);
@@ -49,4 +48,5 @@ class ShowDietUser extends Component
         $pdf = Pdf::loadView('reports.report-diet', compact('diets'));
         return $pdf->stream('usersReportPDF.pdf');
     }
+    
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Diets;
 
+use Livewire\Component;
 use App\Models\Analysis;
 use App\Models\Diet;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
-class EditDietUser extends Component
+class EditDiet extends Component
 {
     use WithFileUploads;
 
@@ -17,7 +17,8 @@ class EditDietUser extends Component
     // public $userToEdit;
 
 
-    public function mount(Diet $diet){
+    public function mount(Diet $diet)
+    {
         // $this->identifier = rand();
         $this->diet = $diet;
     }
@@ -26,24 +27,25 @@ class EditDietUser extends Component
         'diet.description' => 'required',
     ];
 
-    public function edit(Diet $diet){
+
+    public function edit(Diet $diet)
+    {
         $this->diet = $diet;
         $this->open_edit = true;
     }
 
-    
-    public function update(){
+
+    public function update()
+    {
         $this->diet->save();
         //Borramos los valores de los inputs
         $this->reset(['open_edit']);
         // $this->identifier = rand();
-
         $this->emit('alert', 'La dieta se actualizó satisfactoriamente');
 
     }
-
     public function render()
     {
-        return view('livewire.diets.edit-diet-user');
+        return view('livewire.diets.edit-diet');
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Diets;
 
 use Livewire\Component;
 use App\Models\Analysis;
 use App\Models\Diet;
-class CreateDietUser extends Component
+
+class CreateDiet extends Component
 {
     public $open = false;
 
@@ -35,7 +36,7 @@ class CreateDietUser extends Component
         
         //Reseteamos todos los valores del form/modal
         $this->reset(['open','id_user', 'description']);
-        $this->emitTo('show-diet-user', 'render');
+        $this->emitTo('diets.show-diets', 'render');
         $this->emit('alert', 'La dieta se creó correctamente.');
 
     }
@@ -45,7 +46,8 @@ class CreateDietUser extends Component
         // $userAnalysis = Diet::with('analysis')->get();
         $userAnalysis = Analysis::with('users')->get();
         // dd($userAnalysis);
-        return view('livewire.diets.create-diet-user', compact('userAnalysis'));
+        return view('livewire.diets.create-diet', compact('userAnalysis'));
         // return view('livewire.diets.create-diet-user');
     }
+
 }
