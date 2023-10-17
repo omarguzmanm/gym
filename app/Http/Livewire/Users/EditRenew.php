@@ -92,4 +92,3 @@ class EditRenew extends Component
         $this->emit('alert', 'La membresia se renovó con exito!');
     }
 
-}
