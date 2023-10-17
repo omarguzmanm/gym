@@ -91,4 +91,4 @@ class EditRenew extends Component
         $this->emitTo('users.show-users', 'render');
         $this->emit('alert', 'La membresia se renovó con exito!');
     }
-
+}
