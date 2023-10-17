@@ -24,7 +24,7 @@
 
 <body>
     <div class="text-center">
-        <img src="{{ public_path('img/logo.png') }}" alt="Future Fit Logo" class="w-50"><br>
+        <img src="{{ public_path('img/logo-dark.png') }}" alt="Future Fit Logo" class="w-50"><br>
         <h6 class="text">Las Fuentes #250</h6>
         <h6 class="text mb-3">Guadalajara, Jalisco</h6>
     </div>
