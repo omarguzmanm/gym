@@ -27,42 +27,42 @@
             @endif
 
             <div class="mb-4">
-                <x-label value="Tipo de usuario" />
+                <x-label for="user_type">Tipo de usuario</x-label>
                 {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
-                <select wire:model="user_type"
-                    class="modal-select">
-                    <option value="">Elige una opción</option>
+                <select wire:model="user_type" class="modal-select" id="user_type" required>
+                    <option value="" selected>Elige una opción</option>
                     <option value="cliente">Cliente</option>
                     <option value="nutriologo">Nutriologo</option>
                     <option value="entrenador">Entrenador</option>
                 </select>
+                <x-input-error for="user_type"></x-input-error>
             </div>
 
             <div class="mb-4">
-                <x-label value="Nombre"></x-label>
-                <x-input type="text" class="w-full" wire:model="name"></x-input>
+                <x-label for="name">Nombre</x-label>
+                <x-input id="name" type="text" class="w-full" wire:model="name" required></x-input>
                 <x-input-error for="name"></x-input-error>
             </div>
 
             <div class="mb-4">
-                <x-label value="Número de teléfono"></x-label>
-                <x-input type="text" class="w-full" wire:model="phone_number"></x-input>
+                <x-label for="phone_number">Número de teléfono</x-label>
+                <x-input id="phone_number" type="text" class="w-full" wire:model="phone_number" required></x-input>
                 <x-input-error for="phone_number"></x-input-error>
             </div>
 
             <div class="mb-4">
-                <x-label value="Dirección"></x-label>
-                <x-input type="text" class="w-full" wire:model="address"></x-input>
+                <x-label for="address">Dirección</x-label>
+                <x-input id="address" type="text" class="w-full" wire:model="address" required></x-input>
                 <x-input-error for="address"></x-input-error>
             </div>
 
             @if ($user_type == 'cliente')
                 {{-- <div class="mb-4 flex justify-between items-center"> --}}
                 <div class="mb-4">
-                    <x-label value="Membresia" />
+                    <x-label for="type">Membresia</x-label>
                     {{-- <x-input id="career" class="block mt-1 w-full" type="text" name="career" :value="old('career')" required autocomplete="career" /> --}}
                     <select name="type" wire:model="type" id="type"
-                        class="modal-select">
+                        class="modal-select" required>
                         <option value="" class="normal-case">Seleccione una membresia</option>
                         @foreach ($types as $item)
                             <option value="{{ $item }}">{{ $item }}</option>
@@ -71,7 +71,7 @@
                     <x-input-error for="type"></x-input-error>
                 </div>
                 <div class="mb-4">
-                    <x-label value="Plan"></x-label>
+                    <x-label for="plan">Plan</x-label>
                     <select name="plan" wire:model="plan" id="plan"
                         class="modal-select">
                         @if ($plans->count() == 0)
@@ -84,8 +84,8 @@
                     <x-input-error for="plan"></x-input-error>
                 </div>
                 <div class="mb-4">
-                    <x-label value="Precio" />
-                    <x-input type="text" class="w-full" wire:model="price" readOnly></x-input>
+                    <x-label for="price">Precio</x-label>
+                    <x-input id="price" type="text" class="w-full" wire:model="price" readOnly></x-input>
                     <x-input-error for="price"></x-input-error>
                 </div>
                 {{-- </div> --}}
@@ -104,9 +104,9 @@
              </div> --}}
 
             <div>
-                <x-input type="file" wire:model="image" id="{{ $identifier }}"></x-input>
+                <x-label for="photo">Foto</x-label>
+                <x-input id="photo" type="file" wire:model="image" id="{{ $identifier }}" required></x-input>
                 <x-input-error for="image"></x-input-error>
-
             </div>
 
         </x-slot>

@@ -13,24 +13,24 @@
 
         <x-slot name="content">
             <div class="mb-4">
-                <x-label name="id_user">Nombre del paciente</x-label>
-                <select class="modal-select" wire:model="id_user">
+                <x-label for="user_id">Paciente</x-label>
+                <select class="modal-select" wire:model="user_id">
                     <option value="">Elige una opción</option>
                     @foreach ($userAnalysis as $user)
                         {{-- @dd($user) --}}
                         <option value="{{ $user->users->id }}">{{ $user->users->name }}</option>
                     @endforeach
                 </select>
-                <x-input-error for="id_user"></x-input-error>
+                <x-input-error for="user_id"></x-input-error>
             </div>
             <div class="mb-4">
-                <x-label name="description">Descripción de la dieta</x-label>
-                <textarea class="modal-select" wire:model="description"></textarea>
+                <x-label for="description">Descripción de la dieta</x-label>
+                <textarea class="modal-select" wire:model="description" rows="1"></textarea>
                 <x-input-error for="description"></x-input-error>
             </div>
             <div class="mb-4">
                 @foreach ($userAnalysis as $goal)
-                    @if ($goal->id_user == $id_user)
+                    @if ($goal->user_id == $user_id)
                         <x-label name="goal">Objetivo: 
                             <span>{{$goal->goal}}</span>
                         </x-label>
@@ -73,7 +73,7 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="submit" wire:target="submit" wire:loading.attr="disabled"
+            <x-danger-button wire:click="save" wire:target="save" wire:loading.attr="disabled"
                 class="disabled:opacity-25">
                 Crear dieta
             </x-danger-button>

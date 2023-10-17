@@ -33,17 +33,18 @@
 
             <div class="mb-4">
                 <x-label for="name">Nombre</x-label>
-                <x-input type="text" wire:model="name"></x-input>
+                <x-input type="text" wire:model="name" required></x-input>
                 <x-input-error for="name"></x-input-error>
             </div>
             <div class="mb-4">
                 <x-label for="description">Descripción</x-label>
-                <textarea class="modal-select" wire:model="description"></textarea>
+                <textarea class="modal-select" wire:model="description" required></textarea>
                 <x-input-error for="description"></x-input-error>
             </div>
             <div class="mb-4">
                 <x-label for="mmuscle_group">Grupo muscular</x-label>
-                <select class="modal-select" wire:model="muscle_group">
+                <select class="modal-select" wire:model="muscle_group" required>
+                    <option value="">Selecciona una opción</option>
                     <option value="biceps">Biceps</option>
                     <option value="triceps">Triceps</option>
                     <option value="pectorales">Pectorales</option>
@@ -67,7 +68,7 @@
             </div> --}}
             <div class="mb-4">
                 <x-label for="equipment">Equipo requerido</x-label>
-                <select class="modal-select" wire:model="equipment">
+                <select class="modal-select" wire:model="equipment" required>
                     <option value="ninguno">Ninguno</option>
                     <option value="mancuernas">Mancuernas</option>
                     <option value="pesas rusas">Pesas Rusas</option>

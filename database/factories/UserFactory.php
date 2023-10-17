@@ -39,7 +39,7 @@ class UserFactory extends Factory
             'remember_token'            => Str::random(10),
             // 'profile_photo_path'        => null,
             'current_team_id'           => null,
-            'profile_photo_path'        =>  'users/' . $this->faker->image('public/storage/users',640,480,null,false)
+            // 'profile_photo_path'        =>  'users/' . $this->faker->image('public/storage/users',640,480,null,false)
         ];
     }
 

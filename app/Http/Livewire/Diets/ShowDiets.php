@@ -29,7 +29,7 @@ class ShowDiets extends Component
         ->whereHas('users', function ($query) {
             $query->where('name', 'LIKE', '%' . $this->search . '%');
         })
-        ->whereNotNull('id_diet')
+        ->whereNotNull('diet_id')
         ->orderBy('id', 'asc')
         ->paginate(10);
         return view('livewire.diets.show-diets', compact('userDiet'));
@@ -44,7 +44,7 @@ class ShowDiets extends Component
 
     public function reportDiet($id)
     {
-        $diets = Analysis::with('diets', 'users')->where('id_user', $id)->get();
+        $diets = Analysis::with('diets', 'users')->where('user_id', $id)->get();
         $pdf = Pdf::loadView('reports.report-diet', compact('diets'));
         return $pdf->stream('usersReportPDF.pdf');
     }

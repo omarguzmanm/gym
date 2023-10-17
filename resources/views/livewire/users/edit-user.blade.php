@@ -1,5 +1,5 @@
 <div>
-    <a class="cursor-pointer" wire:click="edit({{ $user }})">
+    <a class="cursor-pointer ml-4" wire:click="edit({{ $user }})" title="Editar">
         <i class="fas fa-edit text-lg"></i></a>
 
     <x-dialog-modal wire:model="open_edit">
@@ -44,9 +44,9 @@
             {{-- Editar membresia --}}
             {{-- <div class="mb-4">
                 <x-label value="Membresia" />
-                <select wire:model="user.membership" name="membership" id="membership"
+                <select wire:model="membershipSelected" id="membership"
                     class="modal-select">
-                    <option value="selecciona" disabled>Selecciona una opción</option>
+                    <option value="selecciona">Selecciona una opción</option>
                     <option value="1">Invitado (1 día)</option>
                     <option value="2">Mensual</option>
                     <option value="3">Trimestral</option>

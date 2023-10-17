@@ -8,65 +8,54 @@ use App\Models\Analysis;
 
 class CreateAnalysis extends Component
 {
-    public $user, $gender, $age, $weight, $height, $imc, $activity, $goal, $hours_sleep, $stress_levels, $substance_use,
+    public $user_id, $gender, $age, $weight, $height, $imc, $activity, $goal, $hours_sleep, $stress_levels, $substance_use,
     $regularly_consumed, $notes, $otherGoal;
 
     public $open = false;
 
     protected $rules = [
-        // 'id_analysis' => 'required',
+        'user_id' => 'required',
+        'gender' => 'required',
         'age' => 'required',
-        // 'name' => 'required|min:6',
-        // 'email' => 'required|email',
+        'weight' => 'required',
+        'height' => 'required',
+        // 'imc' => 'required',
+        'activity' => 'required',
+        'goal' => 'required',
+        'regularly_consumed' => 'required',
+        'notes' => 'required',
     ];
 
-    protected $messages = [
-        'age.required' => 'La edad es requerida'
-    ];
 
-
-    public function mount()
-    {
-       // Restablecer las propiedades cuando se monta el componente
-        // $this->resetForm();
-         // Propiedades que deseas inicializar con la opción predeterminada 'selecciona'
-         $defaultProperties = ['user','gender','activity','goal','stress_levels','substance_use',];
-
-        foreach ($defaultProperties as $property) {
-            $this->{$property} = $this->{$property} ?? 'selecciona';
-        }
-    }
-
-
-    public function submit()
+    public function save()
     {
         // dd($this->user);
         // Si la opción seleccionada es "otro", establece $otherGoal en blanco
-        if ($this->goal === 'otro') {
-            $this->otherGoal = '';
-        }
+        // if ($this->goal === 'otro') {
+        //     $this->otherGoal = '';
+        // }
 
         $this->validate();
 
         Analysis::create([
-            'id_user' => $this->user,
+            'user_id' => $this->user_id,
             'age' => $this->age,
             'gender' => $this->gender,
             'weight' => $this->weight,
             'height' => $this->height,
+            'imc' => $this->imc,
             'activity' => $this->activity,
-            'notes' => $this->notes,
             'goal' => $this->goal,
+            'regularly_consumed' => $this->regularly_consumed,
+            'notes' => $this->notes,
             // 'meal_frecuency' => $this->meal_frecuency,
             // 'meal_schedule' => $this->meal_schedule,
-            'regularly_consumed' => $this->regularly_consumed,
-            'hours_sleep' => $this->hours_sleep,
-            'stress_levels' => $this->stress_levels,
-            'substance_use' => $this->substance_use,
+            // 'hours_sleep' => $this->hours_sleep,
+            // 'stress_levels' => $this->stress_levels,
+            // 'substance_use' => $this->substance_use,
         ]);
 
-        $this->reset(['open','user', 'gender', 'age', 'weight', 'height', 'activity', 'goal', 'hours_sleep', 'stress_levels', 'substance_use',
-        'regularly_consumed', 'notes', 'otherGoal']);
+        $this->reset(['open','user_id', 'gender', 'age', 'weight', 'height', 'imc','activity', 'goal', 'regularly_consumed', 'notes']);
 
         $this->emitTo('analysis.show-analysis', 'render');
         $this->emit('alert', 'El analisis se creó correctamente.');

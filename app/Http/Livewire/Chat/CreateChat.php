@@ -9,8 +9,9 @@ use Livewire\Component;
 
 class CreateChat extends Component
 {
-    public $users;
-    public $message = 'hello how are you ';
+    // public $users;
+    public $search = '';
+    public $message = 'hello how are you';
 
 
     public function checkconversation($receiverId)
@@ -34,24 +35,26 @@ class CreateChat extends Component
             $createdConversation->last_time_message = $createdMessage->created_at;
             $createdConversation->save();
 
-            dd($createdMessage);
-            dd('saved');
+            // dd($createdMessage);
+            // dd('saved');
+
+            return redirect()->route('chat');
 
 
-
-
-        } else if (count($checkedConversation) >= 1) {
-
-            dd(
-                'conversation exists'
-            );
         }
+        //  else if (count($checkedConversation) >= 1) {
+
+        //     dd(
+        //         'conversation exists'
+        //     );
+        // }
         # code...
     }
 
     public function render()
     {
-        $this->users = User::where('id', '!=', auth()->user()->id)->get();
-        return view('livewire.chat.create-chat');
+        // $this->users = User::where('id', '!=', auth()->user()->id)->get();
+        $users = User::where('id', '!=', auth()->user()->id)->where('name', 'like', '%' . $this->search . '%')->paginate(10);
+        return view('livewire.chat.create-chat', compact('users'));;
     }
 }

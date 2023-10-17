@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Users;
 use Livewire\Component;
 
 use App\Models\Analysis;
+use App\Models\Membership;
 use App\Models\User;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
@@ -13,17 +14,16 @@ class EditUser extends Component
 {
 
     use WithFileUploads;
-    // public $editingUserId = null;
-
-    public $open = false;
     public $open_edit = false;
 
-    public $user, $image, $identifier;  
+    public $user, $image, $identifier; 
+    
+    // public $membershipSelected;
     protected $rules = [
         'user.name'    => 'required',
         'user.phone_number'  => 'required',
-        'user.address'  => 'required'
-
+        'user.address'  => 'required',
+        'image' => 'max:2048',
     ];
     public function mount(User $user){
         $this->user = $user;
@@ -33,19 +33,14 @@ class EditUser extends Component
     public function edit(User $user)
     {
         $this->user = $user;
-        // dd($this->user);
-        // dd(Storage::url($user->profile_photo_path));
-        // $this->editingUserId = $user->id;
-
+        //  Se obtiene el ID de la membresía desde el primer resultado de la relación
+        // $membershipId = $this->user->memberships[0]->pivot->membership_id;
+        //  Realiza una consulta para encontrar la membresía relacionada a través de la tabla pivote
+        // $this->membershipSelected = Membership::whereHas('users', function ($query) use ($membershipId) {
+        //     $query->where('membership_id', $membershipId); })->first();
+        // dd($memberhip);
         $this->open_edit = true;
     }
-
-
-//     public function closeEditForm()
-// {
-//     $this->open_edit = false;
-//     $this->editingUserId = null;
-// }
 
     public function update()
     {
@@ -60,11 +55,8 @@ class EditUser extends Component
 
         //Borramos los valores de los inputs
         $this->reset(['open_edit', 'image']);
-
         $this->identifier = rand();
-
         $this->emitTo('users.show-users', 'render');
-        
         $this->emit('alert', 'El usuario se actualizó satisfactoriamente');
     }
 

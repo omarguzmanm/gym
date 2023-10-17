@@ -23,7 +23,7 @@
                                                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                                                 </svg>
                                             </div>
-                                            <input wire:model="search" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border--500" placeholder="Buscar" required="">
+                                            <input  wire:model.debounce.300ms="search" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border--500" placeholder="Buscar" required="">
                                         </div>
                                     </form>
                                 </div>
@@ -31,19 +31,6 @@
                                     @livewire('routines.create-routine')
                                 </div>
                             </div>
-
-                            {{-- <div class="modal-select">
-                                <select wire:model="selectedExercises"
-                                data-te-select-init
-                                data-te-select-placeholder="Selecciona los ejercicios"
-                                multiple>
-                                <option value=""></option>
-                              </select>
-                            </div> --}}
-                                  {{-- <div class="overflow-x-auto">
-
-                                </div> --}}
-                            {{-- </div> --}}
                         </div>    
                         @if (count($routines))                            
                             @foreach ($routines as $routine)
@@ -53,30 +40,20 @@
                                                 <!-- <a href="#">
                                                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
                                                 </a> -->
-                                                <h3 class="mt-1 text-xl font-bold text-gray-200">{{$routine->name}}</h3>
+                                                <h3 class="mt-1 text-xl font-bold text-gray-800 dark:text-gray-200">{{$routine->name}}</h3>
                                                 <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->description}}</p>
                                                 <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->level}}</p>
                                                 <p class="mt-1 mb-3 text-xs font-normal text-gray-500">{{$routine->duration}} minutos</p>
-                                                <div class="flex justify-end">
-                                                    <a class="cursor-pointer" wire:click="edit({{ $routine }})">
-                                                        <svg class="w-5 h-5 text-orange-300 hover:text-orange-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                                            <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
-                                                            <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
-                                                        </svg>
-                                                    </a>
+                                                <div class="flex justify-end text-gray-500 dark:text-gray-400">
+                                                    @livewire('routines.edit-routine', ['routine' => $routine], key($routine->id))
                                                     <a class="cursor-pointer ml-4" wire:click="$emit('deleteRoutine', {{ $routine->id }})">
-                                                        <svg class="w-5 h-5 text-orange-300 hover:text-orange-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                                        <i class="fas fa-trash text-lg"></i>
+                                                        {{-- <svg class="w-5 h-5 text-orange-300 hover:text-orange-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                                             <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
-                                                        </svg>
+                                                        </svg> --}}
                                                     </a>
                                                 </div>
                                             </div>
-                                                {{-- <a class="inline-flex items-center text-xs font-normal text-center text-orange-400 hover:text-orange-500">
-                                                        Ver más
-                                                    <svg class="w-3 h-3 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
-                                                    </svg>
-                                                </a> --}}
                                         </div>
                                 </div>
                             @endforeach
@@ -91,10 +68,6 @@
         </div>
     </div>
 
-
-    
-    {{-- @livewire('routines.edit-routine') --}}
-    @include('livewire.routines.edit-routine')
     @push('js')
         <script>
             // Escucha un evemto

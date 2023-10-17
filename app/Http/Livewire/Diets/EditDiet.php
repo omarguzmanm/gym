@@ -41,6 +41,7 @@ class EditDiet extends Component
         //Borramos los valores de los inputs
         $this->reset(['open_edit']);
         // $this->identifier = rand();
+        $this->emitTo('diets.show-diets', 'render');
         $this->emit('alert', 'La dieta se actualizó satisfactoriamente');
 
     }

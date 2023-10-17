@@ -10,12 +10,12 @@ class CreateDiet extends Component
 {
     public $open = false;
 
-    public $id_user;
+    public $user_id;
 
     public $description;
  
     protected $rules = [
-        'id_user' => 'required',
+        'user_id' => 'required',
         'description' => 'required',
     ];
  
@@ -23,19 +23,19 @@ class CreateDiet extends Component
         // $this->resetForm();
     }
 
-    public function submit()
+    public function save()
     {
         $this->validate();
         // Execution doesn't reach here if validation fails.
         $diet = Diet::create([
             'description' => $this->description
         ]);
-        Analysis::where('id_user', $this->id_user)->whereNull('id_diet')->update(['id_diet' => $diet->id]);
-        // $diet->analysis()->where('id_user', $this->id_user)->->toSql();
+        Analysis::where('user_id', $this->user_id)->whereNull('diet_id')->update(['diet_id' => $diet->id]);
+        // $diet->analysis()->where('user_id', $this->user_id)->->toSql();
         // Analysis::update(['id_diet' =>$this->id_analysis]);
         
         //Reseteamos todos los valores del form/modal
-        $this->reset(['open','id_user', 'description']);
+        $this->reset(['open','user_id', 'description']);
         $this->emitTo('diets.show-diets', 'render');
         $this->emit('alert', 'La dieta se creó correctamente.');
 

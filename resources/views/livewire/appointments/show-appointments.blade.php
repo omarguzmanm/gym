@@ -24,34 +24,21 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                           </svg>
                         </div>    
-                        {{-- <div class="lg:hidden">
-                          <button type="submit" wire:loading.attr="disabled"
-                            class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                            <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                            </svg>
-                            AGENDAR CITA
-                          </button>
-                        </div> --}}
+
                       </div>
                       <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-10">
                           <div class="-my-4 divide-y divide-gray-200 dark:divide-gray-700">
                             @foreach ($appointments as $item)
-                            <div class="flex flex-col gap-2 py-4 sm:gap-6 sm:flex-row sm:items-center">
-                              <p class="w-32 text-lg font-normal text-gray-500 sm:text-right dark:text-gray-400 shrink-0">
-                                {{-- 08:00 - 09:00 --}}
-                            {{ sprintf('%02d', $item->hour) }}:00 - {{ sprintf('%02d', $item->hour + 1) }}:00
-                              </p>
-                              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                {{-- <a href="#" class="hover:underline">{{$item->users->name}}</a> --}}
-                                <button class="hover:underline" data-modal-toggle="small-modal-{{$item->users->id}}" type="button">
-                                  {{$item->users->name}}
-                                </button>
-                                @include('partials.modal')
-                              </h3>
-                            </div>
+                              <div class="flex flex-col gap-2 py-4 sm:gap-6 sm:flex-row sm:items-center">
+                                <p class="w-32 text-lg font-normal text-gray-500 sm:text-right dark:text-gray-400 shrink-0">
+                                  {{ sprintf('%02d', $item->hour) }}:00 - {{ sprintf('%02d', $item->hour + 1) }}:00
+                                </p>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                  {{-- <a href="#" class="hover:underline">{{$item->users->name}}</a> --}}
+                                  @livewire('appointments.edit-appointment', ['appointment' => $item], key($item->id))
+                                  {{-- @include('partials.modal') --}}
+                                </h3>
+                              </div>
                             @endforeach
                           </div>
                       </div>
@@ -69,4 +56,4 @@
           </section>
        </div>
     </div>
- </div>
+</div>

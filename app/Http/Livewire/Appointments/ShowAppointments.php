@@ -9,7 +9,7 @@ class ShowAppointments extends Component
 {
     public $current_date;
 
-    protected $listeners = ['render'];
+    protected $listeners = ['render', 'delete'];
 
 
     public function mount()
@@ -30,8 +30,14 @@ class ShowAppointments extends Component
 
     public function render()
     {
-        $appointments = Appointment::with('users')->where('day', $this->current_date->format('Y/m/d'))->get();
+        $appointments = Appointment::with('users')->where('day', $this->current_date->format('Y/m/d'))->orderBy('hour', 'asc')->get();
         // dd($appointments);
         return view('livewire.appointments.show-appointments', compact('appointments'));
+    }
+
+    
+    public function delete(Appointment $appointment)
+    {   
+        $appointment->delete();
     }
 }

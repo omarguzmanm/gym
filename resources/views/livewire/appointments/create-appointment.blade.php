@@ -15,8 +15,18 @@
     @endif
 
     <form wire:submit.prevent="save">
-        <x-label for="date" class="mb-1">Selecciona una fecha:</x-label>
-        <x-input type="date" id="date" wire:model="day" class="mb-2" required min="{{ date('Y-m-d') }}"></x-input>
+        <x-label for="patient" class="mb-1">Selecciona al paciente:</x-label>
+        <div wire:ignore>
+            <select class="w-full" id="patient" required>
+                @foreach ($patients as $item)
+                    <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
+            </select>
+        </div>
+            <x-input-error for="patient"></x-input-error>
+
+        <x-label for="day" class="mb-1">Selecciona una fecha:</x-label>
+        <x-input type="date" id="day" wire:model="day" class="mb-2" required min="{{ date('Y-m-d') }}" style="color-scheme:dark;"></x-input>
         <x-input-error for="day"></x-input-error>
 
         @if ($day)
@@ -60,5 +70,17 @@
             </button>
         </div>
     </form>
-
 </div>
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#patient').select2();
+
+            $(document).on('change', '#patient', function (e) {
+                //when ever the value of changes this will update your PHP variable 
+                @this.set('patient', e.target.value);
+            });
+        });
+    </script>
+@endpush

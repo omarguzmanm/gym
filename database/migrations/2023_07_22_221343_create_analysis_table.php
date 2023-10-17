@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,8 +12,8 @@ return new class extends Migration
     {
         Schema::create('analysis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_diet')->nullable();
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('diet_id')->nullable();
+            $table->unsignedBigInteger('user_id');
 
             //Personal information
             // $table->unsignedBigInteger('id_user')->nullable();
@@ -22,30 +21,30 @@ return new class extends Migration
             $table->enum('gender', ['masculino', 'femenino', 'otro']);
             $table->float('weight');
             $table->float('height');
+            $table->float('imc');
             $table->enum('activity', ['baja', 'media', 'alta']);
 
-            //Medical history (alergias, intolerancias, enfermedades, condiciones)
-            $table->text('notes');
-
             //Nutrional goals
-            $table->enum('goal', ['perdida','ganancia','mantenimiento','mejora','otro']);
-           
+            $table->enum('goal', ['perdida', 'ganancia', 'mantenimiento', 'mejora', 'otro']);
+
             //Current habits
             // $table->enum('meal_frecuency', ['baja', 'regular', 'alta']);
             // $table->string('meal_schedule');
             $table->text('regularly_consumed');
+            //Medical history (alergias, intolerancias, enfermedades, condiciones)
+            $table->text('notes');
 
             //Lifestyle
-            $table->float('hours_sleep');
-            $table->enum('stress_level', ['bajo', 'medio', 'alto']);
-            $table->enum('substance_use', ['si', 'no']);
+            // $table->float('hours_sleep');
+            // $table->enum('stress_level', ['bajo', 'medio', 'alto']);
+            // $table->enum('substance_use', ['si', 'no']);
 
             //Hydration level
 
 
             // $table->foreign('id_user')->on('users')->references('id');
-            $table->foreign('id_diet')->on('diets')->references('id');
-            $table->foreign('id_user')->on('users')->references('id');
+            $table->foreign('diet_id')->on('diets')->references('id');
+            $table->foreign('user_id')->on('users')->references('id');
 
             $table->timestamps();
         });

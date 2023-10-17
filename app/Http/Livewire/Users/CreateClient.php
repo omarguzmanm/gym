@@ -1,13 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Auth;
+namespace App\Http\Livewire\Users;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
-use Illuminate\Validation\Rule;
-
-;
 
 use Livewire\Component;
 
@@ -57,7 +53,7 @@ class CreateClient extends Component
                 'email' => $this->email,
                 'password' => Hash::make($this->password)
             ]);
-        }else{
+        } else {
             session()->flash('message', 'Verifica los datos e intenta de nuevo');
             return redirect()->back();
         }
@@ -65,8 +61,10 @@ class CreateClient extends Component
         return redirect()->route('login');
 
     }
+
     public function render()
     {
-        return view('livewire.auth.create-client');
+        return view('livewire.users.create-client')
+            ->layout('layouts.guest');
     }
 }

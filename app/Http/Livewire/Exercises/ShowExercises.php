@@ -12,22 +12,10 @@ class ShowExercises extends Component
     use WithFileUploads;
 
     public $search = '';
-    public $open_edit;
+    public $open_edit = false, $showExercise = false;
     public $exercise, $image, $identifier;
 
     protected $listeners = ['render', 'delete'];
-
-
-    protected $rules = [
-        'exercise.name' => 'required',
-        'exercise.description' => 'required',
-        'exercise.muscle_group' => 'required',
-        'exercise.media' => 'required',
-        // 'exercise.type' => 'required',
-        'exercise.equipment' => 'required',
-        // 'exercise.type' => 'required',
-    ];
-
 
     public function mount()
     {
@@ -35,9 +23,9 @@ class ShowExercises extends Component
         $this->exercise = new Exercise();
     }
 
-    public function updatingSearch(){
-        $this->resetPage();
-    }
+    // public function updatingSearch(){
+    //     $this->resetPage();
+    // }
 
     public function render()
     {
@@ -49,27 +37,7 @@ class ShowExercises extends Component
     public function showExerciseDetails(Exercise $exercise)
     {
         $this->exercise = $exercise;
-    }
-
-    public function edit(Exercise $exercise)
-    {
-        $this->exercise = $exercise; // Cargamos una copia fresca del ejercicio desde la base de datos.
-        // dd($this->exercise->id);
-        $this->open_edit = true;
-    }
-
-    public function update()
-    {
-        $this->validate();
-        if($this->image){
-            Storage::delete([$this->exercise->media]);
-            $this->exercise->media = $this->image->store('exercises');
-        }
-        $this->exercise->save();
-
-        //Borramos los valores de los inputs
-        $this->reset(['open_edit', 'image']);
-        $this->emit('alert', 'El ejercicio se actualizó satisfactoriamente');
+        $this->showExercise = true;
     }
 
     public function delete(Exercise $exercise)
@@ -77,7 +45,7 @@ class ShowExercises extends Component
         // Se ocupan las imagenes para este metodo
         Storage::delete([$exercise->media]);
         $exercise->delete();
-
+        $this->reset(['showExercise']);
     }
 
 }

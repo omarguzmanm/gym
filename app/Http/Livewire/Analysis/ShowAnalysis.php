@@ -9,6 +9,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination; //Paginación dinamica
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class ShowAnalysis extends Component
@@ -38,9 +39,6 @@ class ShowAnalysis extends Component
         $this->identifier = rand();
         $this->analysis = new Analysis();
     }
-    protected $rules = [
-        'analysis.age' => 'required',
-    ];
     public function render()
     {
         
@@ -50,7 +48,7 @@ class ShowAnalysis extends Component
                 ->whereHas('users', function ($query) {
                     $query->where('name', 'LIKE', '%' . $this->search . '%');
                 })
-                ->orderBy($this->sort, $this->direction)
+                // ->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant);
         // } else {
         //     $userAnalysis = [];
@@ -84,4 +82,9 @@ class ShowAnalysis extends Component
         $analysis->delete();
     }
 
+    public function reportAnalysis($id)
+    {
+        $ticket = Pdf::loadView('reports.report-analysis');
+        return $ticket->stream('Analisis.pdf');
+    }
 }

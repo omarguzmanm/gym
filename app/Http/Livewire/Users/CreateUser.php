@@ -53,11 +53,14 @@ class CreateUser extends Component
     }
 
     protected $rules = [
+        // 'user_type' => 'required',
         'name' => 'required',
         'phone_number' => 'required',
         'address' => 'required',
-        // 'membership' => 'required',
-        'image' => 'required|image|max:2048'
+        'image' => 'required|image|max:2048',
+        'type' => 'required',
+        'plan' => 'required',
+        // 'price' => 'required',
     ];
 
     public function save()
@@ -106,10 +109,11 @@ class CreateUser extends Component
 
     public function ticketUser($id)
     {
-        $codigoQR = QrCode::size(100)->generate('http://127.0.0.1:8000/newUser');
+        $codigoQR = QrCode::size(100)->generate('http://127.0.0.1:8000/nuevo-usuario');
         $codigoQRBase64 = 'data:image/png;base64,' . base64_encode($codigoQR);
-        $users = User::where('id', $id)->get();
-        $ticket = Pdf::loadView('reports.ticket-user', compact('users', 'codigoQRBase64'));
+        $user = User::with('memberships')->where('id', $id)->first();
+        // dd($user);
+        $ticket = Pdf::loadView('reports.ticket-user', compact('user', 'codigoQRBase64'));
         $ticket->setPaper('a6', 'portrait');
 
         return $ticket->stream('Ticket.pdf');

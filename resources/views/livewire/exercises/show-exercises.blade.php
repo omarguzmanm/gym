@@ -35,6 +35,8 @@
                                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" class="px-4 py-3">Nombre</th>
+                                            <th scope="col" class="px-4 py-3">Acciones</th>
+                                            
                                             {{-- <th scope="col" class="px-4 py-3">Nombre</th> --}}
                                             {{-- <th scope="col" class="px-4 py-3">Renovación</th>
                                             <th scope="col" class="px-4 py-3">Estado</th>
@@ -43,13 +45,17 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($exercises as $item)
-                                                {{-- @foreach ($item->memberships as $membership) --}}
                                                     <tr class="border-b dark:border-gray-700">
                                                         <th scope="row" wire:click="showExerciseDetails({{$item->id}})" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer dark:hover:bg-gray-600">{{$item->name}}</th>
-                                                        {{-- <td class="px-4 py-3">{{$item->name}}</td> --}}
+                                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
+                                                            @livewire('exercises.edit-exercise', ['exercise' => $item], key($item->id))
+                                                                                                                
+                                                            <a class="cursor-pointer ml-4" wire:click="$emit('deleteExercise', {{ $item->id }})" title="Eliminar">
+                                                                <i class="fas fa-trash text-lg"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
-                                            {{-- @endforeach --}}
                                         </tbody>
                                     </table>
                                     @if ($exercises->hasPages())
@@ -61,7 +67,7 @@
                                 @endif
                             </div>
                         </div>    
-                        @if ($exercise->id)
+                        @if ($showExercise)
                             <div class="col-span-3">                                
                                 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <img class="rounded-t-lg h-52 w-full" src="{{ Storage::url($exercise->media) }}" alt="Imagen Ejercicio" />
@@ -79,13 +85,16 @@
                                             <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400 capitalize">{{$exercise->equipment}}</h5>
                                         </div>
                                     </div>
-                                        <div class="flex items-center justify-center">
-                                            {{-- <span class="text-3xl font-bold text-gray-900 dark:text-white">$599</span> --}}
+                                        {{-- <div class="flex items-center justify-center">
                                             <a wire:click="$emit('deleteExercise', {{ $exercise->id }})" class="cursor-pointer mx-3 my-3 text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Eliminar</a>
                                             <a wire:click="edit({{$exercise}})" class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Editar</a>
-                                        </div>
+                                        </div> --}}
                                 </div>
                             </div> 
+                        @else
+                            <div class="col-span-3 text-center mt-8">
+                                <h5 class="dark:text-gray-300">Toca un ejercicio para ver más deatalles</h5>
+                            </div>
                         @endif
 
 
@@ -93,7 +102,6 @@
             </section>
         </div>
     </div>
-    @include('livewire.exercises.edit-exercise')
     @push('js')
         <script>
             // Escucha un evemto

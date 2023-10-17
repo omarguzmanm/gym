@@ -1,5 +1,5 @@
 <div>
-    <a class="cursor-pointer ml-4" wire:click="editRenew({{ $user }})">
+    <a class="cursor-pointer" wire:click="editRenew({{ $user }})" title="Renovar membresia">
         <i class="fas fa-arrows-rotate text-lg"></i></a>
 
     <x-dialog-modal wire:model="open_editRenew">
@@ -51,5 +51,5 @@
     
         </x-slot>
     </x-dialog-modal>
-    </div>
+</div>
     

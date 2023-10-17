@@ -51,7 +51,8 @@
                 </div>
             @endforeach
         @else
-            No tienes conversaciones
+            <span class="dark:text-gray-500">No tienes conversaciones </span><br>
+            <a href="{{route('users')}}" class="dark:text-white text-sm">Ver usuarios</a>
         @endif
 
     </div>

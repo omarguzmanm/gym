@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Users;
 use Livewire\Component;
 use App\Models\Membership;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination; //Paginación dinamica
@@ -19,9 +20,7 @@ class ShowUsers extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = '10';
-    // public $readyToLoad = false;
-    // public $open_edit = false;
-    public $open_editRenew = false;
+
     public $type, $plan, $price, $id_membership, $status;
     public $types = [], $plans = [], $prices = [];
 
@@ -33,6 +32,7 @@ class ShowUsers extends Component
         'direction' => ['except' => 'desc'],
         'search' => ['except' => '']
     ];
+
 
     public function mount()
     {
@@ -56,29 +56,28 @@ class ShowUsers extends Component
         $this->price = $this->prices->first()->price ?? null;
         $this->id_membership = $this->prices->first()->id ?? null;
     }
-    public function updatingSearch()
+   public function updatingSearch()
     {
         $this->resetPage();
     }
-
     protected $rules = [
         'user.name' => 'required',
         'user.phone_number' => 'required',
         'user.address' => 'required',
-        'user.profile_photo_path' => 'required',
+        'user.profile_photo_path' => 'required|image|max:2048',
         // 'user.membership' => 'required',
     ];
     public function render()
     {
-        // if ($this->readyToLoad) {
-        $users = User::with('memberships')->where('id', '!=', auth()->id())->where('name', 'like', '%' . $this->search . '%')
-        ->orWhere('code', 'like', '%' . $this->search . '%')
-        ->orderBy('created_at', 'desc')
-        // ->orderBy($this->sort, $this->direction)
-        ->paginate($this->cant); //Se quitó get para no mostrar todos los registros, se paginará de 10 en 10
-        // } else {
-        //     $users = [];
-        // }
+        $users = User::select('users.*')->join('membership_user', 'users.id', '=', 'membership_user.user_id')
+                ->join('memberships', 'membership_user.membership_id', '=', 'memberships.id')
+                ->where('users.id', '!=', auth()->id())
+                ->where(function ($query) {
+                    $query->where('users.name', 'like', '%' . $this->search . '%')
+                        ->orWhere('users.code', 'like', '%' . $this->search . '%');
+                })
+                ->orderBy($this->sort, $this->direction)
+                ->paginate($this->cant);
         return view('livewire.users.show-users', compact('users'));
     }
 
@@ -96,7 +95,9 @@ class ShowUsers extends Component
             $this->direction = 'asc';
         }
 
-        $this->sort = $sort;
+        // $this->sort = $sort;
+        $this->resetPage(); // Restablece la página a 1 cuando se cambia el ordenamiento.
+
     }
 
     public function delete(User $user)
@@ -105,47 +106,4 @@ class ShowUsers extends Component
         Storage::delete([$user->profile_photo_path]);
         $user->delete();
     }
-
-    // public function editRenew(User $user)
-    // {
-    //     $this->user = $user;
-
-    //     // Carga las relaciones nuevamente
-    //     $this->user->load('memberships');
-    
-    //     $memberships = $this->user->memberships;
-    //     $this->price = $memberships->pluck('price');
-    //     $this->type = $memberships->pluck('type')->first();
-    //      // dd($this->type);
-    //     // Obtiene el estado de la membresía actual del usuario
-    //     $this->status = $memberships->firstWhere('pivot.user_id', $this->user->id)->pivot->status;
-    
-    //     // Guardamos todos los planes de la mebresia seleccionada
-    //     $this->plans = Membership::where('type', $this->type)->get();
-    //     // Filtra los planes de membresía disponibles 
-    //     $planSelected = Membership::where('type', $this->type)->whereIn('price', $this->price)->first();
-    //     // Define el plan seleccionado (id_membership)
-    //     $this->plan = $planSelected->id;
-        
-    //     $this->open_editRenew = true;
-    // }
-
-    // public function updateRenew()
-    // {
-    //     $this->user->memberships()
-    //         ->wherePivot('user_id', $this->user->id)
-    //         ->update([
-    //             'membership_id' => $this->plan,
-    //             // Reemplaza con el nuevo ID de membresía
-    //             'renew_date' => $this->type == 'Semanal' ? now()->nextWeekendDay() :
-    //                             ($this->type == 'Mensual' ? now()->addMonth() : 
-    //                             ($this->type == 'Semestral' ? now()->addMonths(6) :
-    //                             ($this->type == 'Anual' ? now()->addYears(1) : null))),
-    //             'status' => 1,
-    //         ]);
-    //     //Borramos los valores de los inputs
-    //     $this->reset(['open_editRenew']);
-
-    //     $this->emit('alert', 'La membresia se renovó con exito!');
-    // }
 }

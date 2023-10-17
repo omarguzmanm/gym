@@ -9,20 +9,19 @@ class Analysis extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_diet','id_user', 'age', 'gender', 'weight',
-    'height', 'activity', 'notes', 'goal', 'meal_frecuency',
-    'meal_schedule', 'regularly_consumed', 'hours_sleep',
-    'stress_level', 'substance_use'];
+    protected $fillable = ['diet_id','user_id', 'age', 'gender', 'weight',
+    'height','imc','activity', 'notes', 'goal', 'meal_frecuency',
+    'meal_schedule', 'regularly_consumed'];
 
     // Laravel follows a convention and it expects your table to be plural from the model name.
     protected $table = 'analysis'; 
 
     public function diets(){
-        return $this->belongsTo(Diet::class, 'id_diet');
+        return $this->belongsTo(Diet::class, 'diet_id');
     }
     
     public function users(){
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 

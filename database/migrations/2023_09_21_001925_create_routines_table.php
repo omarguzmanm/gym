@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('level');
             $table->string('duration');
             $table->decimal('rating')->default(0);
+            // $table->integer('rest')->default(1);
             $table->timestamps();
         });
     }
