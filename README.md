@@ -14,6 +14,12 @@ php artisan migrate --seed
 npm run dev
 php artisan serve
 ```
+Ejecutar el siguiente comando en caso de tener el siguiente error: <br>
+"vite" no se reconoce como un comando interno o externo,
+programa o archivo por lotes ejecutable.
+```shell
+npm install vite
+```
 
 ## Credenciales de prueba
 Al ejecutar el seeder se creará un usuario para cada rol, las credenciales para pruebas son las siguientes: <br>
