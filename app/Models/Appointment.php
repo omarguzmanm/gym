@@ -11,11 +11,9 @@ class Appointment extends Model
 
     protected $fillable = ['user_id', 'day', 'hour', 'reason', 'status'];
 
-
-
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
     
 }

@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
 
             $table->date('day');
-            $table->string('hour');
+            $table->integer('hour');
             $table->enum('reason', ['dieta', 'control', 'seguimiento']);
 
             $table->boolean('status')->default(0);

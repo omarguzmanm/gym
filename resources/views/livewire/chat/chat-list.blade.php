@@ -3,7 +3,7 @@
 
     <div class="chatlist_header">
 
-        <div class="title">
+        <div class="title dark:text-white">
             Chat
         </div>
 
@@ -17,7 +17,7 @@
 
         @if (count($conversations) > 0)
             @foreach ($conversations as $conversation)
-                <div class="chatlist_item " wire:key='{{ $conversation->id }}'
+                <div class="chatlist_item hover:bg-gray-300 bg-gray-200 text-black dark:text-white dark:bg-gray-400 dark:bg-opacity-80 dark:hover:bg-gray-500" wire:key='{{ $conversation->id }}'
                     wire:click="$emit('chatUserSelected', {{ $conversation }},{{ $this->getChatUserInstance($conversation, $name = 'id') }})">
                     <div class="chatlist_img_container">
 
@@ -51,7 +51,8 @@
                 </div>
             @endforeach
         @else
-            you have no conversations
+            <span class="dark:text-gray-500">No tienes conversaciones </span><br>
+            <a href="{{route('users')}}" class="dark:text-white text-sm">Ver usuarios</a>
         @endif
 
     </div>

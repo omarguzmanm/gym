@@ -18,11 +18,9 @@ class CreateMembership extends Component
     {
 
         $this->validate([
-            'type' => [
-                'required',
-                Rule::unique('memberships') // Verifica que el valor sea único en la columna 'type'
-            ],
+            'type' => 'required',
             'plan' => 'required',
+                // Rule::unique('memberships')  Verifica que el valor sea único en la columna 'type'
             'price' => 'required'
         ]);
 
@@ -34,8 +32,8 @@ class CreateMembership extends Component
         ]);
         $this->reset(['open', 'type', 'plan', 'price']);
         // $this->emitTo('admin-memberships', 'render');
+        $this->emitTo('memberships.admin-memberships', 'render');
         $this->emit('alert', 'La membresia se creó correctamente.');
-        $this->emit('membershipAdded'); // Emitir evento personalizado
 
     }
 

@@ -44,7 +44,8 @@
 @foreach ($diets as $diet)
     <div class="container2">
         <div class="left-column">
-            <h6>Nombre del gimnasio</h6>
+            {{-- <img src="{{asset('img/logo.png')}}" alt="logo future fit" style="width:10px"> --}}
+            <h6>Future fit</h6>
         </div>
         <div class="right-column">
             <h6>Dirección y contacto</h6>

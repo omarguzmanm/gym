@@ -442,7 +442,7 @@
                 <div class="flex items-baseline text-gray-900">
                     <span class="text-3xl font-semibold">$</span>
                     <span class="text-5xl font-extrabold tracking-tight">6,999</span>
-                    <span class="ml-1 text-xl font-normal text-gray-500">/mes</span>
+                    <span class="ml-1 text-xl font-normal text-gray-500">/año</span>
                 </div>
             <ul role="list" class="space-y-5 my-7">
                 <li class="flex space-x-3 items-center">
@@ -508,7 +508,7 @@
             <div class="flex items-baseline text-gray-900">
                 <span class="text-3xl font-semibold">$</span>
                 <span class="text-5xl font-extrabold tracking-tight">3,999</span>
-                <span class="ml-1 text-xl font-normal text-gray-500">/mes</span>
+                <span class="ml-1 text-xl font-normal text-gray-500">/semetre</span>
             </div>
             <ul role="list" class="space-y-5 my-7">
                 <li class="flex space-x-3 items-center">
@@ -572,7 +572,7 @@
             <div class="flex items-baseline text-gray-900">
                 <span class="text-3xl font-semibold">$</span>
                 <span class="text-5xl font-extrabold tracking-tight">1,999</span>
-                <span class="ml-1 text-xl font-normal text-gray-500">/día</span>
+                <span class="ml-1 text-xl font-normal text-gray-500">/trimestre</span>
             </div>
             <ul role="list" class="space-y-5 my-7">
                 <li class="flex space-x-3 items-center">

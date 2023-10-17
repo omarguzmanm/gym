@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->unique()->nullable();
-            $table->string('email')->unique()->default('Sin correo');
+            $table->string('email')->nullable()->default('Sin correo');
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             // $table->date('inscription')->nullable();

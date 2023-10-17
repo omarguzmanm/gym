@@ -7,7 +7,8 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/css/sass/chat.scss'
+                'resources/css/sass/chat.scss',
+                'node_modules/tw-elements/dist/js/tw-elements.umd.min.js'
             ],
             refresh: [
                 ...refreshPaths,
