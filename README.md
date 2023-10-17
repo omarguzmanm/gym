@@ -1,34 +1,39 @@
-
-## Proyecto Future Fit
-Proyecto para la administración de un gimnasio que cuenta con diferentes roles y secciones para mejorar la experiencia del usuario. 
+# Proyecto Future Fit
+Este proyecto es una plataforma de gestión para gimnasios con varios roles y características diseñadas para mejorar la experiencia de los usuarios.
 
 ## Instalación
-Ejecutar en tu consola los siguientes comandos:
-- git clone https://github.com/omarguzmanm/gym.git
-- cd gym
-- composer install
-- cp .env.example .env
-- php artisan key:generate
-- php artisan storage:link
-- php artisan migrate --seed
+Sigue estos pasos para instalar y configurar el proyecto en tu entorno local:
+ ```shell
+git clone https://github.com/omarguzmanm/gym.git  
+cd gym
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan storage:link
+php artisan migrate --seed
+```
 
-## Acceso
-Al ejecutar el seeder se creará un usuario para cada rol, las credenciales para pruebas son las siguientes:
-- Rol cliente
-      'email' => 'cliente@example.com',
-      'password' => 'cliente123'
-- Rol entranador
-      'email' => 'entrenador@example.com',
-      'password' => 'entrenador123'
-- Rol Nutriologo
-      'email' => 'nutriologo@example.com',
-      'password' => 'nutriologo123'
-- Rol Administrador
-      'email' => 'admin@example.com',
-      'password' => 'admin123'
-- Rol SuperAdministrador
-      'email' => 'superAdmin@example.com',
-      'password' => 'superAdmin123'
+## Credenciales de prueba
+Al ejecutar el seeder se creará un usuario para cada rol, las credenciales para pruebas son las siguientes: <br>
+### Rol Cliente
+- **Email**: cliente@example.com
+- **Contraseña**: `cliente123`
+
+### Rol Entrenador
+- **Email**: entrenador@example.com
+- **Contraseña**: `entrenador123`
+
+### Rol Nutriólogo
+- **Email**: nutriologo@example.com
+- **Contraseña**: `nutriologo123`
+
+### Rol Administrador
+- **Email**: admin@example.com
+- **Contraseña**: `admin123`
+
+### Rol Superadministrador
+- **Email**: superAdmin@example.com
+- **Contraseña**: `superAdmin123`
 
 ## Secciones
 - Usuarios - Completada
@@ -43,5 +48,5 @@ Al ejecutar el seeder se creará un usuario para cada rol, las credenciales para
 
 ## Notas
 - Para el funcionamiento del chat, es necesario poner tus credenciales de Pusher en el .env
-- Si se desea utilizar imagenes de prueba para los usuarios, descomentar la linea del atributo profile_photo_path del archivo UserFactory
-- No existe un apartado para registrar directamente, hay que utilzar las credenciales otorgadas
+- Si se desean utilizar imágenes de prueba para los usuarios, descomentar la línea del atributo profile_photo_path en el archivo UserFactory
+- No existe un formulario de registro directo; se deben utilizar las credenciales otorgadas.
