@@ -33,13 +33,25 @@ Route::middleware([
     'verified',
     // 'redirectbyrole'
 ])->group(function () {
-    Route::get('/dashboard', ShowUsers::class)->name('dashboard');
+    Route::get('/', ShowUsers::class)->name('dashboard');
+    Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
+    Route::get('/membresias', AdminMemberships::class)->name('membresias');
+
+    Route::get('/citas', ShowAppointments::class)->name('citas');
+    Route::get('/analisis', ShowAnalysis::class)->name('analisis');
+    Route::get('/analisis/{id}/report', [ShowAnalysis::class, 'reportAnalysis'])->name('reporte-analisis');
+
+    Route::get('/dietas', ShowDiets::class)->name('dietas');
+    Route::get('/dietas/{id}/reporte', [ShowDiets::class, 'reportDiet'])->name('reporte-dieta');
+
+    Route::get('/rutinas', ShowRoutines::class)->name('rutinas');
+    Route::get('/ejercicios', ShowExercises::class)->name('ejercicios');
+
+    Route::get('/usuarios', CreateChat::class)->name('users');
+    Route::get('/chat/{key?}', Main::class)->name('chat');
 });
 
-Route::get('/memberships', AdminMemberships::class)->name('memberships');
 
-Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
-Route::get('/user', CreateClient::class)->name('user');
 
 
 // Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
