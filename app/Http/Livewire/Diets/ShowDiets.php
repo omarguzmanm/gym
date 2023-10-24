@@ -37,7 +37,7 @@ class ShowDiets extends Component
 
 
     public function delete(Diet $diet){
-        Analysis::where('id_diet', $diet->id)->update(['id_diet' => null]);
+        Analysis::where('diet_id', $diet->id)->update(['diet_id' => null]);
         $diet->delete();
     }
 

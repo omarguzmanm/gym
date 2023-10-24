@@ -8,6 +8,7 @@
         </svg>
         Nueva rutina
     </button>
+    
     <x-dialog-modal wire:model="open">
         <x-slot name="name">
             Agregar nueva rutina
@@ -20,17 +21,6 @@
                 <strong class="font-bold">¡Imagen cargando!</strong>
                 <span class="block sm:inline">Espere un momento hasta que la imagen se haya procesado.</span>
             </div>
-
-            {{-- @if ($media) 
-                <div class="w-36 h-36 mx-auto overflow-hidden">
-                    <img class="object-cover object-center w-full h-full" src="{{ $media->temporaryUrl() }}" alt="Imagen">
-                </div> 
-                @endif  --}}
-            {{-- {{$media}} --}}
-            {{-- <iframe class="w-full aspect-video" src="{{$media}}"></iframe> --}}
-
-            {{-- <iframe class="w-full aspect-video" src="{{$media}}"></iframe> --}}
-
             <div class="mb-4">
                 <x-label for="name">Nombre</x-label>
                 <x-input type="text" wire:model="name"></x-input>
@@ -73,12 +63,12 @@
                             </div>
                             <div class="flex flex-col w-1/3 pr-4">
                                 <x-label for="sets">Sets</x-label>
-                                <x-input type="number" wire:model="exercisesArray.{{ $key }}.sets" required></x-input>
+                                <x-input type="number" wire:model="exercisesArray.{{ $key }}.sets" required min="0"></x-input>
                                 <x-input-error :for="'exercisesArray.' . $key . '.sets'"></x-input-error>
                             </div>
                             <div class="flex flex-col w-1/3">
                                 <x-label for="reps">Repeticiones</x-label>
-                                <x-input type="number" wire:model="exercisesArray.{{ $key }}.reps" required></x-input>
+                                <x-input type="text" wire:model="exercisesArray.{{ $key }}.reps" required min="0"></x-input>
                                 <x-input-error :for="'exercisesArray.' . $key . '.reps'"></x-input-error>
                             </div>
                         </div>
@@ -92,23 +82,6 @@
                     <span class="cursor-pointer text-orange-500 font-semibold" wire:click="addExercise">Agregar ejercicio</span>
                 </div>
             </div>
-            
-
-
-            {{-- <div class="mb-4"> --}}
-            {{-- <x-label for="media">Media</x-label> --}}
-            {{-- <div class="my-2">
-                    <button class="btn-add" type="submit" class="btn" wire:click="addImg">Imagen</button>
-                    <button class="btn-add" type="submit" class="btn" wire:click="addUrl">URL</button>
-                </div> --}}
-            {{-- @if ($url) --}}
-            {{-- <x-input type="text" wire:model="media" id="{{ $identifier }}"></x-input> --}}
-            {{-- @else --}}
-            {{-- <x-input type="file" wire:model="media" id="{{ $identifier }}"></x-input> --}}
-            {{-- @endif  --}}
-            {{-- <x-input-error for="media"></x-input-error> --}}
-            {{-- </div> --}}
-
         </x-slot>
 
         <x-slot name="footer">

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('routine_id');
             $table->unsignedBigInteger('exercise_id');
             $table->integer('sets')->default(4);
-            $table->integer('reps')->default(12);
+            $table->string('reps');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

@@ -12,7 +12,7 @@ class CreateRoutine extends Component
     public $open = false;
     public $name, $description, $level, $duration, $rating;
     public $exercisesArray = [
-        ['exercise_id' => null, 'sets' => null, 'reps' => null],
+        ['exercise_id' => null, 'sets' => null, 'reps' => null]
     ];
 
     protected $rules = [
@@ -28,7 +28,7 @@ class CreateRoutine extends Component
 
     public function render()
     {
-        $exercises = Exercise::all();
+        $exercises = Exercise::orderBy('name', 'asc')->get();
         return view('livewire.routines.create-routine', compact('exercises'));
     }
 
@@ -61,7 +61,7 @@ class CreateRoutine extends Component
                     ]);
                 }
             }
-            $this->reset(['open', 'name', 'description', 'level', 'duration']);
+            $this->reset(['open', 'name', 'description', 'level', 'duration', 'exercisesArray']);
             $this->emitTo('routines.show-routines', 'render');
             $this->emit('alert', 'La rutina se creó satisfactoriamente');
         }else{
@@ -73,7 +73,7 @@ class CreateRoutine extends Component
     public function updatingOpen()
     {
         if ($this->open == false) {
-            $this->reset(['open', 'name', 'description', 'level', 'duration']);
+            $this->reset(['open', 'name', 'description', 'level', 'duration','exercisesArray' ]);
         }
     }
 
