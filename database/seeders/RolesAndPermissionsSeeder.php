@@ -44,7 +44,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Asignar permisos a roles
         $role1->givePermissionTo('routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'chat');
         $role2->givePermissionTo('routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'chat');
-        $role3->givePermissionTo('appointments', 'analysis', 'diets', 'diets-report', 'analysis-report');
+        $role3->givePermissionTo('appointments', 'analysis', 'diets', 'diets-report', 'analysis-report', 'chat');
         $role4->givePermissionTo('routines', 'exercises');
         $role5->givePermissionTo('chat');
 

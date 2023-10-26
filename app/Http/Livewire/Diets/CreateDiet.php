@@ -13,13 +13,13 @@ class CreateDiet extends Component
     public $user_id, $user;
     public $tmb = 0;
     public $name, $description, $food_id;
-    public $mealCount = 0;
 
     public $groups = [], $foods = [], $meals = [];
     public $foodsArray = [
         ['food_id' => null, 'name' => null, 'group' => null, 'portion' => null]
     ];
-
+    public $count = 0; // contador para nombres únicos de comidas
+    
     protected $rules = [
         'user_id' => 'required',
         'description' => 'required',
@@ -50,7 +50,7 @@ class CreateDiet extends Component
     public function updatingOpen()
     {
         if ($this->open == true) {
-            $this->reset(['open', 'user_id', 'name', 'description', 'foodsArray','mealCount']);
+            $this->reset(['open', 'user_id', 'name', 'description', 'meals', 'count']);
             $this->resetValidation();
         }
     }
@@ -64,21 +64,16 @@ class CreateDiet extends Component
             'type' => $this->user->goal,
             'kcal' => $this->tmb
         ]);
-        // foreach ($this->foodsArray as $foodData) {
-        //     if ($foodData['food_id']) {
-        //         $diet->foods()->attach($foodData['food_id'], ['name' => $foodData['name']]);
-        //     }
-        // }
         foreach ($this->meals as $mealData) {
-            dd($mealData);
-            if ($mealData['foods']['food_id']) {
-                $diet->foods()->attach($mealData['foods']['food_id'], ['name', $mealData['name']]);
+            $mealName = $mealData['name'];
+            $foods = $mealData['foods'];
+    
+            foreach ($foods as $foodId) {
+                // Asocia el alimento con el nombre de la comida a la tabla pivote
+                $diet->foods()->attach($foodId, ['name' => $mealName]);
             }
         }
-        // $diet->foods()->attach($diet, ['name' => $this->name]);
         Analysis::where('user_id', $this->user_id)->whereNull('diet_id')->update(['diet_id' => $diet->id]);
-        // $diet->analysis()->where('user_id', $this->user_id)->->toSql();
-        // Analysis::update(['id_diet' =>$this->id_analysis]);
 
         //Reseteamos todos los valores del form/modal
         $this->reset(['open', 'user_id', 'description']);
@@ -120,37 +115,34 @@ class CreateDiet extends Component
             $this->foodsArray[$key]['portion'] = '';
         }
     }
-    public function mealCount($count)
+
+    public function addFood($foodId, $food)
     {
-        $this->mealCount = $count;
+        // Encuentra la comida correcta por su ID (Asociación)
+        $mealKey = array_search($foodId, array_column($this->meals, 'id'));
+        $this->meals[$mealKey]['foods'][] = $food;
     }
-    public function addFood()
-    {
-        $this->foodsArray[] = ['food_id' => null, 'name' => null];
-    }
+
     public function addMeal()
     {
         $this->meals[] = [
-            'name' => null,
-            'foods' => [
-                ['group' => null, 'food_id' => null, 'portion' => null],
-                ['group' => null, 'food_id' => null, 'portion' => null],
-                // ['group' => null, 'food_id' => null, 'portion' => null],
-                // ['group' => null, 'food_id' => null, 'portion' => null],
-                // ['group' => null, 'food_id' => null, 'portion' => null],
-            ]
+            'id' => $this->count,
+            'name' => '',
+            'foods' => [],
         ];
+        $this->count++; // Incrementa el contador para nombres únicos
     }
 
-    public function render()
+    public function render()    
     {
         $userAnalysis = Analysis::with('users')->get();
         // $foods = Food::whereJsonContains('info->Energia', '70 kcal')->get();
         // $foods = Food::all();
         $this->groups = Food::pluck('group')->unique();
         $this->tmb();
+        $foods2 = Food::all(); 
         // $this->infoFood();
-        return view('livewire.diets.create-diet', compact('userAnalysis'));
+        return view('livewire.diets.create-diet', compact('userAnalysis', 'foods2'));
     }
 
 }
