@@ -12,23 +12,18 @@ class CreateDiet extends Component
     public $open = false;
     public $user_id, $user;
     public $tmb = 0;
-    public $name, $description, $food_id;
-
-    public $groups = [], $foods = [], $meals = [];
-    public $foodsArray = [
-        ['food_id' => null, 'name' => null, 'group' => null, 'portion' => null]
-    ];
+    public $name, $description;
+    public $meals = [], $foods = [];
     public $count = 0; // contador para nombres únicos de comidas
     
     protected $rules = [
         'user_id' => 'required',
         'description' => 'required',
-        // 'foodsArray.*.food_id' => 'required',
-        // 'foodsArray.*.name' => 'required',
-        // 'foodsArray.*.group' => 'required',
-        // 'foodsArray.*.portion' => 'required'
+        'meals.*.name' => 'required',
+        // 'meals.*.groups.*' => 'required',
+        'meals.*.foods.*' => 'required',
+        // 'meals.*.portions.*' => 'required',
     ];
-
 
     public function mount()
     {
@@ -36,23 +31,47 @@ class CreateDiet extends Component
         $this->foods = collect();
     }
 
-    public function updateFoodOptions($key)
-    {
-        $selectedGroup = $this->foodsArray[$key]['group'];
-
-        // Obtenemos las comidas relacionadas con el grupo seleccionado
-        $foods = Food::where('group', $selectedGroup)->get();
-        $this->foodsArray[$key]['food_id'] = null; // Reinicia el valor de food_id
-        $this->foods = $foods; // Actualiza las opciones de food_id
-    }
-
-
     public function updatingOpen()
     {
         if ($this->open == true) {
             $this->reset(['open', 'user_id', 'name', 'description', 'meals', 'count']);
             $this->resetValidation();
         }
+    }
+
+    public function updateFoodOptions($mealId, $index)
+    {
+        // dd($this->meals[$mealId]['group'][$index]);
+        $group = $this->meals[$mealId]['groups'][$index];
+        $this->foods = Food::where('group', $group)->get();
+    }
+
+
+    public function updatePortion($mealId, $index)
+    {
+        $selectedFoodId = $this->meals[$mealId]['foods'][$index];
+        $food = Food::find($selectedFoodId);
+        $this->meals[$mealId]['portions'][$index] = $food->portion; 
+        // dd($this->meals[$mealId]['foods'][$index]);
+    }
+
+    public function addFood($foodId, $food)
+    {
+        // Encuentra la comida correcta por su ID (Asociación)
+        $mealKey = array_search($foodId, array_column($this->meals, 'id'));
+        $this->meals[$mealKey]['foods'][] = $food;
+    }
+
+    public function addMeal()
+    {
+        $this->meals[] = [
+            'id' => $this->count,
+            'name' => '',
+            'foods' => [],
+            'groups' => [],
+            'portions' => [],
+        ];
+        $this->count++; // Incrementa el contador para nombres únicos
     }
 
     public function save()
@@ -102,47 +121,16 @@ class CreateDiet extends Component
                 $this->tmb = intval($tmb * 1.9);
         }
     }
-    public function updatePortion($key)
-    {
-        $selectedFoodId = $this->foodsArray[$key]['food_id'];
-
-        // Obtiene la porción de la comida seleccionada
-        $food = Food::find($selectedFoodId);
-
-        if ($food) {
-            $this->foodsArray[$key]['portion'] = $food->portion;
-        } else {
-            $this->foodsArray[$key]['portion'] = '';
-        }
-    }
-
-    public function addFood($foodId, $food)
-    {
-        // Encuentra la comida correcta por su ID (Asociación)
-        $mealKey = array_search($foodId, array_column($this->meals, 'id'));
-        $this->meals[$mealKey]['foods'][] = $food;
-    }
-
-    public function addMeal()
-    {
-        $this->meals[] = [
-            'id' => $this->count,
-            'name' => '',
-            'foods' => [],
-        ];
-        $this->count++; // Incrementa el contador para nombres únicos
-    }
 
     public function render()    
     {
         $userAnalysis = Analysis::with('users')->get();
         // $foods = Food::whereJsonContains('info->Energia', '70 kcal')->get();
-        // $foods = Food::all();
-        $this->groups = Food::pluck('group')->unique();
+        // $this->foods = Food::all();
+        $groups = Food::pluck('group')->unique();
         $this->tmb();
-        $foods2 = Food::all(); 
-        // $this->infoFood();
-        return view('livewire.diets.create-diet', compact('userAnalysis', 'foods2'));
+        // $foods2 = Food::all(); 
+        return view('livewire.diets.create-diet', compact('userAnalysis', 'groups'));
     }
 
 }

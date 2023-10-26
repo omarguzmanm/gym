@@ -53,38 +53,53 @@
                 @foreach ($meals as $meal)
                     <div>
                         <div class="mb-4">
-                            <x-label for="meal{{ $meal['id'] }}">Comida {{ $meal['id'] }}:</x-label>
-                            <x-input type="text" id="meal{{ $meal['id'] }}" wire:model="meals.{{ $meal['id'] }}.name" required></x-input>
+                            <x-label for="meals.{{ $meal['id'] }}.name">Comida {{ $meal['id'] }}:</x-label>
+                            <x-input type="text" id="meals.{{ $meal['id'] }}.name" wire:model="meals.{{ $meal['id'] }}.name" required></x-input>
+                            <x-input-error for="meals.{{ $meal['id'] }}.name"></x-input-error>
                             <button wire:click="addFood({{ $meal['id'] }}, '')">Agregar Alimento</button>
                         </div>
                         {{-- <ul> --}}
-                            @foreach ($meal['foods'] as $index => $item)
-                                <div class="mb-4 flex flex-row items-center">
-                                    <div class="flex flex-col w-1/3 pr-4">
-                                        {{-- <x-label>Grupo</x-label> --}}
-                                        <select wire:model="meals.{{ $meal['id'] }}.foods.{{ $index }}">
-                                            @foreach ($foods2 as  $item2)
-                                                <option value="{{$item2->id}}">{{$item2->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="flex flex-col w-1/3 pr-4">
-                                        {{-- <x-label>Grupo</x-label> --}}
-                                        <select wire:model="meals.{{ $meal['id'] }}.foods.{{ $index }}">
-                                            @foreach ($foods2 as  $item2)
-                                                <option value="{{$item2->id}}">{{$item2->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                        @foreach ($meal['foods'] as $index => $item)
+                            <div class="mb-4 flex flex-row items-center">
+                                <div class="flex flex-col w-1/3 pr-4">
+                                    <x-label>Grupo</x-label>
+                                    <select wire:model="meals.{{ $meal['id'] }}.groups.{{$index}}" wire:change="updateFoodOptions({{$meal['id']}}, {{$index}})" class="modal-select">
+                                        <option value="">Elige una opción</option>
+                                        @foreach ($groups as $group)
+                                            <option value="{{ $group }}">{{ $group }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error for="meals.{{ $meal['id'] }}.groups.{{$index}}"></x-input-error>
                                 </div>
-                                {{-- <input type="text" wire:model="meals.{{ $meal['id'] }}.foods.{{ $index }}"> --}}
-                                <button wire:click="addFood({{ $meal['id'] }}, '')">Agregar Alimento</button>
-                            @endforeach
+                                <div class="flex flex-col w-1/3 pr-4">
+                                    <x-label>Alimento</x-label>
+                                    <select wire:model="meals.{{ $meal['id'] }}.foods.{{ $index }}" wire:change="updatePortion({{$meal['id']}}, {{$index}})" class="modal-select">
+                                        @if ($foods->count() == 0)
+                                            <option value="">Seleccione un grupo</option>
+                                        @else
+                                            <option value="">Elige una opción</option>
+                                        @endif
+                                        @foreach ($foods as $food)
+                                            <option value="{{ $food->id }}">{{ $food->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error for="meals.{{ $meal['id'] }}.foods.{{$index}}"></x-input-error>
+                                </div>
+                                <div class="flex flex-col w-1/3 pr-4">
+                                    <x-label for="meals.{{ $meal['id'] }}.portions.{{$index}}">Porción</x-label>
+                                    <x-input type="text" wire:model="meals.{{ $meal['id'] }}.portions.{{$index}}" required readOnly></x-input>
+                                    <x-input-error for="meals.{{ $meal['id'] }}.portions.{{$index}}"></x-input-error>
+                                </div>
+                            </div>
+                            {{-- <input type="text" wire:model="meals.{{ $meal['id'] }}.foods.{{ $index }}"> --}}
+                            {{-- <button wire:click="addFood({{ $meal['id'] }}, '')">Agregar Alimento</button> --}}
+                        @endforeach
                         {{-- </ul> --}}
                     </div>
                 @endforeach
                 <div class="mb-4">
-                    <span class="cursor-pointer text-orange-500 font-semibold" wire:click="addMeal">Agregar comida</span>
+                    <span class="cursor-pointer text-orange-500 font-semibold" wire:click="addMeal">Agregar
+                        comida</span>
                 </div>
             </div>
 
