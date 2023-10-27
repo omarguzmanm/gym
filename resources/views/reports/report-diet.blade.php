@@ -40,46 +40,54 @@
         /* Separación entre los elementos <p> */
         margin-right: 10px;
     }
+    .text {
+        font-size: 15px;
+        margin: 5px;
+        font-weight: normal;
+    }
 </style>
-@foreach ($diets as $diet)
+{{-- @foreach ($diets as $diet) --}}
     <div class="container2">
         <div class="left-column">
             {{-- <img src="{{asset('img/logo.png')}}" alt="logo future fit" style="width:10px"> --}}
-            <h6>Future fit</h6>
+            <img src="{{ public_path('img/logo-light.png') }}" alt="Future Fit Logo" width="120px"><br>
         </div>
         <div class="right-column">
-            <h6>Dirección y contacto</h6>
+            <h6 class="text">Las Fuentes #250</h6>
+            <h6 class="text">Tel: 3321 - 6598</h6>
         </div>
         <div class="mt-5">
             <p class="font-weight-normal">Reporte de dieta personalizado para <strong>{{ $diet->users->name }}</strong>
             </p>
             <p class="font-weight-normal">Fecha del reporte: {{ \Illuminate\Support\Carbon::now()->format('d/m/Y') }}
             </p>
+            <p class="font-weight-normal">Descripción de la dieta: {{$diet->diets->description}}
+            </p>
         </div>
 
         <div class="mt-5">
             <h4>Información del paciente</h4>
             <div class="mt-4" style="background-color: #f0f0f0; border: 1px solid #cfcfcf; border-radius: 5px; ">
-                <div class="mx-3 mt-2">
+                {{-- <div class="mx-3 mt-2">
                     <p>Nombre: <span>{{ $diet->users->name }}</span></p>
-                </div>
-                <div class="info-patient mx-3">
-                    <p class="p-inline" style="width:15%">Edad: <span>{{ $diet->age }}</span></p>
-                    <p class="p-inline" style="width:27%">Genero: <span>{{ $diet->gender }}</span></p>
-                    <p class="p-inline" style="width:25%">Altura: <span>{{ $diet->height }}</span></p>
-                    <p class="p-inline" style="width:25%">Peso: <span>{{ $diet->weight }}</span></p>
-                </div>
-                <div class="mx-3">
-                    <p class="p-inline" style="width:15%">IMC: <span>{{ $diet->age }}</span></p>
-                    <p class="p-inline" style="width:27%">Actividad: <span>{{ $diet->gender }}</span></p>
-                    <p class="p-inline" style="width:25%">Calorias p/día: <span>{{ $diet->height }}</span></p>
-                    <p class="p-inline" style="width:25%">Duración: <span>{{ $diet->weight }}</span></p>
+                </div> --}}
+                <div class="info-patient mt-3 mx-3">
+                    <p class="p-inline" style="width:22%">Edad: <span>{{ $diet->age }} años</span></p>
+                    <p class="p-inline text-capitalize" style="width:27%">Genero: <span>{{ $diet->gender }}</span></p>
+                    <p class="p-inline" style="width:20%">Altura: <span>{{ $diet->height }}cm</span></p>
+                    <p class="p-inline" style="width:20%">Peso: <span>{{ $diet->weight }}kg</span></p>
                 </div>
                 <div class="mx-3">
-                    <p>Principal objetivo: <span></span></p>
+                    <p class="p-inline" style="width:22%">IMC: <span>{{ $diet->imc }}</span></p>
+                    <p class="p-inline text-capitalize" style="width:27%">Actividad: <span>{{ $diet->activity }}</span></p>
+                    <p class="p-inline" style="width:25%">Calorias p/día: <span>{{ $diet->diets->kcal }}</span></p>
+                    {{-- <p class="p-inline" style="width:25%">Duración: <span>{{ $diet->weight }}</span></p> --}}
                 </div>
                 <div class="mx-3">
-                    <p>Notas y/o recomendaciones: <span></span></p>
+                    <p>Principal objetivo: <span class="text-capitalize">{{$diet->goal}}</span></p>
+                </div>
+                <div class="mx-3">
+                    <p>Notas y/o recomendaciones: <span class="text-capitalize">{{$diet->notes}}</span></p>
                 </div>
             </div>
         </div>
@@ -91,26 +99,26 @@
     </div>
 
 
-    {{-- <table class="table table-striped">
+    <table class="table table-sm">
     <thead>
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Code</th>
+            @foreach ($foods as $food)
+                <th scope="col">{{$food}}</th>
+            @endforeach
         </tr>
     </thead>
     <tbody>
-        @foreach ($diets as $diet)
+        {{-- @foreach ($diets as $diet) --}}
         <tr>
             <td>{{$diet->users->name}}</td>
             <td>{{$diet->users->email}}</td>
             <td>{{$diet->users->code}}</td>
-            </tr>
-            @endforeach
+         </tr>
+            {{-- @endforeach --}}
             
         </tbody>
-    </table> --}}
+    </table>
     </body>
-@endforeach
+{{-- @endforeach --}}
 
 </html>

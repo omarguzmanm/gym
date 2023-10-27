@@ -14,7 +14,7 @@ class CreateDiet extends Component
     public $tmb = 0;
     public $name, $description;
     public $meals = [], $foods = [];
-    public $count = 1; // contador para nombres únicos de comidas
+    public $count = 0; // contador para nombres únicos de comidas
     
     protected $rules = [
         'user_id' => 'required',

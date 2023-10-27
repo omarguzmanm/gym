@@ -53,7 +53,7 @@
                 @foreach ($meals as $meal)
                     <div>
                         <div class="mb-4">
-                            <x-label for="meals.{{ $meal['id'] }}.name">Comida {{ $meal['id'] }}:</x-label>
+                            <x-label for="meals.{{ $meal['id'] }}.name">Comida {{ $meal['id'] + 1}}:</x-label>
                             <div class="flex space-x-2 items-center">
                                 <x-input type="text" id="meals.{{ $meal['id'] }}.name" wire:model="meals.{{ $meal['id'] }}.name" required></x-input>
                                 <div title="Agregar alimento">

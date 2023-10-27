@@ -71,10 +71,10 @@
                     <x-label for="goal">Objetivos nutricionales</x-label>
                     <select name="goal" id="goal" class="modal-select" wire:model="goal" required>
                         <option value="null" disabled>Elige una opción</option>
-                        <option value="perdida">Pérdida de peso</option>
-                        <option value="ganancia">Ganancia de masa muscular</option>
-                        <option value="mantenimiento">Mantenimiento del peso actual</option>
-                        <option value="mejora">Mejora de salud general</option>
+                        <option value="Perdida de peso">Pérdida de peso</option>
+                        <option value="Ganancia muscular">Ganancia de masa muscular</option>
+                        <option value="Mantenimiento de peso">Mantenimiento del peso actual</option>
+                        <option value="Mejora de salud">Mejora de salud general</option>
                         {{-- <option value="otro">Objetivos especificos</option> --}}
                     </select>
                     <x-input-error for="goal"></x-input-error>

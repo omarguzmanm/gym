@@ -7,6 +7,7 @@ use App\Models\Analysis;
 use App\Models\Diet;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Hashids\Hashids;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ShowDiets extends Component
@@ -53,8 +54,15 @@ class ShowDiets extends Component
     {
         $hashids = new Hashids('', 20);
         $idDecode = $hashids->decode($id);
-        $diets = Analysis::with('diets', 'users')->where('user_id', $idDecode)->get();
-        $pdf = Pdf::loadView('reports.report-diet', compact('diets'));
+        $diet = Analysis::with('diets', 'users')->where('user_id', $idDecode)->first();
+        $dietId = $diet->diet_id;
+
+        $foods = DB::table('diet_food')
+        ->where('diet_id', $dietId)
+        ->pluck('name')->unique();
+    
+        // dd($pivotData);
+        $pdf = Pdf::loadView('reports.report-diet', compact('diet', 'foods'));
         return $pdf->stream('usersReportPDF.pdf');
     }
     
