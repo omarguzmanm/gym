@@ -73,9 +73,16 @@
                                                     <a class="cursor-pointer ml-4"
                                                         wire:click="$emit('deleteDiet', {{$item->diets->id}})">
                                                         <i class="fas fa-trash text-lg"></i></a>
+                                                    @php
+                                                        $userId = $item->users->id;
+                                                        // $hashids = new Hashids\Hashids('this is salt', 0, 'abcdefghijklmnopqrstuvwxyz'); // all lowercase
+                                                        $hashids = new Hashids\Hashids('', 20); 
+                                                        $userId = $hashids->encode($userId);
+                                                    @endphp
 
                                                     <a class="cursor-pointer ml-4"
-                                                        href="{{ route('reporte-dieta', $item->users->id) }}" >
+                                                        {{-- href="{{ route('reporte-dieta', $item->users->id) }}" > --}}
+                                                        href="{{ route('reporte-dieta', $userId) }}" >
                                                         <i class="fas fa-file-pdf text-lg"></i></a>
                                                 </td>
                                             </tr>

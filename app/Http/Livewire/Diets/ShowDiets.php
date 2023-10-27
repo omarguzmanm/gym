@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Analysis;
 use App\Models\Diet;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Hashids\Hashids;
+use Illuminate\Support\Facades\Auth;
 
 class ShowDiets extends Component
 {
@@ -25,6 +27,11 @@ class ShowDiets extends Component
 
     public function render()
     {
+        // $id = Auth::id();
+        // $hashids = new Hashids();
+        // $id = $hashids->encode($id);
+        // dd($id);
+
         $userDiet = Analysis::with('users', 'diets')
         ->whereHas('users', function ($query) {
             $query->where('name', 'LIKE', '%' . $this->search . '%');
@@ -44,7 +51,9 @@ class ShowDiets extends Component
 
     public function reportDiet($id)
     {
-        $diets = Analysis::with('diets', 'users')->where('user_id', $id)->get();
+        $hashids = new Hashids('', 20);
+        $idDecode = $hashids->decode($id);
+        $diets = Analysis::with('diets', 'users')->where('user_id', $idDecode)->get();
         $pdf = Pdf::loadView('reports.report-diet', compact('diets'));
         return $pdf->stream('usersReportPDF.pdf');
     }

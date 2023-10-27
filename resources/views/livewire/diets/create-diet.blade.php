@@ -54,9 +54,16 @@
                     <div>
                         <div class="mb-4">
                             <x-label for="meals.{{ $meal['id'] }}.name">Comida {{ $meal['id'] }}:</x-label>
-                            <x-input type="text" id="meals.{{ $meal['id'] }}.name" wire:model="meals.{{ $meal['id'] }}.name" required></x-input>
+                            <div class="flex space-x-2 items-center">
+                                <x-input type="text" id="meals.{{ $meal['id'] }}.name" wire:model="meals.{{ $meal['id'] }}.name" required></x-input>
+                                <div title="Agregar alimento">
+                                    <svg wire:click="addFood({{ $meal['id'] }}, '')" class="cursor-pointer w-6 h-6 text-gray-800 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.546.5a9.5 9.5 0 1 0 9.5 9.5 9.51 9.51 0 0 0-9.5-9.5ZM13.788 11h-3.242v3.242a1 1 0 1 1-2 0V11H5.304a1 1 0 0 1 0-2h3.242V5.758a1 1 0 0 1 2 0V9h3.242a1 1 0 1 1 0 2Z"/>
+                                    </svg>
+                                </div>
+                            </div>
                             <x-input-error for="meals.{{ $meal['id'] }}.name"></x-input-error>
-                            <button wire:click="addFood({{ $meal['id'] }}, '')">Agregar Alimento</button>
+                            {{-- <button wire:click="addFood({{ $meal['id'] }}, '')">Agregar Alimento</button> --}}
                         </div>
                         {{-- <ul> --}}
                         @foreach ($meal['foods'] as $index => $item)
@@ -98,8 +105,7 @@
                     </div>
                 @endforeach
                 <div class="mb-4">
-                    <span class="cursor-pointer text-orange-500 font-semibold" wire:click="addMeal">Agregar
-                        comida</span>
+                    <span class="cursor-pointer text-orange-500 font-semibold" wire:click="addMeal">Agregar comida</span>
                 </div>
             </div>
 
