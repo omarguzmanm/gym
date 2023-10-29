@@ -80,7 +80,7 @@ class CreateDiet extends Component
 
         $diet = Diet::create([
             'description' => $this->description,
-            'type' => $this->user->goal,
+            // 'type' => $this->user->goal,
             'kcal' => $this->tmb
         ]);
         foreach ($this->meals as $mealData) {
@@ -95,7 +95,7 @@ class CreateDiet extends Component
         Analysis::where('user_id', $this->user_id)->whereNull('diet_id')->update(['diet_id' => $diet->id]);
 
         //Reseteamos todos los valores del form/modal
-        $this->reset(['open', 'user_id', 'description']);
+        $this->reset(['open', 'user_id', 'description', 'meals', 'count']);
         $this->emitTo('diets.show-diets', 'render');
         $this->emit('alert', 'La dieta se creó correctamente.');
 

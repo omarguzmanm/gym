@@ -17,9 +17,10 @@ class ShowDiets extends Component
 
     protected $listeners = ['render', 'delete'];
 
-    public function mount(){
+    public function mount()
+    {
         // $this->identifier = rand();
-        $this->diet = new Diet(); 
+        $this->diet = new Diet();
     }
 
     protected $rules = [
@@ -34,17 +35,18 @@ class ShowDiets extends Component
         // dd($id);
 
         $userDiet = Analysis::with('users', 'diets')
-        ->whereHas('users', function ($query) {
-            $query->where('name', 'LIKE', '%' . $this->search . '%');
-        })
-        ->whereNotNull('diet_id')
-        ->orderBy('id', 'asc')
-        ->paginate(10);
+            ->whereHas('users', function ($query) {
+                $query->where('name', 'LIKE', '%' . $this->search . '%');
+            })
+            ->whereNotNull('diet_id')
+            ->orderBy('id', 'asc')
+            ->paginate(10);
         return view('livewire.diets.show-diets', compact('userDiet'));
     }
 
 
-    public function delete(Diet $diet){
+    public function delete(Diet $diet)
+    {
         Analysis::where('diet_id', $diet->id)->update(['diet_id' => null]);
         $diet->delete();
     }
@@ -57,13 +59,31 @@ class ShowDiets extends Component
         $diet = Analysis::with('diets', 'users')->where('user_id', $idDecode)->first();
         $dietId = $diet->diet_id;
 
-        $foods = DB::table('diet_food')
-        ->where('diet_id', $dietId)
-        ->pluck('name')->unique();
-    
-        // dd($pivotData);
-        $pdf = Pdf::loadView('reports.report-diet', compact('diet', 'foods'));
+        $dietUser = Diet::with([
+            'foods' => function ($query) use ($dietId) {
+                $query->select('foods.id', 'foods.name', 'foods.portion')
+                    ->where('diet_id', $dietId);
+            }
+        ])->find($dietId);
+        $meals = $dietUser->foods->unique('pivot.name')->pluck('pivot.name');
+
+
+        // Creamos un array que contiene las comidas como índice y un array como valor
+        $mealData = [];
+        foreach ($meals as $meal) {
+            $mealData[$meal] = [];
+        }
+        // Asignamos cada alimento de acuerdo a su comida
+        foreach ($dietUser->foods as $food) {
+            $mealData[$food->pivot->name][] = [
+                'name' => $food->name,
+                'portion' => $food->portion,
+            ];
+        }
+        // dd($mealData);
+
+        $pdf = Pdf::loadView('reports.report-diet', compact('diet', 'meals', 'dietUser', 'mealData'));
         return $pdf->stream('usersReportPDF.pdf');
     }
-    
+
 }

@@ -45,6 +45,7 @@
         margin: 5px;
         font-weight: normal;
     }
+
 </style>
 {{-- @foreach ($diets as $diet) --}}
     <div class="container2">
@@ -98,26 +99,30 @@
         </div>
     </div>
 
-
     <table class="table table-sm">
-    <thead>
-        <tr>
-            @foreach ($foods as $food)
-                <th scope="col">{{$food}}</th>
-            @endforeach
-        </tr>
-    </thead>
-    <tbody>
-        {{-- @foreach ($diets as $diet) --}}
-        <tr>
-            <td>{{$diet->users->name}}</td>
-            <td>{{$diet->users->email}}</td>
-            <td>{{$diet->users->code}}</td>
-         </tr>
-            {{-- @endforeach --}}
-            
+        <thead>
+            <tr>
+                @foreach ($meals as $meal)
+                    <th class="col-md-{{ 12 / count($meals) }}" scope="col">{{ $meal }}</th>
+                @endforeach
+            </tr>
+        </thead>
+        <tbody>
+            @php $maxCount = max(array_map('count', $mealData)); @endphp
+            @for ($i = 0; $i < $maxCount; $i++)
+                <tr>
+                    @foreach ($meals as $meal)
+                        <td class="col-md-{{ 12 / count($meals) }}">
+                            @if (isset($mealData[$meal][$i]))
+                                {{ $mealData[$meal][$i]['name'] }} ({{ $mealData[$meal][$i]['portion'] }})
+                            @endif
+                        </td>
+                    @endforeach
+                </tr>
+            @endfor
         </tbody>
     </table>
+    
     </body>
 {{-- @endforeach --}}
 

@@ -80,7 +80,7 @@
                                                         $userId = $hashids->encode($userId);
                                                     @endphp
 
-                                                    <a class="cursor-pointer ml-4"
+                                                    <a class="cursor-pointer ml-4" target="_blank" title="Imprimir dieta"
                                                         {{-- href="{{ route('reporte-dieta', $item->users->id) }}" > --}}
                                                         href="{{ route('reporte-dieta', $userId) }}" >
                                                         <i class="fas fa-file-pdf text-lg"></i></a>

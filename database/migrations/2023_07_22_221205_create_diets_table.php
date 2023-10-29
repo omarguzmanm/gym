@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('diets', function (Blueprint $table) {
             $table->id();
             $table->text('description'); //Goal
-            $table->string('type'); //Perdida, ganancia, etc.
+            // $table->string('type'); //Perdida, ganancia, etc.
             $table->string('kcal');
             // $table->json('foods')->nullable();
             $table->timestamps();
