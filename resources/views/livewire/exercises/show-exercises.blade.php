@@ -1,8 +1,8 @@
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
-        <div class="gap-4 mb-4">
+        {{-- <div class="gap-4 mb-4"> --}}
             <section class="bg-white dark:bg-gray-900 antialiased">
-                <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-8">
+                <div class="max-w-screen-xl px-4 py-4 mx-auto lg:px-16 sm:py-4 lg:py-4">
                     <div class="grid grid-cols-6 gap-x-16">
                         <div class="col-span-6 text-left mb-6">
                             <h2 class="text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
@@ -30,39 +30,39 @@
                                 </div>
                             </div>
                                   <div class="overflow-x-auto">
-                                @if (count($exercises))                        
-                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" class="px-4 py-3">Nombre</th>
-                                            <th scope="col" class="px-4 py-3">Acciones</th>
-                                            
-                                            {{-- <th scope="col" class="px-4 py-3">Nombre</th> --}}
-                                            {{-- <th scope="col" class="px-4 py-3">Renovación</th>
-                                            <th scope="col" class="px-4 py-3">Estado</th>
-                                            <th scope="col" class="px-4 py-3">Acciones</th> --}}
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($exercises as $item)
-                                                    <tr class="border-b dark:border-gray-700">
-                                                        <th scope="row" wire:click="showExerciseDetails({{$item->id}})" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer dark:hover:bg-gray-600">{{$item->name}}</th>
-                                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
-                                                            @livewire('exercises.edit-exercise', ['exercise' => $item], key($item->id))
-                                                                                                                
-                                                            <a class="cursor-pointer ml-4" wire:click="$emit('deleteExercise', {{ $item->id }})" title="Eliminar">
-                                                                <i class="fas fa-trash text-lg"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                        </tbody>
-                                    </table>
-                                    @if ($exercises->hasPages())
-                                            <div class="px-6 py-3">
-                                                {{ $exercises->links() }} {{-- Mostramos la paginación --}}
-                                            </div>
-                                    @endif
+                                    @if (count($exercises))                        
+                                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            <tr>
+                                                <th scope="col" class="px-4 py-3">Nombre</th>
+                                                <th scope="col" class="px-4 py-3">Acciones</th>
+                                                
+                                                {{-- <th scope="col" class="px-4 py-3">Nombre</th> --}}
+                                                {{-- <th scope="col" class="px-4 py-3">Renovación</th>
+                                                <th scope="col" class="px-4 py-3">Estado</th>
+                                                <th scope="col" class="px-4 py-3">Acciones</th> --}}
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($exercises as $item)
+                                                        <tr class="border-b dark:border-gray-700">
+                                                            <th scope="row" wire:click="showExerciseDetails({{$item->id}})" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer dark:hover:bg-gray-600">{{$item->name}}</th>
+                                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
+                                                                @livewire('exercises.edit-exercise', ['exercise' => $item], key($item->id))
+                                                                                                                    
+                                                                <a class="cursor-pointer ml-4" wire:click="$emit('deleteExercise', {{ $item->id }})" title="Eliminar">
+                                                                    <i class="fas fa-trash text-lg"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                            </tbody>
+                                        </table>
+                                        @if ($exercises->hasPages())
+                                                <div class="px-6 py-3">
+                                                    {{ $exercises->links() }} {{-- Mostramos la paginación --}}
+                                                </div>
+                                        @endif
                                 </div>
                                 @endif
                             </div>
@@ -92,15 +92,17 @@
                                 </div>
                             </div> 
                         @else
-                            <div class="col-span-3 text-center mt-8">
-                                <h5 class="dark:text-gray-300">Toca un ejercicio para ver más deatalles</h5>
-                            </div>
+                            @if (count($exercises) > 0)
+                                <div class="col-span-3 text-center mt-8">
+                                    <h5 class="dark:text-gray-300">Toca un ejercicio para ver más detalles</h5>
+                                </div>
+                            @endif
                         @endif
 
 
                 </div>
             </section>
-        </div>
+        {{-- </div> --}}
     </div>
     @push('js')
         <script>

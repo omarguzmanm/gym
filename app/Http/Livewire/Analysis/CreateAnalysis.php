@@ -71,7 +71,7 @@ class CreateAnalysis extends Component
             $imc = $this->weight / ($height * $height);
             $this->imc = number_format($imc, 2);
         }
-        $users = User::select('id', 'name')->get();
+        $users = User::select('id', 'name')->orderBy('name', 'asc')->get();
         return view('livewire.analysis.create-analysis', compact('users'));
     }
 }

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('users');
 
         User::factory(100)->create();
-        $this->call(MembershipSeeder::class);
+        $this->call([MembershipSeeder::class, RolesAndPermissionsSeeder::class]);
 
         // Usuarios de prueba
         $cliente = User::factory()->create([

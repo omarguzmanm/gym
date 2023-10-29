@@ -34,21 +34,21 @@ Route::middleware([
     // 'redirectbyrole'
 ])->group(function () {
     Route::get('/', ShowUsers::class)->name('dashboard');
-    Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket');
-    Route::get('/membresias', AdminMemberships::class)->name('membresias');
+    Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket')->middleware('permission:ticket');
+    Route::get('/membresias', AdminMemberships::class)->name('membresias')->middleware('permission:memberships');
 
-    Route::get('/citas', ShowAppointments::class)->name('citas');
-    Route::get('/analisis', ShowAnalysis::class)->name('analisis');
-    Route::get('/analisis/{id}/report', [ShowAnalysis::class, 'reportAnalysis'])->name('reporte-analisis');
+    Route::get('/citas', ShowAppointments::class)->name('citas')->middleware('permission:appointments');
+    Route::get('/analisis', ShowAnalysis::class)->name('analisis')->middleware('permission:analysis');
+    Route::get('/analisis/{id}/report', [ShowAnalysis::class, 'reportAnalysis'])->name('reporte-analisis')->middleware('permission:analysis-report');
 
-    Route::get('/dietas', ShowDiets::class)->name('dietas');
-    Route::get('/dietas/{id}/reporte', [ShowDiets::class, 'reportDiet'])->name('reporte-dieta');
+    Route::get('/dietas', ShowDiets::class)->name('dietas')->middleware('permission:diets');
+    Route::get('/dietas/{id}/reporte', [ShowDiets::class, 'reportDiet'])->name('reporte-dieta')->middleware('permission:diets-report');
 
-    Route::get('/rutinas', ShowRoutines::class)->name('rutinas');
-    Route::get('/ejercicios', ShowExercises::class)->name('ejercicios');
+    Route::get('/rutinas', ShowRoutines::class)->name('rutinas')->middleware('permission:routines');
+    Route::get('/ejercicios', ShowExercises::class)->name('ejercicios')->middleware('permission:exercises');
 
-    Route::get('/usuarios', CreateChat::class)->name('users');
-    Route::get('/chat/{key?}', Main::class)->name('chat');
+    Route::get('/usuarios', CreateChat::class)->name('users')->middleware('permission:users');
+    Route::get('/chat/{key?}', Main::class)->name('chat')->middleware('permission:chat');
 });
 
 

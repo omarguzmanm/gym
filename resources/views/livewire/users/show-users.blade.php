@@ -105,7 +105,7 @@
                                                     @livewire('users.edit-renew', ['user' => $item], key($item->name))
                                                     
                                                     
-                                                    <a class="cursor-pointer ml-4" href="{{route('ticket', $item->id)}}" title="Ticket">
+                                                    <a class="cursor-pointer ml-4" href="{{route('ticket', $item->id)}}" target="_blank" title="Ticket">
                                                         <i class="fas fa-file-pdf text-lg"></i></a>
                                                         
                                                     @livewire('users.edit-user', ['user' => $item], key($item->id))

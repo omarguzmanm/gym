@@ -2,10 +2,9 @@
     <div class="p-4 dark:border-gray-700 mt-14">
         <div class="gap-4 mb-4">
             <section class="bg-white dark:bg-gray-900 antialiased">
-                <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-8">
+                <div class="max-w-screen-xl px-4 py-4 mx-auto lg:px-16 sm:py-4 lg:py-4">
                     {{-- <div class="grid grid-cols-6 gap-x-16"> --}}
-                    <div class="grid grid-cols-8 md:grid-cols-12 gap-y-5 gap-10 mx-5">      
-                        
+                    <div class="grid grid-cols-8 md:grid-cols-12 gap-y-5 gap-10">      
                         <div class="col-span-8 text-left">
                             <h2 class="text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
                                 Rutinas

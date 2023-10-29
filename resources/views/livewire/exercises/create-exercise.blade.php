@@ -45,8 +45,8 @@
                 <x-label for="mmuscle_group">Grupo muscular</x-label>
                 <select class="modal-select" wire:model="muscle_group" required>
                     <option value="">Selecciona una opción</option>
-                    <option value="biceps">Biceps</option>
-                    <option value="triceps">Triceps</option>
+                    <option value="biceps">Bíceps</option>
+                    <option value="triceps">Tríceps</option>
                     <option value="pectorales">Pectorales</option>
                     <option value="hombros">Hombros</option>
                     <option value="espalda">Espalda</option>
@@ -54,6 +54,7 @@
                     <option value="femorales">Femorales</option>
                     <option value="gluteos">Gluteos</option>
                     <option value="pantorrilla">Pantorrilla</option>
+                    <option value="abdomen">Abdomen</option>
                 </select>
                 <x-input-error for="muscle_group"></x-input-error>
             </div>

@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diets', function (Blueprint $table) {
+        Schema::create('diet_food', function (Blueprint $table) {
             $table->id();
-            $table->text('description'); //Goal
-            // $table->string('type'); //Perdida, ganancia, etc.
-            $table->string('kcal');
-            // $table->json('foods')->nullable();
+            $table->string('name'); // Desayuno, almuerzo, etc.
+
+            $table->unsignedBigInteger('diet_id');
+            $table->unsignedBigInteger('food_id');
+
+            $table->foreign('diet_id')->references('id')->on('diets');
+            $table->foreign('food_id')->references('id')->on('foods');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diets');
+        Schema::dropIfExists('diet_food');
     }
 };

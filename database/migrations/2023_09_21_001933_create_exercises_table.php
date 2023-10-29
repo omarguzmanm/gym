@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('muscle_group');
             // $table->string('type');
             $table->string('equipment');
-            $table->string('media');
+            $table->string('media')->nullable();
             $table->timestamps();
         });
     }

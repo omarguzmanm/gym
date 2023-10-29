@@ -34,7 +34,7 @@
                     @foreach ($availableHours as $hour)
                         <div wire:click="selectHour({{ $hour }})"
                             class="mx-2 my-2 btn {{ $selectedHour == $hour ? 'btn-appointment-selected' : 'btn-appointment' }}">
-                            {{ spprintf('%02d', $hour) }}:00
+                            {{ sprintf('%02d', $hour) }}:00
                         </div>
                     @endforeach
                 </div>
