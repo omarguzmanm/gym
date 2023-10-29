@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Appointments;
 
 use App\Models\Appointment;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class ShowAppointments extends Component
 {

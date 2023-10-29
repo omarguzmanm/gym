@@ -13,7 +13,7 @@ class CreateExercise extends Component
 
     public $open = false;
     public $identifier;
-    public $name, $description, $muscle_group, $type, $equipment, $media;
+    public $name, $description, $muscle_group, $type, $equipment = 'ninguno', $media;
     // public $url = false, $img = false;
 
     public function mount()
@@ -32,13 +32,13 @@ class CreateExercise extends Component
         'muscle_group' => 'required',
         // 'type' => 'required',
         'equipment' => 'required',
-        'media' => 'required',
+        // 'media' => 'required',
     ];
 
     public function save()
     {
         $this->validate();
-        $image = $this->media->store('exercises');
+        // $image = $this->media->store('exercises');
 
         $exercise = Exercise::create([
             'name' => $this->name,
@@ -46,7 +46,7 @@ class CreateExercise extends Component
             'muscle_group' => $this->muscle_group,
             // 'type' => $this->type,
             'equipment' => $this->equipment,
-            'media' => $image
+            // 'media' => $image
         ]);
 
         $this->reset(['open','name', 'description', 'muscle_group', 'equipment', 'media']);

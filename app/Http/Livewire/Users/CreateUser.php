@@ -125,8 +125,8 @@ class CreateUser extends Component
         if ($this->open == false) {
             $this->reset(['name', 'phone_number', 'address', 'image']);
             $this->identifier = rand();
-            $this->emit('resetCKEditor');
-
+            // $this->emit('resetCKEditor');
+            $this->resetValidation();
         }
     }
 
