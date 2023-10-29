@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Unique;
 use Laravel\Jetstream\Features;
 
 class UserFactory extends Factory
@@ -26,7 +27,7 @@ class UserFactory extends Factory
     {
         return [
             'name'                      => $this->faker->name(),      
-            'code'                      => rand(1000,9999),
+            'code'                      => $this->faker->unique()->randomNumber(4, true),
             'email'                     => $this->faker->email(),
             'phone_number'              => $this->faker->phoneNumber(),
             'address'                   => $this->faker->address(),

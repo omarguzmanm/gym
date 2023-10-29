@@ -31,7 +31,6 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    // 'redirectbyrole'
 ])->group(function () {
     Route::get('/', ShowUsers::class)->name('dashboard');
     Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket')->middleware('permission:ticket');

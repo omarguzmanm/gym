@@ -15,6 +15,7 @@
     @endif
 
     <form wire:submit.prevent="save">
+        @role(['Super Administrador', 'Nutriologo'])
         <x-label for="patient" class="mb-1">Selecciona al paciente:</x-label>
         <div wire:ignore>
             <select class="w-full" id="patient" required>
@@ -23,7 +24,8 @@
                 @endforeach
             </select>
         </div>
-            <x-input-error for="patient"></x-input-error>
+        <x-input-error for="patient"></x-input-error>
+        @endrole
 
         <x-label for="day" class="mb-1">Selecciona una fecha:</x-label>
         <x-input type="date" id="day" wire:model="day" class="mb-2" required min="{{ date('Y-m-d') }}" style="color-scheme:dark;"></x-input>
@@ -60,7 +62,7 @@
         </div>
         <div class="flex items-center justify-start lg:justify-end">
             <button type="submit" wire:loading.attr="disabled"
-                class="flex items-center justify-end text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                class="mt-2 flex items-center justify-end text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd"

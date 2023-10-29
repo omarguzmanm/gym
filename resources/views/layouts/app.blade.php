@@ -56,6 +56,13 @@
                 'success'
             )
         })
+        Livewire.on('alertError', function(message) {
+            Swal.fire(
+                '¡Error!',
+                message,
+                'error'
+            )
+        })
     </script>
     <script>
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC

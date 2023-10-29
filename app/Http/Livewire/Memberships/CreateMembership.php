@@ -33,7 +33,7 @@ class CreateMembership extends Component
         $this->reset(['open', 'type', 'plan', 'price']);
         // $this->emitTo('admin-memberships', 'render');
         $this->emitTo('memberships.admin-memberships', 'render');
-        $this->emit('alert', 'La membresia se creó correctamente.');
+        $this->emit('alert', 'La membresia se creó correctamente');
 
     }
 

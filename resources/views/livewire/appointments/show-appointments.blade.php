@@ -7,7 +7,7 @@
                 <div class="sm:col-span-5 md:col-span-5 lg:col-span-3 col-span-5">
                     <div class="max-w-3xl mx-auto text-center">
                         <h2 class="text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white">
-                          Proximas citas
+                          {{Auth::user()->hasRole('Cliente') ? 'Mis citas' : 'Proximas citas'}}
                         </h2>
                         <div class="mt-4 inline-flex items-center">
                           {{-- @if () --}}
@@ -28,16 +28,14 @@
                       </div>
                       <div class="flow-root max-w-3xl mx-auto mt-8 sm:mt-12 lg:mt-10">
                           <div class="-my-4 divide-y divide-gray-200 dark:divide-gray-700">
-                            @foreach ($appointments as $item)
+                            @foreach (Auth::user()->hasRole('Cliente') ? $appointments->where('user_id', Auth::id()) : $appointments as $item)
                               <div class="flex flex-col gap-2 py-4 sm:gap-6 sm:flex-row sm:items-center">
-                                <p class="w-32 text-lg font-normal text-gray-500 sm:text-right dark:text-gray-400 shrink-0">
-                                  {{ sprintf('%02d', $item->hour) }}:00 - {{ sprintf('%02d', $item->hour + 1) }}:00
-                                </p>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                  {{-- <a href="#" class="hover:underline">{{$item->users->name}}</a> --}}
-                                  @livewire('appointments.edit-appointment', ['appointment' => $item], key($item->id))
-                                  {{-- @include('partials.modal') --}}
-                                </h3>
+                                  <p class="w-32 text-lg font-normal text-gray-500 sm:text-right dark:text-gray-400 shrink-0">
+                                      {{ sprintf('%02d', $item->hour) }}:00 - {{ sprintf('%02d', $item->hour + 1) }}:00
+                                  </p>
+                                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                      @livewire('appointments.edit-appointment', ['appointment' => $item], key($item->id))
+                                  </h3>
                               </div>
                             @endforeach
                           </div>
