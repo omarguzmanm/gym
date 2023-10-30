@@ -35,7 +35,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'analysis-report',
             'users',
             'chat',
-            'myProgress'
+            'myProgress',
+            'routine-exercises'
         ];
 
         foreach ($permissions as $permission) {
@@ -47,7 +48,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $role2->givePermissionTo('routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'chat');
         $role3->givePermissionTo('appointments', 'analysis', 'diets', 'diets-report', 'analysis-report', 'chat');
         $role4->givePermissionTo('routines', 'exercises');
-        $role5->givePermissionTo('appointments', 'routines', 'chat', 'myProgress');
+        $role5->givePermissionTo('appointments', 'routines', 'chat', 'myProgress', 'routine-exercises');
 
     }
 }

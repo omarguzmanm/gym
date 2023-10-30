@@ -4,6 +4,7 @@ use App\Http\Livewire\Analysis\ShowAnalysis;
 use App\Http\Livewire\Appointments\ShowAppointments;
 use App\Http\Livewire\Chat\CreateChat;
 use App\Http\Livewire\Chat\Main;
+use App\Http\Livewire\Routines\ShowRoutineExercises;
 use App\Http\Livewire\Users\CreateUser;
 use App\Http\Livewire\Memberships\AdminMemberships;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,7 @@ Route::middleware([
     Route::get('/dietas/{id}/reporte', [ShowDiets::class, 'reportDiet'])->name('reporte-dieta')->middleware('permission:diets-report');
 
     Route::get('/rutinas', ShowRoutines::class)->name('rutinas')->middleware('permission:routines');
+    Route::get('/rutina/{id}', ShowRoutineExercises::class)->name('rutina-seleccionada')->middleware('permission:routines');
     Route::get('/ejercicios', ShowExercises::class)->name('ejercicios')->middleware('permission:exercises');
 
     Route::get('/usuarios', CreateChat::class)->name('users')->middleware('permission:users');

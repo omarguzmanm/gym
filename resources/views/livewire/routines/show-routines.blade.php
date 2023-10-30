@@ -36,25 +36,33 @@
                         @if (count($routines))                            
                             @foreach ($routines as $routine)
                                 <div class="col-span-9 md:col-span-8 lg:col-span-4">
-                                    <div class="md:h-[155px] rounded-lg shadow dark:bg-gray-800">
+                                    <div class="md:h-[160px] rounded-lg shadow dark:bg-gray-800">
                                         <div class="p-5">
-                                            <h3 class="mt-1 text-xl font-bold text-gray-800 dark:text-gray-200">{{$routine->name}}</h3>
+                                            <div class="flex justify-between items-center">
+                                                <h3 class="mt-1 text-xl font-bold text-gray-800 dark:text-gray-200">{{$routine->name}}</h3>
+                                                <p class="bg-orange-600 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" title="Calificación">{{$routine->rating}}</p>
+                                            </div>
                                             {{-- <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->description}}</p> --}}
                                             <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->level}}</p>
                                             <p class="mt-1 mb-3 text-xs font-normal text-gray-500">{{$routine->duration}} minutos</p>
                                             @role(['Entrenador', 'Super Administrador'])
                                                 <div class="flex justify-end text-gray-500 dark:text-gray-400">
                                                     @livewire('routines.edit-routine', ['routine' => $routine], key($routine->id))
-                                                    <a class="cursor-pointer ml-4" wire:click="$emit('deleteRoutine', {{ $routine->id }})">
+                                                    <a class="cursor-pointer ml-4" title="Eliminar" wire:click="$emit('deleteRoutine', {{ $routine->id }})">
                                                         <i class="fas fa-trash text-lg"></i>
                                                     </a>
                                                 </div>
                                             @endrole
-                                            <div class="flex justify-end">
-                                                <a class="cursor-pointer w-36 h-8 flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                                    <i class="fa-solid fa-play mr-3"></i> Iniciar rutina
-                                                </a>
-                                            </div>
+                                            @role('Cliente')
+                                                <div class="flex justify-end">
+                                                    <a href="{{route('rutina-seleccionada', $routine->id)}}" class="cursor-pointer w-24 h-8 flex items-center justify-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                                                        <i class="fa-solid fa-play mr-3"></i> Iniciar
+                                                    </a>
+                                                    {{-- <a href="{{route('rutina-seleccionada', $routine->id)}}" class="cursor-pointer dark:text-white px-2 border border-orange-500 rounded-full bg-orange-400">
+                                                        <i class="fa-solid fa-play mr-3"></i> Iniciar 
+                                                    </a> --}}
+                                                </div>
+                                            @endrole
                                         </div>
                                     </div>
                                 </div>
