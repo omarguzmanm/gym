@@ -67,7 +67,7 @@ class MembershipSeeder extends Seeder
                 [
                     'user_id' => $user->id,
                     'inscription' => now(),
-                    'renew_date' => now(),
+                    'renew_date' => now()->addMonth(),
                     'status' => 1
                 ]
             );
