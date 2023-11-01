@@ -34,7 +34,7 @@
                                         <h5 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-400">Equipamiento: <span class="font-normal capitalize">{{$exercise->equipment}}</span></h5>
                                         <h5 class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-400">Músculos: <span class="font-normal capitalize">{{$exercise->muscle_group}}</span></h5>
                                         <div class="flex justify-end">
-                                            <a class="cursor-pointer text-xs font-semibold text-gray-700 dark:text-gray-300" title="Agregar maxima repetición">Agregar RM</a>
+                                            <a wire:click="createPr({{$exercise}})" class="cursor-pointer text-xs font-semibold text-gray-700 dark:text-gray-300" title="Agregar maxima repetición">Agregar PR</a>
                                         </div>
                                     </div>
                                 </div>
@@ -45,4 +45,32 @@
             </section>
         </div>
     </div>
+         {{-- Crear Pr --}}
+         <x-dialog-modal wire:model="open_pr">
+            <x-slot name="name">
+                Agregar Record Personal
+            </x-slot>
+            <x-slot name="content">
+                <div class="mb-4">
+                    <x-label value="Ejercicio"></x-label>
+                    <x-input wire:model="exercise" type="text" class="w-full" readOnly></x-input>
+                </div>
+                <div class="mb-4">
+                    <x-label value="Peso maximo (kg)"></x-label>
+                    <x-input wire:model="pr" type="number" class="w-full"></x-input>
+                </div>
+                <div class="mb-4">
+                    <x-label value="Repeticiones"></x-label>
+                    <x-input wire:model="reps" type="number" class="w-full"></x-input>
+                </div>
+            </x-slot>
+            <x-slot name="footer">
+                <x-secondary-button class="mr-3" wire:click="$set('storePr', false)">
+                    Cancelar
+                </x-secondary-button>
+                <x-danger-button wire:click="save" wire:loading.attr="disabled" class="disabled:opacity-25">
+                    Agregar
+                </x-danger-button>
+            </x-slot>
+        </x-dialog-modal>
 </div>
