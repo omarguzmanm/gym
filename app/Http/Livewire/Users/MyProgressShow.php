@@ -31,7 +31,7 @@ class MyProgressShow extends Component
         $this->prs = $this->prRecords->pluck('pr');
         $this->reps = $this->prRecords->pluck('reps');
     
-        $this->emit('updateTheChart'); // Para actualizar la primera gráfica
+        $this->emit('updatePRChart'); // Para actualizar la primera gráfica
         $this->emit('updateRepsChart'); // Para actualizar la segunda gráfica
     }
     public function render()

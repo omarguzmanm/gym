@@ -19,66 +19,24 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-8 col-span-8 md:col-span-4" wire:ignore x-data="{
+                    <div class="col-span-8 md:col-span-8" wire:ignore x-data="{
                         selectedExercise: @entangle('selectedExercise'),
                         prs: @entangle('prs'),
-                        {{-- reps: @entangle('reps'), --}}
+                        reps: @entangle('reps'),
                         dates: @entangle('dates'),
                         init() {
-                            const data = {
+                            const prData = {
                                 labels: this.dates,
                                 datasets: [{
-                                    label: this.selectedExercise +  '- PR' ,
+                                    label: this.selectedExercise + ' - PR',
                                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                     borderColor: 'rgba(75, 192, 192, 1)',
                                     borderWidth: 1,
                                     data: this.prs
-                                },
-                                ]
+                                }]
                             };
-                            const config = {
-                                type: 'line',
-                                data: data,
-                                options: {
-                                    scales: {
-                                        x: {
-                                            title: {
-                                                display: true,
-                                                text: 'Fecha'
-                                            }
-                                        },
-                                        y: {
-                                            title: {
-                                                display: true,
-                                                text: 'PR (kg)'
-                                            }
-                                        }
-                                    }
-                                }
-                            };
-                            const myChart = new Chart(
-                                this.$refs.canvas,
-                                config
-                            );
                     
-                            Livewire.on('updateTheChart', () => {
-                                myChart.data.labels = this.dates
-                                myChart.data.datasets[0].label = this.selectedExercise + ' - PR';
-                                myChart.data.datasets[0].data = this.prs;
-                                myChart.update();
-                            })
-                        }
-                    }">
-                        {{-- <div class="col-span-5"> --}}
-                        <canvas id="myChart" x-ref="canvas"></canvas>
-                        {{-- </div> --}}
-                    </div>
-                    <div class="col-span-8 md:col-span-4" wire:ignore x-data="{
-                        selectedExercise: @entangle('selectedExercise'),
-                        reps: @entangle('reps'),
-                        dates: @entangle('dates'),
-                        init() {
-                            const data = {
+                            const repsData = {
                                 labels: this.dates,
                                 datasets: [{
                                     label: this.selectedExercise + ' - Repeticiones',
@@ -88,9 +46,9 @@
                                     data: this.reps
                                 }]
                             };
+                    
                             const config = {
                                 type: 'line',
-                                data: data,
                                 options: {
                                     scales: {
                                         x: {
@@ -102,16 +60,29 @@
                                         y: {
                                             title: {
                                                 display: true,
-                                                text: 'Repeticiones'
+                                                text: 'PR / Repeticiones'
                                             }
                                         }
                                     }
                                 }
                             };
+                    
+                            const prChart = new Chart(
+                                this.$refs.prCanvas,
+                                { ...config, data: prData }
+                            );
+                    
                             const repsChart = new Chart(
                                 this.$refs.repsCanvas,
-                                config
+                                { ...config, data: repsData }
                             );
+                    
+                            Livewire.on('updatePRChart', () => {
+                                prChart.data.labels = this.dates;
+                                prChart.data.datasets[0].label = this.selectedExercise + ' - PR';
+                                prChart.data.datasets[0].data = this.prs;
+                                prChart.update();
+                            });
                     
                             Livewire.on('updateRepsChart', () => {
                                 repsChart.data.labels = this.dates;
@@ -121,8 +92,15 @@
                             });
                         }
                     }">
-                        <canvas id="reps-chart" x-ref="repsCanvas"></canvas>
-                    </div>
+                        <div class="flex">
+                            <div class="w-1/2">
+                                <canvas id="pr-chart" x-ref="prCanvas"></canvas>
+                            </div>
+                            <div class="w-1/2">
+                                <canvas id="reps-chart" x-ref="repsCanvas"></canvas>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </section>
