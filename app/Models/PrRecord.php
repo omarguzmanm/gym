@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PrRecord extends Model
 {
+    
     use HasFactory;
 
     protected $table = 'pr_records'; // Especificamos el nombre de la tabla

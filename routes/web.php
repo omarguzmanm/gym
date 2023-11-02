@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MyProgressController;
 use App\Http\Livewire\Analysis\ShowAnalysis;
 use App\Http\Livewire\Appointments\ShowAppointments;
 use App\Http\Livewire\Chat\CreateChat;
@@ -13,6 +14,7 @@ use App\Http\Livewire\Users\CreateClient;
 use App\Http\Livewire\Diets\ShowDiets;
 use App\Http\Livewire\Exercises\ShowExercises;
 use App\Http\Livewire\Routines\ShowRoutines;
+use App\Http\Livewire\Users\MyProgressShow;
 
 // Landing page views
 Route::middleware([
@@ -34,6 +36,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/', ShowUsers::class)->name('dashboard');
+    Route::get('/mi-progreso', MyProgressShow::class)->name('miProgreso')->middleware('permission:myProgress');
+    // Route::get('/mi-progreso', [MyProgressController::class, 'index'])->name('miProgreso')->middleware('permission:myProgress');
     Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket')->middleware('permission:ticket');
     Route::get('/membresias', AdminMemberships::class)->name('membresias')->middleware('permission:memberships');
 
@@ -51,19 +55,3 @@ Route::middleware([
     Route::get('/usuarios', CreateChat::class)->name('users')->middleware('permission:users');
     Route::get('/chat/{key?}', Main::class)->name('chat')->middleware('permission:chat');
 });
-
-
-
-
-// Route::post('/analysis', [AnalysisUser::class, 'submit'])->name('analysis.submit');
-// Route::get('/workouts', ShowDietUser::class)->name('workouts');
-
-// Route::get('/dietas', ShowDietUser::class)->name('dietas');
-// Route::get('/dietas/{id}/reporte', [ShowDietUser::class, 'reportDiet'])->name('reporte-dieta');
-// Route::post('/diets', [DietUser::class, 'store'])->name('diets.store');
-
-
-
-// Citas
-// Route::get('/citas', CreateAppointment::class)->name('citas')->middleware('guest');
-// Route::get('/showCitas', ShowAppointments::class)->name('show-citas')->middleware('auth');
