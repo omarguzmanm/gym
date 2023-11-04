@@ -19,7 +19,7 @@
             Fecha de renovación: <span class="max-w-xl text-base text-gray-600 dark:text-gray-400">{{\Carbon\Carbon::parse($userMemberships[0]->pivot->renew_date)->format('d/m/Y')}}</span>         
         </h3>
         <h3 class="mt-2 text-base font-medium text-gray-900 dark:text-gray-100">
-            Fecha de incripción: <span class="max-w-xl text-base text-gray-600 dark:text-gray-400">{{\Carbon\Carbon::parse($userMemberships[0]->pivot->inscription)->format('d/m/Y')}}</span> 
+            Fecha de inscripción: <span class="max-w-xl text-base text-gray-600 dark:text-gray-400">{{\Carbon\Carbon::parse($userMemberships[0]->pivot->created_at)->format('d/m/Y')}}</span> 
         </h3>
     </x-slot>
 

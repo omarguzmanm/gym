@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Exercise;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,9 +18,19 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('users');
         Storage::makeDirectory('users');
 
-        User::factory(100)->create();
-        $this->call([MembershipSeeder::class, RolesAndPermissionsSeeder::class, UserRoleSeeder::class]);
-        
+        User::factory(100)->create(); //Si queremos ver mejor las graficas, poner menos usuarios
+        $this->call([
+            AppointmentSeeder::class,
+            MembershipSeeder::class,
+            RolesAndPermissionsSeeder::class,
+            UserRoleSeeder::class,
+            ExerciseSeeder::class,
+            RoutineSeeder::class,
+            ExerciseRoutineUserSeeder::class,
+            PrRecordSeeder::class,
+            FoodSeeder::class, //Este proceso puede demorar - importar solo si se hara uso de dietas
+        ]);
+
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

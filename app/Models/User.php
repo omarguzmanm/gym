@@ -83,7 +83,7 @@ class User extends Authenticatable
     public function memberships()
     {
         return $this->belongsToMany(Membership::class, 'membership_user')
-            ->withPivot(['inscription', 'renew_date', 'status']);
+            ->withPivot(['renew_date', 'status']);
         // ->withTimestamps(); // Esto cargará automáticamente created_at y updated_at en la tabla pivote
     }
 

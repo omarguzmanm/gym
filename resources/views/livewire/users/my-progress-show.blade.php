@@ -28,7 +28,7 @@
                             const prData = {
                                 labels: this.dates,
                                 datasets: [{
-                                    label: this.selectedExercise + ' - PR',
+                                    label: 'PR',
                                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                                     borderColor: 'rgba(75, 192, 192, 1)',
                                     borderWidth: 1,
@@ -39,7 +39,7 @@
                             const repsData = {
                                 labels: this.dates,
                                 datasets: [{
-                                    label: this.selectedExercise + ' - Repeticiones',
+                                    label: 'Repeticiones',
                                     backgroundColor: 'rgba(192, 75, 75, 0.2)',
                                     borderColor: 'rgba(192, 75, 75, 1)',
                                     borderWidth: 1,
@@ -47,7 +47,7 @@
                                 }]
                             };
                     
-                            const config = {
+                            const configPr = {
                                 type: 'line',
                                 options: {
                                     scales: {
@@ -60,7 +60,27 @@
                                         y: {
                                             title: {
                                                 display: true,
-                                                text: 'PR / Repeticiones'
+                                                text: 'PR (kg)'
+                                            }
+                                        }
+                                    }
+                                }
+                            };
+                    
+                            const configReps = {
+                                type: 'line',
+                                options: {
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Fecha'
+                                            }
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Reps'
                                             }
                                         }
                                     }
@@ -69,12 +89,12 @@
                     
                             const prChart = new Chart(
                                 this.$refs.prCanvas,
-                                { ...config, data: prData }
+                                { ...configPr, data: prData }
                             );
                     
                             const repsChart = new Chart(
                                 this.$refs.repsCanvas,
-                                { ...config, data: repsData }
+                                { ...configReps, data: repsData }
                             );
                     
                             Livewire.on('updatePRChart', () => {
@@ -92,15 +112,16 @@
                             });
                         }
                     }">
-                        <div class="flex">
-                            <div class="w-1/2">
+                        <div class="md:flex">
+                            <div class="w-full md:w-1/2">
                                 <canvas id="pr-chart" x-ref="prCanvas"></canvas>
                             </div>
-                            <div class="w-1/2">
+                            <div class="w-full md:w-1/2">
                                 <canvas id="reps-chart" x-ref="repsCanvas"></canvas>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
+                                
                 </div>
             </div>
         </section>
