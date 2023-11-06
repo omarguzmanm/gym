@@ -40,7 +40,8 @@ class CreateMembership extends Component
 
     public function render()
     {
-        $memberships = Membership::pluck('plan')->unique();
-        return view('livewire.memberships.create-membership', compact('memberships'));
+        // $memberships = Membership::pluck('plan')->unique();
+        // return view('livewire.memberships.create-membership', compact('memberships'));
+        return view('livewire.memberships.create-membership');
     }
 }

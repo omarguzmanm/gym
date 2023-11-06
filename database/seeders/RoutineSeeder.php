@@ -19,7 +19,7 @@ class RoutineSeeder extends Seeder
         Routine::insert([
             [
                 'id' => 1,
-                'name' => 'Rutina de fuerza',
+                'name' => 'Fuerza',
                 'description' => 'Rutina enfocada en la fuerza',
                 'level' => 'Avanzado',
                 'duration' => 60,
@@ -29,7 +29,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'name' => 'Rutina para principiantes',
+                'name' => 'Cuerpo completo',
                 'description' => 'Rutina para personas que van empezando',
                 'level' => 'Principiante',
                 'duration' => 30,
@@ -39,7 +39,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'name' => 'Rutina de Cuádriceps',
+                'name' => 'Cuádriceps',
                 'description' => 'Rutina centrada en cuádriceps',
                 'level' => 'Avanzado',
                 'duration' => 60,
@@ -49,7 +49,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'name' => 'Rutina de Abdominales',
+                'name' => 'Abdominales',
                 'description' => 'Rutina para fortalecer el abdomen',
                 'level' => 'Intermedio',
                 'duration' => 45,
@@ -59,7 +59,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 5,
-                'name' => 'Rutina de Hipertrofia',
+                'name' => 'Hipertrofia',
                 'description' => 'Rutina diseñada para el crecimiento muscular',
                 'level' => 'Avanzado',
                 'duration' => 75,
@@ -69,7 +69,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'name' => 'Rutina de Espalda',
+                'name' => 'Espalda',
                 'description' => 'Rutina enfocada en el desarrollo de la espalda.',
                 'level' => 'Intermedio',
                 'duration' => 50,
@@ -79,7 +79,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 7,
-                'name' => 'Rutina de Glúteos y Femoral',
+                'name' => 'Glúteos y Femoral',
                 'description' => 'Desarrollo de fuerza y potencia en gluteos y femorales',
                 'level' => 'Intermedio',
                 'duration' => 75,
@@ -89,7 +89,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 8,
-                'name' => 'Rutina de brazos',
+                'name' => 'Brazos',
                 'description' => 'Rutina para tonificar y definir los brazos',
                 'level' => 'Principiante',
                 'duration' => 60,
@@ -99,7 +99,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 9,
-                'name' => 'Rutina de Abdominales',
+                'name' => 'Abdominales',
                 'description' => 'Rutina para fortalecer los abdominales',
                 'level' => 'Principiante',
                 'duration' => 30,
@@ -109,7 +109,7 @@ class RoutineSeeder extends Seeder
             ],
             [
                 'id' => 10,
-                'name' => 'Rutina de Pectorales',
+                'name' => 'Pectorales',
                 'description' => 'Rutina para el desarrollo de los músculos pectorales',
                 'level' => 'Intermedio',
                 'duration' => 45,

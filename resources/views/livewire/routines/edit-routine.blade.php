@@ -6,26 +6,20 @@
         </svg> --}}
          <i class="fas fa-edit text-lg"></i>
      </a>
-
-     {{-- Editar usuario --}}
      <x-dialog-modal wire:model="open_edit">
          <x-slot name="name">
              Editar rutina
          </x-slot>
          <x-slot name="content">
-             {{-- Editar nombre --}}
              <div class="mb-4">
                  <x-label value="Nombre"></x-label>
                  <x-input wire:model="routine.name" type="text" class="w-full"></x-input>
              </div>
-
-             {{-- Editar numero de telefono --}}
              <div class="mb-4">
                  <x-label value="Descripción"></x-label>
                  <x-input wire:model="routine.description" type="text" class="w-full"></x-input>
              </div>
 
-             {{-- Editar nivel --}}
              <div class="mb-4">
                  <x-label value="Nivel"></x-label>
                  <select class="modal-select" wire:model="routine.level">
@@ -36,14 +30,12 @@
                  <x-input-error for="level"></x-input-error>
              </div>
 
-             {{-- Editar duracion --}}
              <div class="mb-4">
                  <x-label value="Duración en minutos"></x-label>
                  <x-input wire:model="routine.duration" type="number" placeholder="Escribe el tiempo en minutos"
                      class="w-full"></x-input>
              </div>
 
-             {{-- Editar ejercicios --}}
              <div>
                 @foreach ($exercisesArray as $key => $exerciseData)
                     @if ($exerciseData)                        
@@ -66,7 +58,7 @@
                                 </div>
                                 <div class="flex flex-col w-1/3 pr-4">
                                     <x-label for="reps">Repeticiones</x-label>
-                                    <x-input type="number" wire:model="exercisesArray.{{ $key }}.reps" required></x-input>
+                                    <x-input type="text" wire:model="exercisesArray.{{ $key }}.reps" required></x-input>
                                     <x-input-error :for="'exercisesArray.' . $key . '.reps'"></x-input-error>
                                 </div>
                                 <div class="flex-flex-col dark:text-gray-400 mt-5 cursor-pointer" title="Eliminar ejercicio">
