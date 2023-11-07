@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('info');
             $table->string('portion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

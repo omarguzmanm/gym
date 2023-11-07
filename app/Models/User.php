@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -11,8 +12,9 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
+    use SoftDeletes;
     use HasRoles;
     use HasApiTokens;
     use HasFactory;
@@ -71,10 +73,6 @@ class User extends Authenticatable
         return $this->hasMany(Analysis::class, 'id_user');
     }
 
-    public function chats()
-    {
-        return $this->belongsToMany(Chat::class);
-    }
 
     public function messages()
     {
