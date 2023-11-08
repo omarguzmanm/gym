@@ -35,12 +35,15 @@
                         </div>    
                         @if (count($routines))                            
                             @foreach ($routines as $routine)
+                                @php
+                                    $avg = round(App\Models\Rating::where('routine_id', $routine->id)->avg('rate'), 2);
+                                @endphp
                                 <div class="col-span-9 md:col-span-8 lg:col-span-4">
                                     <div class="md:h-[160px] rounded-lg shadow dark:bg-gray-800">
                                         <div class="p-5">
                                             <div class="flex justify-between items-center">
                                                 <h3 class="mt-1 text-xl font-bold text-gray-800 dark:text-gray-200">{{$routine->name}}</h3>
-                                                <p class="bg-orange-600 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" title="Calificación">{{$routine->rating}}</p>
+                                                <p class="bg-orange-600 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" title="Calificación">{{$avg}}</p>
                                             </div>
                                             {{-- <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->description}}</p> --}}
                                             <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->level}}</p>

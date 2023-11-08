@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Routines;
 
 use App\Models\Exercise;
 use App\Models\PrRecord;
+use App\Models\Rating;
 use App\Models\Routine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,8 +13,9 @@ use Livewire\Component;
 class ShowRoutineExercises extends Component
 {
     public $routine;
-    public $open_pr = false;
+    public $open_pr = false, $open_rate = false;
     public $exercise, $pr, $reps;  //Exercise
+    public $rating;
     public function mount(Routine $id)
     {
         $this->routine = $id->load('exercises');
@@ -34,6 +36,13 @@ class ShowRoutineExercises extends Component
         $this->open_pr = true;
         $this->exercise = $exercise->name;
     }
+
+    public function createRate(Routine $routine)
+    {
+        $this->open_rate = true;
+        $this->routine = $routine;
+    }
+
     public function save()
     {
         $this->validate();
@@ -48,6 +57,15 @@ class ShowRoutineExercises extends Component
         // $this->emitTo('routines.show')
         $this->emit('alert', 'El PR se agregó satisfactoriamente');
 
+    }
+
+    public function saveRating()
+    {
+        Rating::create([
+            'routine_id' => $this->routine->id,
+            'rate' => $this->rating
+        ]);
+        $this->reset(['rating', 'open_rate']);
     }
 
 }
