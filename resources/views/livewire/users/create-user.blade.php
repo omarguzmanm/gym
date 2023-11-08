@@ -25,6 +25,7 @@
                     <img class="object-cover object-center w-full h-full" src="{{ $image->temporaryUrl() }}" alt="Imagen">
                 </div>
             @endif
+            <form wire:submit.prevent="save">
 
             <div class="mb-4">
                 <x-label for="user_type">Tipo de usuario</x-label>
@@ -117,11 +118,11 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image"
+            <x-danger-button wire:loading.attr="disabled" wire:target="save, image"
                 class="disabled:opacity-25">
                 Crear usuario
             </x-danger-button>
-
+        </form>
         </x-slot>
     </x-dialog-modal>
 

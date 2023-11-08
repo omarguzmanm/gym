@@ -14,7 +14,7 @@ class CreateMembership extends Component
 
 
 
-    public function submit()
+    public function save()
     {
 
         $this->validate([

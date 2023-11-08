@@ -15,9 +15,10 @@
         </x-slot>
 
         <x-slot name="content">
+            <form wire:submit.prevent="save">
             <div class="mb-4">
                 <x-label for="user_id">Paciente</x-label>
-                <select class="modal-select" wire:model="user_id">
+                <select class="modal-select" wire:model="user_id" required>
                     <option value="">Elige una opción</option>
                     @foreach ($userAnalysis as $user)
                         {{-- @dd($user) --}}
@@ -28,7 +29,7 @@
             </div>
             <div class="mb-4">
                 <x-label for="description">Descripción de la dieta</x-label>
-                <textarea class="modal-select" wire:model="description" rows="1"></textarea>
+                <textarea class="modal-select" wire:model="description" rows="1" required></textarea>
                 <x-input-error for="description"></x-input-error>
             </div>
             <div class="mb-4">
@@ -119,10 +120,11 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="save" wire:target="save" wire:loading.attr="disabled"
+            <x-danger-button wire:target="save" wire:loading.attr="disabled"
                 class="disabled:opacity-25">
                 Crear dieta
             </x-danger-button>
+        </form>
         </x-slot>
         </x-dialog>
 </div>
