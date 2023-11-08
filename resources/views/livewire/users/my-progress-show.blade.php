@@ -1,3 +1,5 @@
+
+@section('title', 'Mi Progreso')
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         <section class="bg-gray-50 dark:bg-gray-900">

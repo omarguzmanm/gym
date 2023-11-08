@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             ExerciseRoutineUserSeeder::class,
             PrRecordSeeder::class,
             FoodSeeder::class, //Este proceso puede demorar - importar solo si se hara uso de dietas
+            RatingSeeder::class
         ]);
 
         // \App\Models\User::factory()->create([

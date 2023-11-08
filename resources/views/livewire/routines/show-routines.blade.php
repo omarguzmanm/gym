@@ -1,3 +1,4 @@
+@section('title', 'Rutinas')
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         <div class="gap-4 mb-4">
@@ -43,7 +44,10 @@
                                         <div class="p-5">
                                             <div class="flex justify-between items-center">
                                                 <h3 class="mt-1 text-xl font-bold text-gray-800 dark:text-gray-200">{{$routine->name}}</h3>
-                                                <p class="bg-orange-600 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" title="Calificación">{{$avg}}</p>
+                                                <p class="bg-orange-600 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" title="Calificación">
+                                                    <i class="fa-regular fa-star mr-1"></i>
+                                                    {{$avg}} 
+                                                </p>
                                             </div>
                                             {{-- <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->description}}</p> --}}
                                             <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->level}}</p>

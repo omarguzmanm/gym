@@ -1,3 +1,4 @@
+@section('title', 'Analisis')
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         {{-- <div class="gap-4 mb-4"> --}}

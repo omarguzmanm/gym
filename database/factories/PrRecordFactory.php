@@ -28,6 +28,7 @@ class PrRecordFactory extends Factory
             'pr' => $this->faker->numberBetween(50, 250),
             'reps' => $this->faker->numberBetween(1, 20),
             'created_at' => $this->faker->dateTimeThisYear(),
+            'updated_at' => $this->faker->date(),
         ];
     }
 }

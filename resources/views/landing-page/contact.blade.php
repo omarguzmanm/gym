@@ -1,4 +1,3 @@
-
 @section('title', 'Contacto')
 
 <x-guest-layout>

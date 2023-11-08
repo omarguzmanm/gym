@@ -1,3 +1,4 @@
+@section('title', 'Rutina')
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         <div class="gap-4 mb-4">
@@ -14,12 +15,14 @@
                             <!-- Dropdown menu -->
                             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="flex px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                         Agregar a favoritos</a>
-                                </li>
+                                </li> --}}
                                 <li>
-                                    <a wire:click="createRate({{$routine->id}})" class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Calificar</a>
+                                    <a wire:click="createRate({{$routine->id}})" class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <i class="fa-regular fa-star mr-2"></i>Calificar
+                                    </a>
                                 </li>
                                 </ul>
                             </div>
