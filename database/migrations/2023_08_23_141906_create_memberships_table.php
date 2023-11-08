@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('price');
             // $table->boolean('status');
             $table->timestamps();
-
+            $table->softDeletes();
             // $table->foreign('id_user')->references('id')->on('users');
         });
     }

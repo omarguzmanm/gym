@@ -97,7 +97,7 @@ class CreateDiet extends Component
         //Reseteamos todos los valores del form/modal
         $this->reset(['open', 'user_id', 'description', 'meals', 'count']);
         $this->emitTo('diets.show-diets', 'render');
-        $this->emit('alert', 'La dieta se creó correctamente.');
+        $this->emit('alert', 'La dieta se creó correctamente');
 
     }
 

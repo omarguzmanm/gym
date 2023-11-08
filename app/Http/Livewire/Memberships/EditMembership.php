@@ -24,10 +24,11 @@ class EditMembership extends Component
 
     public function render()
     {
-        $types = Membership::pluck('type')->unique();
-        $plans = Membership::pluck('plan')->unique();
+        // $types = Membership::pluck('type')->unique();
+        // $plans = Membership::pluck('plan')->unique();
         // dd($types);
-        return view('livewire.memberships.edit-membership', compact('types', 'plans'));
+        // return view('livewire.memberships.edit-membership', compact('types', 'plans'));
+        return view('livewire.memberships.edit-membership');
     }
 
     public function edit(Membership $membership)

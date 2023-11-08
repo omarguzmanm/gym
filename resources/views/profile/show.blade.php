@@ -10,6 +10,7 @@
             <div class="p-4 dark:border-gray-700 mt-14">
                 <section class="bg-gray-50 dark:bg-gray-900">
                     <div class="max-w-screen-xl px-4 py-4 mx-auto lg:px-16 sm:py-4 lg:py-4">
+
                         @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                             @livewire('profile.update-profile-information-form')
 
@@ -23,6 +24,9 @@
 
                             <x-section-border />
                         @endif
+
+                        @include('profile.membership-information')
+                        <x-section-border />
 
                         @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
                             <div class="mt-10 sm:mt-0">

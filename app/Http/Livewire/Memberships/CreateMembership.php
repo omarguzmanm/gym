@@ -14,7 +14,7 @@ class CreateMembership extends Component
 
 
 
-    public function submit()
+    public function save()
     {
 
         $this->validate([
@@ -33,14 +33,15 @@ class CreateMembership extends Component
         $this->reset(['open', 'type', 'plan', 'price']);
         // $this->emitTo('admin-memberships', 'render');
         $this->emitTo('memberships.admin-memberships', 'render');
-        $this->emit('alert', 'La membresia se creó correctamente.');
+        $this->emit('alert', 'La membresia se creó correctamente');
 
     }
 
 
     public function render()
     {
-        $memberships = Membership::pluck('plan')->unique();
-        return view('livewire.memberships.create-membership', compact('memberships'));
+        // $memberships = Membership::pluck('plan')->unique();
+        // return view('livewire.memberships.create-membership', compact('memberships'));
+        return view('livewire.memberships.create-membership');
     }
 }

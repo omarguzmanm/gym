@@ -25,6 +25,11 @@ class Routine extends Model
         return $this->belongsToMany(Exercise::class, 'exercise_routine_user', 'routine_id', 'exercise_id')
             ->withPivot('user_id', 'sets', 'reps')->withTimestamps();
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
     
 
 }

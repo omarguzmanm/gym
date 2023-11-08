@@ -1,3 +1,4 @@
+@section('title', 'Rutinas')
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         <div class="gap-4 mb-4">
@@ -26,34 +27,51 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="mt-4 w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                                    @livewire('routines.create-routine')
-                                </div>
+                                @role(['Entrenador', 'Super Administrador'])
+                                    <div class="mt-4 w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                                        @livewire('routines.create-routine')
+                                    </div>
+                                @endrole
                             </div>
                         </div>    
                         @if (count($routines))                            
                             @foreach ($routines as $routine)
+                                @php
+                                    $avg = round(App\Models\Rating::where('routine_id', $routine->id)->avg('rate'), 2);
+                                @endphp
                                 <div class="col-span-9 md:col-span-8 lg:col-span-4">
-                                        <div class="rounded-lg shadow dark:bg-gray-800">
-                                            <div class="p-5">
-                                                <!-- <a href="#">
-                                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                                                </a> -->
+                                    <div class="md:h-[160px] rounded-lg shadow dark:bg-gray-800">
+                                        <div class="p-5">
+                                            <div class="flex justify-between items-center">
                                                 <h3 class="mt-1 text-xl font-bold text-gray-800 dark:text-gray-200">{{$routine->name}}</h3>
-                                                <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->description}}</p>
-                                                <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->level}}</p>
-                                                <p class="mt-1 mb-3 text-xs font-normal text-gray-500">{{$routine->duration}} minutos</p>
+                                                <p class="bg-orange-600 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" title="Calificación">
+                                                    <i class="fa-regular fa-star mr-1"></i>
+                                                    {{$avg}} 
+                                                </p>
+                                            </div>
+                                            {{-- <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->description}}</p> --}}
+                                            <p class="mt-1 text-xs font-normal text-gray-500">{{$routine->level}}</p>
+                                            <p class="mt-1 mb-3 text-xs font-normal text-gray-500">{{$routine->duration}} minutos</p>
+                                            @role(['Entrenador', 'Super Administrador'])
                                                 <div class="flex justify-end text-gray-500 dark:text-gray-400">
                                                     @livewire('routines.edit-routine', ['routine' => $routine], key($routine->id))
-                                                    <a class="cursor-pointer ml-4" wire:click="$emit('deleteRoutine', {{ $routine->id }})">
+                                                    <a class="cursor-pointer ml-4" title="Eliminar" wire:click="$emit('deleteRoutine', {{ $routine->id }})">
                                                         <i class="fas fa-trash text-lg"></i>
-                                                        {{-- <svg class="w-5 h-5 text-orange-300 hover:text-orange-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                                            <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
-                                                        </svg> --}}
                                                     </a>
                                                 </div>
-                                            </div>
+                                            @endrole
+                                            @role('Cliente')
+                                                <div class="flex justify-end">
+                                                    <a href="{{route('rutina-seleccionada', $routine->id)}}" class="cursor-pointer w-24 h-8 flex items-center justify-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                                                        <i class="fa-solid fa-play mr-3"></i> Iniciar
+                                                    </a>
+                                                    {{-- <a href="{{route('rutina-seleccionada', $routine->id)}}" class="cursor-pointer dark:text-white px-2 border border-orange-500 rounded-full bg-orange-400">
+                                                        <i class="fa-solid fa-play mr-3"></i> Iniciar 
+                                                    </a> --}}
+                                                </div>
+                                            @endrole
                                         </div>
+                                    </div>
                                 </div>
                             @endforeach
                             

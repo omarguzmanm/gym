@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Users;
 
+use App\Mail\NewClient;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class CreateClient extends Component
@@ -24,7 +25,7 @@ class CreateClient extends Component
     ];
     protected $messages = [
         'code.unique' => 'Este código ya está registrado, por favor inicia sesión.',
-        'code.max' => 'El código debe ser de 6 digitos.',
+        'code.max' => 'El código debe ser de 4 digitos.',
         // 'email.required' => 'El correo no puedes estar vacio.',
         'email.email' => 'El formato del correo no es valido.',
         'password.min' => 'La contraseña debe tener minimo 8 carácteres.',
@@ -53,6 +54,7 @@ class CreateClient extends Component
                 'email' => $this->email,
                 'password' => Hash::make($this->password)
             ]);
+            Mail::to($user->email)->send(new NewClient($user));
         } else {
             session()->flash('message', 'Verifica los datos e intenta de nuevo');
             return redirect()->back();

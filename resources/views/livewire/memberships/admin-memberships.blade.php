@@ -1,3 +1,4 @@
+@section('title', 'Membresias')
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         <div class="gap-4 mb-4">
@@ -67,7 +68,7 @@
                                             </div>
                                     @endif
                                 </div>
-                                @endif
+                                {{-- @endif --}}
                             </div>
                         </div>    
                         {{-- <div class="col-span-2">
@@ -115,6 +116,11 @@
                         </div> --}}
                     {{-- </div> --}}
                 </div>
+                @else
+                    <div wire:loading.remove class="px-6 py-4 dark:text-gray-100">
+                        No existe ningún registro coincidente
+                    </div>
+            @endif
             </section>
         </div>
     </div>

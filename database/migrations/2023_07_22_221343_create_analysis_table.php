@@ -25,8 +25,8 @@ return new class extends Migration {
             $table->enum('activity', ['baja', 'media', 'alta']);
 
             //Nutrional goals
-            $table->enum('goal', ['perdida', 'ganancia', 'mantenimiento', 'mejora', 'otro']);
-
+            // $table->enum('goal', ['perdida', 'ganancia', 'mantenimiento', 'mejora', 'otro']);
+            $table->string('goal');
             //Current habits
             // $table->enum('meal_frecuency', ['baja', 'regular', 'alta']);
             // $table->string('meal_schedule');

@@ -15,6 +15,8 @@
         </x-slot>
 
         <x-slot name="content">
+            <form wire:submit.prevent="save">
+
             <div class="grid grid-cols-8 gap-2">
                 <div class="mb-4 col-span-8">
                     <x-label for="user">Nombre del paciente</x-label>
@@ -47,7 +49,7 @@
                 </div>
                 <div class="mb-4 col-span-2">
                     <x-label for="height" required>Estatura (cm)</x-label>
-                    <x-input type="number" wire:model="height"></x-input>
+                    <x-input type="number" wire:model="height" required></x-input>
                     <x-input-error for="height"></x-input-error>
                 </div>
                 <div class="mb-4 col-span-2">
@@ -78,42 +80,7 @@
                         {{-- <option value="otro">Objetivos especificos</option> --}}
                     </select>
                     <x-input-error for="goal"></x-input-error>
-
-                    <!-- Si la opción nullda es "otro", muestra el textarea -->
-                    {{-- @if ($goal === 'otro')
-                    <div>
-                        <x-label for="otherGoal">Especifica tus objetivos</x-label>
-                        <textarea wire:model="otherGoal" class="modal-select"></textarea>
-                    </div>
-                @endif --}}
                 </div>
-                {{-- <div class="mb-4 col-span-2">
-                    <x-label for="hours_sleep">Horas de sueño</x-label>
-                    <x-input type="number" name="hours_sleep" id="hours_sleep" wire:model="hours_sleep"></x-input>
-                    <x-input-error for="height"></x-input-error>
-
-                </div>
-                <div class="mb-4 col-span-2">
-                    <x-label for="stress_levels">Niveles de estres</x-label>
-                    <select name="stress_levels" id="stress_levels" wire:model="stress_levels" class="modal-select">
-                        <option value="null" disabled>Elige una opción</option>
-                        <option value="bajo">Bajo</option>
-                        <option value="medio">Medio</option>
-                        <option value="alto">Alto</option>
-                    </select>
-                    <x-input-error for="height"></x-input-error>
-
-                </div>
-                <div class="mb-4 col-span-2">
-                    <x-label for="substance_use">Uso de sustancias</x-label>
-                    <select name="substance_use" id="substance_use" wire:model="substance_use" class="modal-select">
-                        <option value="null" disabled>Elige una opción</option>
-                        <option value="si">Sí</option>
-                        <option value="no">No</option>
-                    </select>
-                    <x-input-error for="height"></x-input-error>
-
-                </div> --}}
                 <div class="mb-4 col-span-8">
                     <x-label for="regularly_consumed">Alimentos y bebidas de consumo regular</x-label>
                     <textarea class="modal-select" rows="1" wire:model="regularly_consumed" required></textarea>
@@ -134,10 +101,11 @@
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button wire:click="save" wire:target="save" wire:loading.attr="disabled"
+            <x-danger-button wire:target="save" wire:loading.attr="disabled"
                 class="disabled:opacity-25">
                 Crear analisis
             </x-danger-button>
+        </form>
         </x-slot>
     </x-dialog-modal>
 </div>

@@ -13,7 +13,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
-
 class CreateUser extends Component
 {
     use WithFileUploads;
@@ -78,7 +77,7 @@ class CreateUser extends Component
         ]);
 
         $user->memberships()->attach($this->id_membership, [
-            'inscription' => now(),
+            // 'inscription' => now(),
             'renew_date' => $this->type == 'Semanal' ? now()->nextWeekendDay() :
                             ($this->type == 'Mensual' ? now()->addMonth() :
                             ($this->type == 'Semestral' ? now()->addMonths(6) :
@@ -88,6 +87,7 @@ class CreateUser extends Component
 
         $role = Role::where('name', $this->user_type)->first();
         $user->assignRole($role);
+
 
         //Borramos los valores de los inputs
         $this->reset(['open', 'user_type', 'name', 'phone_number', 'address', 'image', 'type', 'plan', 'price']);
@@ -109,7 +109,7 @@ class CreateUser extends Component
 
     public function ticketUser($id)
     {
-        $codigoQR = QrCode::size(100)->generate('http://127.0.0.1:8000/nuevo-usuario');
+        $codigoQR = QrCode::size(100)->generate('http://127.0.0.1:8000/register');
         $codigoQRBase64 = 'data:image/png;base64,' . base64_encode($codigoQR);
         $user = User::with('memberships')->where('id', $id)->first();
         // dd($user);

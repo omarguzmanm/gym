@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('membership_id');
-            $table->timestamp('inscription');
+            // $table->timestamp('inscription');
             $table->timestamp('renew_date');
             $table->boolean('status');
             $table->timestamps();

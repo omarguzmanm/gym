@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Membership;
+use App\Models\Exercise;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,46 +18,20 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('users');
         Storage::makeDirectory('users');
 
-        User::factory(100)->create();
-        $this->call([MembershipSeeder::class, RolesAndPermissionsSeeder::class]);
+        User::factory(100)->create(); //Si queremos ver mejor las graficas, poner menos usuarios
+        $this->call([
+            AppointmentSeeder::class,
+            MembershipSeeder::class,
+            RolesAndPermissionsSeeder::class,
+            UserRoleSeeder::class,
+            ExerciseSeeder::class,
+            RoutineSeeder::class,
+            ExerciseRoutineUserSeeder::class,
+            PrRecordSeeder::class,
+            FoodSeeder::class, //Este proceso puede demorar - importar solo si se hara uso de dietas
+            RatingSeeder::class
+        ]);
 
-        // Usuarios de prueba
-        $cliente = User::factory()->create([
-            'name' => 'Test Cliente',
-            'email' => 'cliente@example.com',
-            'password' => bcrypt('cliente123')
-        ]);
-        $cliente->assignRole('Cliente');
-        
-        $entrenador = User::factory()->create([
-            'name' => 'Test Entrenador',
-            'email' => 'entrenador@example.com',
-            'password' => bcrypt('entrenador123')
-        ]);
-        $entrenador->assignRole('Entrenador');
-        
-        $nutriologo = User::factory()->create([
-            'name' => 'Test Nutriologo',
-            'email' => 'nutriologo@example.com',
-            'password' => bcrypt('nutriologo123')
-        ]);
-        $nutriologo->assignRole('Nutriologo');
-        
-        $admin = User::factory()->create([
-            'name' => 'Test Administrador',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('admin123')
-        ]);
-        $admin->assignRole('Administrador');
-        
-        $superAdmin = User::factory()->create([
-            'name' => 'Test SuperAdmin',
-            'email' => 'superAdmin@example.com',
-            'password' => bcrypt('superAdmin123')
-        ]);
-        $superAdmin->assignRole('Super Administrador');
-        
-        
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
