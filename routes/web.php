@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MembershipPayment;
 use App\Http\Controllers\MyProgressController;
 use App\Http\Livewire\Analysis\ShowAnalysis;
 use App\Http\Livewire\Appointments\ShowAppointments;
@@ -21,10 +22,12 @@ Route::middleware([
     'guest'
 ])->group(function () {
     Route::view('/', 'landing-page.index')->name('home');
-    Route::view('/membresias', 'landing-page.memberships')->name('membresias');
+    Route::view('/membresias', 'landing-page.memberships')->name('membresias-guest');
     Route::view('/servicios', 'landing-page.services')->name('servicios');
     Route::view('/sucursales', 'landing-page.sedes')->name('sucursales');
     Route::view('/contacto', 'landing-page.contact')->name('contacto');
+    Route::get('/payment/{precio}', [MembershipPayment::class, 'index'])->name('payment');
+    // Route::view('/payment', 'checkout.payment')->name('payment');
 
     // Route::get('/nuevo-usuario', CreateClient::class)->name('nuevo-usuario');
 });
@@ -35,11 +38,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/', ShowUsers::class)->name('dashboard');
+    Route::get('/inicio', ShowUsers::class)->name('dashboard');
     Route::get('/mi-progreso', MyProgressShow::class)->name('miProgreso')->middleware('permission:myProgress');
     // Route::get('/mi-progreso', [MyProgressController::class, 'index'])->name('miProgreso')->middleware('permission:myProgress');
     Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket')->middleware('permission:ticket');
-    Route::get('/membresias', AdminMemberships::class)->name('membresias')->middleware('permission:memberships');
+    Route::get('/administrar-membresias', AdminMemberships::class)->name('membresias')->middleware('permission:memberships');
 
     Route::get('/citas', ShowAppointments::class)->name('citas')->middleware('permission:appointments');
     Route::get('/analisis', ShowAnalysis::class)->name('analisis')->middleware('permission:analysis');

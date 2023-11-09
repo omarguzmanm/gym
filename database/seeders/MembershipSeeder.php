@@ -22,38 +22,43 @@ class MembershipSeeder extends Seeder
         Membership::create([
             'type' => 'Semanal',
             'plan' => 'Sin plan',
-            'price' => 150
+            'price' => 199
         ]);
         Membership::create([
             'type' => 'Mensual',
             'plan' => 'Classic',
-            'price' => 400
+            'price' => 499
         ]);
         Membership::create([
             'type' => 'Semestral',
             'plan' => 'Classic',
-            'price' => 2000
+            'price' => 2299
         ]);
         Membership::create([
             'type' => 'Anual',
             'plan' => 'Classic',
-            'price' => 3800
+            'price' => 4499
         ]);
 
         Membership::create([
             'type' => 'Mensual',
             'plan' => 'Premium',
-            'price' => 700
+            'price' => 799
+        ]);
+        Membership::create([
+            'type' => 'Trimestral',
+            'plan' => 'Premium',
+            'price' => 1999
         ]);
         Membership::create([
             'type' => 'Semestral',
             'plan' => 'Premium',
-            'price' => 3500
+            'price' => 3999
         ]);
         Membership::create([
             'type' => 'Anual',
             'plan' => 'Premium',
-            'price' => 5000
+            'price' => 6999
         ]);
 
         $users = User::all();

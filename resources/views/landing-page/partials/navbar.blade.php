@@ -2,7 +2,7 @@
 <nav class="bg-white shadow-md border-gray-200">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
         <a href="/" class="flex items-center">
-            <img src="img/logo-light.png" class="h-12 mr-3" alt="logo gym" />
+            <img src="{{asset('img/logo-light.png')}}" class="h-12 mr-3" alt="logo gym" />
         </a>
         <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-dropdown" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
@@ -19,7 +19,7 @@
                 {{-- <a href="/" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0">Inicio</a> --}}
                 </li>
                 <li>
-                    <x-nav-link href="{{route('membresias')}}" :active="request()->routeIs('membresias')" >
+                    <x-nav-link href="{{route('membresias-guest')}}" :active="request()->routeIs('membresias-guest')" >
                         {{ __('Membresias') }}
                     </x-nav-link>
                 {{-- <a href="{{route('membresias')}}" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0">Membresias</a> --}}
