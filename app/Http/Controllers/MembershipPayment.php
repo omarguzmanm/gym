@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Membership;
 use App\Models\User;
+use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,22 +12,24 @@ class MembershipPayment extends Controller
 {
     public function payment(Request $request)
     {
-        $user = User::find($request->usuario);
-        $membership = Membership::where('price', $request->precio)->first();
+        $hashId = new Hashids('', 20);
+        $priceDecode = $hashId->decode($request->precio);
+        $userDecode = $hashId->decode($request->usuario);
+        $user = User::where('id', $userDecode)->first();
+        $membership = Membership::where('price', $priceDecode)->first();
         return view('checkout.payment', compact('membership', 'user'));
     }
 
     public function checkoutForm(Request $request)
     {
-        $price = $request->precio;
-        $membership = Membership::where('price', $price)->first();
-        return view('checkout.check-account', compact('membership', 'price'));
+        $hashids = new Hashids('', 40);
+        $priceDecode = $hashids->decode($request->precio);
+        $membership = Membership::where('price', $priceDecode)->first();
+        return view('checkout.check-account', compact('membership', 'priceDecode'));
     }
 
     public function checkoutSave(Request $request)
     {
-        //Membresia seleccionada
-        $price = $request->price;
         // Validaciones
         $request->validate([
             'name' => 'required|max:255',
@@ -43,7 +46,16 @@ class MembershipPayment extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('payment', [$price, $user->id]);
+        // Membresia y usuario codificados (URL)
+        $priceEncode = $request->priceDecode;
+        $userEncode = $user->id;
+        $hashId = new Hashids('', 20);
+        $priceEncode = $hashId->encode($priceEncode);
+        $userEncode = $hashId->encode($userEncode);
+
+        // dd($priceEncode, $userEncode);
+
+        return redirect()->route('payment', [$priceEncode, $userEncode]);
     }
 
 

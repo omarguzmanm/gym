@@ -41,10 +41,10 @@
                     <input type="password" id="password" name="password"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-300 focus:border-orange-500 block w-full p-2.5"
                         value="{{ old('password') }}" required autofocus>
-                    <input type="hidden" id="price" name="price"
+                    <input type="hidden" id="priceDecode" name="priceDecode"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-300 focus:border-orange-500 block w-full p-2.5"
-                        value="{{ $price }}" required autofocus>
-                    <x-input-error for="price"></x-input-error>
+                        value="{{ $priceDecode[0] }}" required autofocus>
+                    <x-input-error for="priceDecode"></x-input-error>
                 </div>
             </div>
             <div class="col-span-3 md:col-span-1 bg-gray-200">
