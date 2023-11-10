@@ -29,11 +29,6 @@ class ShowDiets extends Component
 
     public function render()
     {
-        // $id = Auth::id();
-        // $hashids = new Hashids();
-        // $id = $hashids->encode($id);
-        // dd($id);
-
         $userDiet = Analysis::with('users', 'diets')
             ->whereHas('users', function ($query) {
                 $query->where('name', 'LIKE', '%' . $this->search . '%');
@@ -44,13 +39,11 @@ class ShowDiets extends Component
         return view('livewire.diets.show-diets', compact('userDiet'));
     }
 
-
     public function delete(Diet $diet)
     {
         Analysis::where('diet_id', $diet->id)->update(['diet_id' => null]);
         $diet->delete();
     }
-
 
     public function reportDiet($id)
     {

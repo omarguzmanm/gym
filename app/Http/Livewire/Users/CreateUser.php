@@ -106,7 +106,6 @@ class CreateUser extends Component
 
     }
 
-
     public function ticketUser($id)
     {
         $codigoQR = QrCode::size(100)->generate('http://127.0.0.1:8000/register');
@@ -129,7 +128,6 @@ class CreateUser extends Component
             $this->resetValidation();
         }
     }
-
 
     public function render()
     {
