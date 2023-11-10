@@ -26,9 +26,9 @@ Route::middleware([
     Route::view('/servicios', 'landing-page.services')->name('servicios');
     Route::view('/sucursales', 'landing-page.sedes')->name('sucursales');
     Route::view('/contacto', 'landing-page.contact')->name('contacto');
-    Route::get('/payment/{precio}', [MembershipPayment::class, 'index'])->name('payment');
-    // Route::view('/payment', 'checkout.payment')->name('payment');
-
+    Route::get('/checkout/{precio}', [MembershipPayment::class, 'checkoutForm'])->name('checkout-form');
+    Route::post('/checkout', [MembershipPayment::class, 'checkoutSave'])->name('checkout-save');
+    Route::get('/payment/{precio}/{usuario}', [MembershipPayment::class, 'payment'])->name('payment');
     // Route::get('/nuevo-usuario', CreateClient::class)->name('nuevo-usuario');
 });
 

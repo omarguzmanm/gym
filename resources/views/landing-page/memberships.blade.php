@@ -82,7 +82,7 @@
                     <span class="text-base font-normal leading-tight text-gray-500">Locker personal</span>
                 </li>
             </ul>
-            <button onclick="location.href='{{route('payment', 799)}}'" class="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-200 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Unirme ahora</</button>
+            <button onclick="location.href='{{route('checkout-form', 799)}}'" class="text-white bg-orange-400 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-200 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Unirme ahora</</button>
         </div>
         <div class="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-xl hover:shadow-gray-500 sm:p-8 mx-5">
             <h5 class="mb-4 text-xl font-medium text-gray-500">Plan Classic</h5>
