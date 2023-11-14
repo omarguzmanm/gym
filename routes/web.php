@@ -6,6 +6,7 @@ use App\Http\Livewire\Analysis\ShowAnalysis;
 use App\Http\Livewire\Appointments\ShowAppointments;
 use App\Http\Livewire\Chat\CreateChat;
 use App\Http\Livewire\Chat\Main;
+use App\Http\Livewire\Memberships\ShowSales;
 use App\Http\Livewire\Routines\ShowRoutineExercises;
 use App\Http\Livewire\Users\CreateUser;
 use App\Http\Livewire\Memberships\AdminMemberships;
@@ -29,7 +30,6 @@ Route::middleware([
     Route::get('/checkout/{precio}', [MembershipPayment::class, 'checkoutForm'])->name('checkout-form');
     Route::post('/checkout', [MembershipPayment::class, 'checkoutSave'])->name('checkout-save');
     Route::get('/payment/{precio}/{usuario}', [MembershipPayment::class, 'payment'])->name('payment');
-    // Route::get('/nuevo-usuario', CreateClient::class)->name('nuevo-usuario');
 });
 
 // Auth Methods
@@ -40,9 +40,9 @@ Route::middleware([
 ])->group(function () {
     Route::get('/inicio', ShowUsers::class)->name('dashboard');
     Route::get('/mi-progreso', MyProgressShow::class)->name('miProgreso')->middleware('permission:myProgress');
-    // Route::get('/mi-progreso', [MyProgressController::class, 'index'])->name('miProgreso')->middleware('permission:myProgress');
     Route::get('/ticket/{user}', [CreateUser::class, 'ticketUser'])->name('ticket')->middleware('permission:ticket');
     Route::get('/administrar-membresias', AdminMemberships::class)->name('membresias')->middleware('permission:memberships');
+    Route::get('/ventas', ShowSales::class)->name('ventas');
 
     Route::get('/citas', ShowAppointments::class)->name('citas')->middleware('permission:appointments');
     Route::get('/analisis', ShowAnalysis::class)->name('analisis')->middleware('permission:analysis');

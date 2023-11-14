@@ -19,10 +19,10 @@ class MyProgressShow extends Component
     {
         $this->exercises = PrRecord::where('user_id', Auth()->id())->pluck('exercise')->unique();
         // $this->updateExerciseLabel();
-        $this->updateExercise();
+        // $this->updateExercise();
     }
 
-    public function updateExercise()
+    public function updatedSelectedExercise()
     {
         $this->prRecords = PrRecord::where('user_id', Auth()->id())->where('exercise', $this->selectedExercise)->get();
         $this->dates = $this->prRecords->pluck('created_at')->map(function ($date) {
@@ -30,6 +30,7 @@ class MyProgressShow extends Component
         });
         $this->prs = $this->prRecords->pluck('pr');
         $this->reps = $this->prRecords->pluck('reps');
+        // dd($this->prs,$this->dates);
     
         $this->emit('updatePRChart'); // Para actualizar la primera gráfica
         $this->emit('updateRepsChart'); // Para actualizar la segunda gráfica

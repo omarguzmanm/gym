@@ -60,13 +60,13 @@ class MembershipSeeder extends Seeder
             'plan' => 'Premium',
             'price' => 6999
         ]);
-
         $users = User::all();
         $memberships = Membership::all();
 
         foreach ($users as $index => $user) {
             $membership = $memberships[$index % count($memberships)];
-
+            // Genera una fecha aleatoria entre 1 y 365 días antes de la fecha actual
+            $randomCreatedAt = \Carbon\Carbon::now()->subDays(rand(1, 365));
             $user->memberships()->attach(
                 $membership->id,
                 [
@@ -74,7 +74,7 @@ class MembershipSeeder extends Seeder
                     // 'inscription' => now(),
                     'renew_date' => now()->addMonth(),
                     'status' => 1,
-                    'created_at' => now(),
+                    'created_at' => $randomCreatedAt,
                     'updated_at' => now()
                 ]
             );
