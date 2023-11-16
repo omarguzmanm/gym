@@ -39,7 +39,7 @@ class ShowExercises extends Component
         $this->exercise = $exercise;
         $this->showExercise = true;
     }
-
+                
     public function delete(Exercise $exercise)
     {
         // Se ocupan las imagenes para este metodo

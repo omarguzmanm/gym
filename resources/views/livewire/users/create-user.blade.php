@@ -6,7 +6,6 @@
         Nuevo usuario
     </button>
 
-
     <x-dialog-modal wire:model="open">
         <x-slot name="name">
             Crear nuevo usuario
@@ -92,18 +91,6 @@
                 {{-- </div> --}}
             @endif
 
-
-            {{-- {{$content}} --}}
-
-            {{-- Con wire:ignore se renderiza todo el contenido menos el div --}}
-            {{-- <div class="mb-4">
-                <x-label value="Contenido"></x-label>
-                <div wire:ignore>
-                    <textarea rows="6" class="form-control" id="editor" wire:model.defer="phone_number"></textarea>
-                </div>
-                <x-input-error for="phone_number"></x-input-error>
-             </div> --}}
-
             <div>
                 <x-label for="photo">Foto</x-label>
                 <x-input id="photo" type="file" wire:model="image" id="{{ $identifier }}" required></x-input>
@@ -125,23 +112,4 @@
         </form>
         </x-slot>
     </x-dialog-modal>
-
-    {{-- @push('js')
-        <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
-        <script>
-            ClassicEditor
-                .create(document.querySelector('#editor'))
-                .then(function(editor) {
-                    editor.model.document.on('change:data', () => {
-                        @this.set('phone_number', editor.getData());
-                    });
-                    Livewire.on('resetCKEditor', () => {
-                        editor.setData('');
-                    })
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        </script>
-    @endpush --}}
 </div>

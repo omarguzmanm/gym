@@ -14,11 +14,11 @@ class MembershipSeeder extends Seeder
      */
     public function run(): void
     {
-        Membership::create([
-            'type' => 'Invitado',
-            'plan' => 'Sin plan',
-            'price' => 50
-        ]);
+        // Membership::create([
+        //     'type' => 'Invitado',
+        //     'plan' => 'Sin plan',
+        //     'price' => 50
+        // ]);
         Membership::create([
             'type' => 'Semanal',
             'plan' => 'Sin plan',

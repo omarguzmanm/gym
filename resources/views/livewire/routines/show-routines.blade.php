@@ -11,7 +11,7 @@
                                 Rutinas
                             </h2>
                         </div>
-                        <div class="col-start-1 col-end-10 md:col-start-4 md:col-end-10">
+                        <div class="col-start-1 col-end-10 md:col-start-4 md:col-end-10 mb-4">
                             {{-- <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden"> --}}
                                 <div class="flex flex-col md:flex-row items-center justify-between md:space-y-0 md:space-x-4 p-0">
                                     <div class="w-full">

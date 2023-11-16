@@ -17,9 +17,9 @@ class RedirectIfAuthenticated
                 $user = Auth::user();
 
                 if ($user->hasRole('Super Administrador')) {
-                    return redirect()->route('inicio');
+                    return redirect()->route('dashboard');
                 } elseif ($user->hasRole('Administrador')) {
-                    return redirect()->route('inicio');
+                    return redirect()->route('dashboard');
                 } elseif ($user->hasRole('Nutriologo')) {
                     return redirect()->route('analisis');
                 } elseif ($user->hasRole('Entrenador')) {

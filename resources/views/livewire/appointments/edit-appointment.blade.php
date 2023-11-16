@@ -50,7 +50,11 @@
             {{-- Editar motivo --}}
             <div class="mb-4 mt-2">
                 <x-label value="Motivo" for="reason"></x-label>
-                <x-input wire:model="appointment.reason" type="text" class="w-full capitalize"></x-input>
+                <select class="modal-select mb-3" id="reason" wire:model="appointment.reason" required>
+                    <option value="dieta">Plan de dieta</option>
+                    <option value="control">Control de peso</option>
+                    <option value="seguimiento">Seguimiento medico</option>
+                </select>
                 <x-input-error for="reason"></x-input-error>
             </div>
 
