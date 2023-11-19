@@ -39,7 +39,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/mi-progreso', ShowMyProgress::class)->name('miProgreso')->middleware('permission:myProgress');
+    Route::get('/mi-progreso/{exercise?}', ShowMyProgress::class)->name('miProgreso')->middleware('permission:myProgress');
     Route::get('/nutrición', ShowNutrition::class)->name('nutricion')->middleware('permission:nutrition');
     Route::get('/mis-prs', ShowMyPrs::class)->name('misPrs')->middleware('permission:myPrs');
 

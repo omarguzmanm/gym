@@ -15,8 +15,12 @@ class ShowMyProgress extends Component
     public $selectedExercise = '';
     public $prRecords;
     public $prs, $reps, $dates;
-    public function mount()
+    public function mount($exercise = null)
     {
+        // En caso que se pase por URL un ejercicio
+        $this->selectedExercise = $exercise ?? '';
+        $this->updatedSelectedExercise();
+
         $this->exercises = PrRecord::where('user_id', Auth()->id())->pluck('exercise')->unique();
         // Verificamos si el usuario tiene una membresia activa
         $this->hasActiveMembership = Auth::user()->memberships()->wherePivot('renew_date', '>=', Carbon::now())->exists();

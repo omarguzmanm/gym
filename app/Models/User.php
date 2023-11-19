@@ -96,6 +96,9 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withPivot('exercise_id')->withTimestamps();
     }
 
-
+    public function prs()
+    {
+        return $this->hasMany(PrRecord::class);
+    }
 
 }
