@@ -6,10 +6,17 @@
                 <div class="max-w-screen-xl px-4 py-4 mx-auto lg:px-16 sm:py-4 lg:py-4">
                     {{-- <div class="grid grid-cols-6 gap-x-16"> --}}
                     <div class="grid grid-cols-8 md:grid-cols-12 gap-y-5 gap-10">      
-                        <div class="col-span-8 text-left">
+                        <div class="col-span-5 md:col-span-9 text-left">
                             <h2 class="text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
                                 Rutinas
                             </h2>
+                        </div>
+                        <div class="col-span-4 md:col-span-3 justify-self-end">
+                            <div class="mt-2">
+                                <a href="{{route('misPrs')}}" class="cursor-pointer w-24 h-8 flex items-center justify-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-semibold rounded-md text-sm px-2 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                                    Ver mis Prs
+                                </a>
+                            </div>
                         </div>
                         <div class="col-start-1 col-end-10 md:col-start-4 md:col-end-10 mb-4">
                             {{-- <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden"> --}}
