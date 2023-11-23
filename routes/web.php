@@ -50,10 +50,10 @@ Route::middleware([
 
     Route::get('/citas', ShowAppointments::class)->name('citas')->middleware('permission:appointments');
     Route::get('/analisis', ShowAnalysis::class)->name('analisis')->middleware('permission:analysis');
-    Route::get('/analisis/{id}/report', [ShowAnalysis::class, 'reportAnalysis'])->name('reporte-analisis')->middleware('permission:analysis-report');
+    Route::get('/analisis/report/{reporte}', [ShowAnalysis::class, 'reportAnalysis'])->name('reporte-analisis')->middleware('permission:analysis-report');
 
     Route::get('/dietas', ShowDiets::class)->name('dietas')->middleware('permission:diets');
-    Route::get('/dietas/{id}/reporte', [ShowDiets::class, 'reportDiet'])->name('reporte-dieta')->middleware('permission:diets-report');
+    Route::get('/dietas/reporte/{diet}', [ShowDiets::class, 'reportDiet'])->name('reporte-dieta')->middleware('permission:diets-report');
 
     Route::get('/rutinas', ShowRoutines::class)->name('rutinas')->middleware('permission:routines');
     Route::get('/rutina/{id}', ShowRoutineExercises::class)->name('rutina-seleccionada')->middleware('permission:routines');

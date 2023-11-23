@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'address',
         'profile_photo_path',
     ];
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -67,12 +69,17 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+    public $timestamps = true;
 
-    public function analysis()
+
+    public function analyses()
     {
-        return $this->hasMany(Analysis::class, 'id_user');
+        return $this->belongsToMany(Analysis::class, 'analysis_diet_user');
     }
-
+    public function diets()
+    {
+        return $this->belongsToMany(Diet::class, 'analysis_diet_user');
+    }
 
     public function messages()
     {

@@ -48,11 +48,11 @@ class RolesAndPermissionsSeeder extends Seeder
         }
 
         // Asignar permisos a roles
-        $roleSuperAdmin->givePermissionTo('dashboard','routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'chat', 'sales');
+        $roleSuperAdmin->givePermissionTo('dashboard','routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'sales');
         $roleAdmin->givePermissionTo('dashboard','ticket','memberships');
         $roleNutriologo->givePermissionTo('appointments', 'analysis', 'diets', 'diets-report', 'analysis-report', 'chat');
         $roleEntrenador->givePermissionTo('routines', 'exercises');
-        $roleCliente->givePermissionTo('appointments', 'routines', 'chat', 'myProgress', 'routine-exercises', 'nutrition', 'myPrs');
+        $roleCliente->givePermissionTo('appointments', 'routines', 'chat', 'myProgress', 'routine-exercises', 'nutrition', 'myPrs', 'diets-report');
 
     }
 }

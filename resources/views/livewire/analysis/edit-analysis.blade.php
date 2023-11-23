@@ -11,12 +11,7 @@
                 <div class="grid grid-cols-8 gap-2">
                     <div class="mb-4 col-span-8">
                         <x-label for="user">Nombre del paciente</x-label>
-                        <select class="modal-select" wire:model="analysis.user_id" required>
-                            <option value="selecciona" disabled>Elige una opción</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
+                        <x-input type="text" wire:model="user" readOnly></x-input>
                         <x-input-error for="user"></x-input-error>
                     </div>
                     <div class="mb-4 col-span-2">
