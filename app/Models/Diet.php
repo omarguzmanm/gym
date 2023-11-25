@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Diet extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id';
+
 
     protected $fillable = ['description', 'type', 'kcal'];
 
@@ -15,9 +17,13 @@ class Diet extends Model
     //     return $this->hasMany(Analysis::class, 'id_user');
     // }
 
-    public function analysis()
+    public function analyses()
     {
-        return $this->hasMany(Analysis::class, 'id_diet');
+        return $this->belongsToMany(Analysis::class, 'analysis_diet_user')->withPivot('analysis_id', 'diet_id', 'user_id');
+    }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'analysis_diet_user')->withPivot('analysis_id', 'diet_id', 'user_id');
     }
 
     // Relación muchos a muchos con la tabla de comidas

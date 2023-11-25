@@ -60,9 +60,9 @@
                                      @foreach ($userAnalysis as $item)
                                          {{-- @foreach ($item->memberships as $membership) --}}
                                              <tr class="border-b dark:border-gray-700">
-                                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->users->code}}</th>
-                                                 <td class="px-4 py-3">{{$item->users->name}}</td>
-                                                 <td class="px-4 py-3">{{$item->users->phone_number}}</td>
+                                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->users[0]->code}}</th>
+                                                 <td class="px-4 py-3">{{$item->users[0]->name}}</td>
+                                                 <td class="px-4 py-3">{{$item->users[0]->phone_number}}</td>
                                                  <td class="px-4 py-3">{{$item->diet_id ? 'Sí' : 'No'}}</td>
                                                  <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
                                                     @livewire('analysis.edit-analysis', ['analysis' => $item], key($item->id))

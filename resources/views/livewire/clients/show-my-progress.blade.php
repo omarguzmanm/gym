@@ -1,7 +1,9 @@
-
 @section('title', 'Mi Progreso')
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
+        @if (!$hasActiveMembership)
+            @include('partials.renovation-alert')
+        @endif
         <section class="bg-gray-50 dark:bg-gray-900">
             <div class="max-w-screen-xl px-4 py-4 mx-auto lg:px-16 sm:py-4 lg:py-4">
                 <div class="grid grid-cols-8">
@@ -13,7 +15,7 @@
                     <div class="mt-3 mb-9 col-span-6 md:col-span-2 flex justify-center items-center space-x-3">
                         <label for="selectedExercise"
                             class="text-sm font-medium text-gray-900 dark:text-white">Ejercicio:</label>
-                        <select id="selectedExercise" wire:model="selectedExercise" wire:change="updateExercise"
+                        <select id="selectedExercise" wire:model="selectedExercise"
                             class="w-full h-9 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="">Elige una opción</option>
                             @foreach ($exercises as $item)

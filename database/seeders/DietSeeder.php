@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Appointment;
+use App\Models\Diet;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AppointmentSeeder extends Seeder
+class DietSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Appointment::factory(200)->create();
-        
+        Diet::factory(100)->create();
     }
 }

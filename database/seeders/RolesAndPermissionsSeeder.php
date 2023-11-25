@@ -16,27 +16,31 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run(): void
     {
         // Crear roles
-        $role1 = Role::create(['name' => 'Super Administrador']);
-        $role2 = Role::create(['name' => 'Administrador']);
-        $role3 = Role::create(['name' => 'Nutriologo']);
-        $role4 = Role::create(['name' => 'Entrenador']);
-        $role5 = Role::create(['name' => 'Cliente']);
+        $roleSuperAdmin = Role::create(['name' => 'Super Administrador']);
+        $roleAdmin = Role::create(['name' => 'Administrador']);
+        $roleNutriologo = Role::create(['name' => 'Nutriologo']);
+        $roleEntrenador = Role::create(['name' => 'Entrenador']);
+        $roleCliente = Role::create(['name' => 'Cliente']);
 
         // Crear permisos
         $permissions = [
+            'dashboard',
             'routines',
             'exercises',
-            'appointments',
             'ticket',
+            'sales',
             'memberships',
+            'appointments',
             'analysis',
+            'analysis-report',
             'diets',
             'diets-report',
-            'analysis-report',
             'users',
             'chat',
+            'routine-exercises',
             'myProgress',
-            'routine-exercises'
+            'nutrition',
+            'myPrs',
         ];
 
         foreach ($permissions as $permission) {
@@ -44,11 +48,11 @@ class RolesAndPermissionsSeeder extends Seeder
         }
 
         // Asignar permisos a roles
-        $role1->givePermissionTo('routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'chat');
-        $role2->givePermissionTo('routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'chat');
-        $role3->givePermissionTo('appointments', 'analysis', 'diets', 'diets-report', 'analysis-report', 'chat');
-        $role4->givePermissionTo('routines', 'exercises');
-        $role5->givePermissionTo('appointments', 'routines', 'chat', 'myProgress', 'routine-exercises');
+        $roleSuperAdmin->givePermissionTo('dashboard','routines', 'exercises', 'appointments', 'ticket', 'memberships', 'analysis', 'diets', 'diets-report', 'analysis-report', 'users', 'sales');
+        $roleAdmin->givePermissionTo('dashboard','ticket','memberships');
+        $roleNutriologo->givePermissionTo('appointments', 'analysis', 'diets', 'diets-report', 'analysis-report', 'chat');
+        $roleEntrenador->givePermissionTo('routines', 'exercises');
+        $roleCliente->givePermissionTo('appointments', 'routines', 'chat', 'myProgress', 'routine-exercises', 'nutrition', 'myPrs', 'diets-report');
 
     }
 }

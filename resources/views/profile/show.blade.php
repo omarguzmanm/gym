@@ -24,8 +24,9 @@
 
                             <x-section-border />
                         @endif
-
-                        @include('profile.membership-information')
+                        @if (Auth::user()->hasRole('Cliente'))
+                            @include('profile.membership-information')
+                        @endif
                         <x-section-border />
 
                         @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())

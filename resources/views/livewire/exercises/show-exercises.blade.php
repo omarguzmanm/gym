@@ -1,10 +1,11 @@
 @section('title', 'Ejercicios')
+
 <div class="p-4 sm:ml-64">
     <div class="p-4 dark:border-gray-700 mt-14">
         {{-- <div class="gap-4 mb-4"> --}}
             <section class="bg-white dark:bg-gray-900 antialiased">
                 <div class="max-w-screen-xl px-4 py-4 mx-auto lg:px-16 sm:py-4 lg:py-4">
-                    <div class="grid grid-cols-8 gap-x-16">
+                    <div class="grid grid-cols-8 gap-x-12">
                         <div class="col-span-8 text-left mb-6">
                             <h2 class="text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
                                 Ejercicios
@@ -69,8 +70,8 @@
                             </div>
                         </div>    
                         @if ($showExercise)
-                            <div class="hidden md:grid md:col-span-3">                                
-                                <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="hidden md:grid md:col-span-3 md:place-content-between">  
+                            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <img class="rounded-t-lg h-52 w-full" src="{{ Storage::url($exercise->media) }}" alt="Imagen Ejercicio" />
                                     <div class="px-5 pb-3">
                                         <div class="mt-3">
@@ -86,17 +87,13 @@
                                             <h5 class="text-base font-normal tracking-tight text-gray-900 dark:text-gray-400 capitalize">{{$exercise->equipment}}</h5>
                                         </div>
                                     </div>
-                                        {{-- <div class="flex items-center justify-center">
-                                            <a wire:click="$emit('deleteExercise', {{ $exercise->id }})" class="cursor-pointer mx-3 my-3 text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Eliminar</a>
-                                            <a wire:click="edit({{$exercise}})" class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Editar</a>
-                                        </div> --}}
                                 </div>
-                            </div> 
+                        </div> 
                         @else
                             @if (count($exercises) > 0)
-                                <div class="hidden md:grid md:col-span-3 md:text-center md:mt-8">
-                                    <h5 class="dark:text-gray-300">Toca un ejercicio para ver más detalles</h5>
-                                </div>
+                            <div class="hidden md:grid md:col-span-3 md:text-center md:mt-8">
+                                <h5 class="dark:text-gray-300">Toca un ejercicio para ver más detalles</h5>
+                            </div>
                             @endif
                         @endif
 

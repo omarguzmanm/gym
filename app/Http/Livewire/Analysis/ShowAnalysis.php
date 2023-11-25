@@ -41,18 +41,12 @@ class ShowAnalysis extends Component
     }
     public function render()
     {
-        
-        // $users = User::all();
-        // if ($this->readyToLoad) {
-            $userAnalysis = Analysis::with('users', 'diets')
-                ->whereHas('users', function ($query) {
-                    $query->where('name', 'LIKE', '%' . $this->search . '%');
-                })
-                // ->orderBy($this->sort, $this->direction)
-                ->paginate($this->cant);
-        // } else {
-        //     $userAnalysis = [];
-        // }
+        $userAnalysis = Analysis::with(['users' => function ($query) {
+            $query->where('name', 'LIKE', '%' . $this->search . '%');
+        }, 'diets'])
+        ->paginate($this->cant);
+        // dd($userAnalysis);
+
         return view('livewire.analysis.show-analysis', compact('userAnalysis'));
     }
 
@@ -77,7 +71,8 @@ class ShowAnalysis extends Component
 
         $this->sort = $sort;
     }
-    public function delete(Analysis $analysis){
+    public function delete(Analysis $analysis)
+    {
         // Analysis::where('id_diet', $diet->id)->update(['id_diet' => null]);
         $analysis->delete();
     }

@@ -10,9 +10,9 @@ class EditAnalysis extends Component
 {
     public $open_edit = false;
     public $analysis;
-
+    public $user;
     protected $rules = [
-        'analysis.user_id' => 'required',
+        // 'analysis.user_id' => 'required',
         'analysis.gender' => 'required',
         'analysis.age' => 'required',
         'analysis.weight' => 'required',
@@ -36,13 +36,13 @@ class EditAnalysis extends Component
             $imc = $this->analysis->weight / ($height * $height);
             $this->analysis->imc = number_format($imc, 2);
         }
-        $users = User::all();
-        return view('livewire.analysis.edit-analysis', compact('users'));
+        return view('livewire.analysis.edit-analysis');
     }
 
     public function edit(Analysis $analysis)
     {
-        $this->analysis = $analysis;
+        $this->analysis = $analysis->load('users');
+        $this->user = $analysis->users[0]->name;
         $this->open_edit = true;
     }
 

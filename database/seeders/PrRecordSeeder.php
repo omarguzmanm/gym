@@ -14,6 +14,5 @@ class PrRecordSeeder extends Seeder
     public function run(): void
     {
         PrRecord::factory(2000)->create();
-
     }
 }
