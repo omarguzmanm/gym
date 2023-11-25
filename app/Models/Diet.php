@@ -19,11 +19,11 @@ class Diet extends Model
 
     public function analyses()
     {
-        return $this->belongsToMany(Analysis::class, 'analysis_diet_user', 'diet_id', 'analysis_id');
+        return $this->belongsToMany(Analysis::class, 'analysis_diet_user')->withPivot('analysis_id', 'diet_id', 'user_id');
     }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'analysis_diet_user');
+        return $this->belongsToMany(User::class, 'analysis_diet_user')->withPivot('analysis_id', 'diet_id', 'user_id');
     }
 
     // Relación muchos a muchos con la tabla de comidas

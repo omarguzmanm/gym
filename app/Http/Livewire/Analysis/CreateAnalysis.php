@@ -44,7 +44,7 @@ class CreateAnalysis extends Component
             'notes' => $this->notes,
 
         ]);
-        $analysis->users()->attach($this->user_id);
+        $analysis->users()->attach($this->user_id, ['created_at' => now(), 'updated_at' => now()]);
 
         $this->reset(['open','user_id', 'gender', 'age', 'weight', 'height', 'imc','activity', 'goal', 'regularly_consumed', 'notes']);
 

@@ -14,10 +14,10 @@
                             class="text-sm font-medium text-gray-900 dark:text-white">Año:</label>
                         <select id="selectedExercise" wire:model="selectedYear"
                             class="w-full h-9 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="">Elige una opción</option>
-                            {{-- @foreach ($exercises as $item) --}}
-                                {{-- <option value="{{ $item }}">{{ $item }}</option> --}}
-                            {{-- @endforeach --}}
+                            <option value="">Selecciona una opción</option>
+                            @foreach ($years as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-span-6 md:col-span-3">
@@ -36,7 +36,7 @@
                                             Fecha
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Descarga
+                                            Dieta
                                         </th>
                                     </tr>
                                 </thead>
@@ -44,14 +44,14 @@
                                     @if (count($diets))
                                         @foreach ($diets as $item)
                                             @php
-                                                $dietId = $item->diets[0]->id;
+                                                $dietId = $item->pivot->diet_id;
                                                 $hashids = new Hashids\Hashids('', 20);
                                                 $dietId = $hashids->encode($dietId);
                                             @endphp
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
                                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {{ $item->diets[0]->created_at->format('d-m-Y') }}
+                                                    {{ $item->created_at->format('d-m-Y') }}
                                                 </th>
                                                 <td class="px-6 py-4">
                                                     <a href="{{ route('reporte-dieta', $dietId) }}"
@@ -68,18 +68,62 @@
                                     @endif
                                 </tbody>
                             </table>
+                            @if ($diets->hasPages())
+                                <div class="px-6 py-3">
+                                    {{ $diets->links('vendor.pagination.tailwind') }} {{-- Mostramos la paginación --}}
+                                </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="col-span-3">
-                        
-                        {{-- <div wire:ignore x-data="{
-                        
-                        }"> --}}
-
-
-
-                            <canvas id="progress" x-ref="progressCanvas"></canvas>
-                        </div>
+                    <div class="mt-5 col-span-6 md:col-span-3 md:ml-3" wire:ignore x-data="{
+                        selectedYear: @entangle('selectedYear'),
+                        kg: @entangle('kg'),
+                        months: @entangle('months'),
+                        init() {
+                            const kgData = {
+                                labels: this.months,
+                                datasets: [{
+                                    label: 'Kg',
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1,
+                                    data: this.kg
+                                }]
+                            };
+                            const configkg = {
+                                type: 'line',
+                                data: kgData,
+                                options: {
+                                    scales: {
+                                        x: {
+                                            title: {
+                                                display: true,
+                                                text: 'Mes'
+                                            }
+                                        },
+                                        y: {
+                                            title: {
+                                                display: true,
+                                                text: 'Kg'
+                                            }
+                                        }
+                                    }
+                                }
+                            };
+                    
+                            const kgChart = new Chart(
+                                this.$refs.kgCanvas, configkg
+                            );
+                    
+                            Livewire.on('updatekgChart', () => {
+                                kgChart.data.labels = this.months;
+                                kgChart.data.datasets[0].label = this.selectedYear + ' - Kg';
+                                kgChart.data.datasets[0].data = this.kg;
+                                kgChart.update();
+                            });
+                        }
+                    }">
+                        <canvas id="kg" x-ref="kgCanvas"></canvas>
                     </div>
                 </div>
         </section>

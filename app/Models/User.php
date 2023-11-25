@@ -74,11 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function analyses()
     {
-        return $this->belongsToMany(Analysis::class, 'analysis_diet_user');
+        return $this->belongsToMany(Analysis::class, 'analysis_diet_user')->withPivot('analysis_id', 'diet_id', 'user_id');
     }
     public function diets()
     {
-        return $this->belongsToMany(Diet::class, 'analysis_diet_user');
+        return $this->belongsToMany(Diet::class, 'analysis_diet_user')->withPivot('analysis_id', 'diet_id', 'user_id');
     }
 
     public function messages()

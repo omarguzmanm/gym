@@ -17,11 +17,11 @@ class Analysis extends Model
     // protected $table = 'analyses'; 
     
     public function diets(){
-        return $this->belongsToMany(Diet::class, 'analysis_diet_user', 'analysis_id', 'diet_id');
+        return $this->belongsToMany(Diet::class, 'analysis_diet_user', 'analysis_id', 'diet_id')->withPivot('analysis_id', 'diet_id', 'user_id');
     }
     
     public function users(){
-        return $this->belongsToMany(User::class, 'analysis_diet_user');
+        return $this->belongsToMany(User::class, 'analysis_diet_user')->withPivot('analysis_id', 'diet_id', 'user_id');
     }
 
 

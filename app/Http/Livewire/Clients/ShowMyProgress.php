@@ -19,7 +19,7 @@ class ShowMyProgress extends Component
     {
         // En caso que se pase por URL un ejercicio
         $this->selectedExercise = $exercise ?? '';
-        $this->updatedSelectedExercise();
+        // $this->updatedSelectedExercise();
 
         $this->exercises = PrRecord::where('user_id', Auth()->id())->pluck('exercise')->unique();
         // Verificamos si el usuario tiene una membresia activa
@@ -32,6 +32,7 @@ class ShowMyProgress extends Component
         $this->dates = $this->prRecords->pluck('created_at')->map(function ($date) {
             return $date->format('d-m-Y');
         });
+        // dd($this->dates);
         $this->prs = $this->prRecords->pluck('pr');
         $this->reps = $this->prRecords->pluck('reps');
 
