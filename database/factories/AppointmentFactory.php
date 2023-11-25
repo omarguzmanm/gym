@@ -25,8 +25,7 @@ class AppointmentFactory extends Factory
             'day' => $this->faker->dateTimeThisMonth('+ 2 months'),
             'hour' => $this->faker->randomElement([9, 10, 11, 12, 13, 14, 15]),
             'reason' => $this->faker->randomElement(['dieta', 'control', 'seguimiento']),
-            'status' => $this->faker->randomElement([0, 1]),
-            'created_at' => $this->faker->dateTimeThisDecade(),
+            'status' => $this->faker->randomElement([0, 1])
         ];
     }
 }

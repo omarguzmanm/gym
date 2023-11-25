@@ -25,7 +25,9 @@ class AnalysisFactory extends Factory
             'activity' => $this->faker->randomElement(['baja', 'media', 'alta', 'superAlta']),
             'goal' => $this->faker->randomElement(['Perdida de peso', 'Ganancia muscular', 'Mantenimiento de peso', 'Mejora de salud']),
             'regularly_consumed' => $this->faker->randomElement(['Refresco de cola', 'Galletas', 'Papas fritas', 'Helado', 'Pizza', 'Chocolate', 'Donas', 'Bollería', 'Caramelos', 'Fast food']),
-            'notes' => $this->faker->randomElement(['Intolerancia a la lactosa', 'Enfermedad celíaca', 'Diabetes tipo 2', 'Hipercolesterolemia', 'Hipertensión', 'Obesidad', 'Trastornos alimentarios (anorexia, bulimia, trastorno por atracón)', 'Síndrome del intestino irritable (SII)', 'Hipotiroidismo', 'Hipertiroidismo', 'Insuficiencia renal', 'Gastritis', 'Reflujo gastroesofágico', 'Alergias alimentarias', 'Vegetarianismo', 'Veganismo'])
+            'notes' => $this->faker->randomElement(['Intolerancia a la lactosa', 'Enfermedad celíaca', 'Diabetes tipo 2', 'Hipercolesterolemia', 'Hipertensión', 'Obesidad', 'Trastornos alimentarios (anorexia, bulimia, trastorno por atracón)', 'Síndrome del intestino irritable (SII)', 'Hipotiroidismo', 'Hipertiroidismo', 'Insuficiencia renal', 'Gastritis', 'Reflujo gastroesofágico', 'Alergias alimentarias', 'Vegetarianismo', 'Veganismo']),
+            'created_at' => $this->faker->dateTimeThisDecade(),
+            'updated_at' => $this->faker->dateTimeThisDecade(),
         ];
     }
 }

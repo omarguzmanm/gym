@@ -21,18 +21,14 @@ class AnalysisDietUserSeeder extends Seeder
         $analyses = Analysis::inRandomOrder()->get();
         $diets = Diet::inRandomOrder()->get();
 
-        // Itera sobre los usuarios y se utiliza sync para establecer relaciones en la tabla pivote
+        // Itera sobre los usuarios y utiliza sync para establecer relaciones en la tabla pivote
         foreach ($users as $user) {
-            $analysisId = $analyses->random()->id;
+            $analysisIds = $analyses->random(10)->pluck('id')->toArray();
             $dietId = $diets->random()->id;
 
-            $user->analyses()->sync([
-                $analysisId => [
-                    'diet_id' => $dietId,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]
-            ]);
+            $user->analyses()->sync(
+                array_fill_keys($analysisIds, ['diet_id' => $dietId, 'created_at' => now(), 'updated_at' => now()])
+            );
         }
     }
 }

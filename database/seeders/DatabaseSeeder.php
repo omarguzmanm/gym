@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
     {
         Storage::deleteDirectory('users');
         Storage::makeDirectory('users');
+        Storage::deleteDirectory('exercises');
+        Storage::makeDirectory('exercises');
 
         User::factory(100)->create(); 
         
@@ -36,10 +38,9 @@ class DatabaseSeeder extends Seeder
             RoutineSeeder::class,
             ExerciseRoutineUserSeeder::class,
             FoodSeeder::class, //Este proceso puede demorar - importar solo si se hara uso de dietas
+            DietFoodSeeder::class,
+            PrRecordSeeder::class,
+            RatingSeeder::class
         ]);
-
-        PrRecord::factory(2000)->create();
-        Rating::factory(1000)->create();
-
     }
 }

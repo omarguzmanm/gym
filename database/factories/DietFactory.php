@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Diets>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Diet>
  */
 class DietFactory extends Factory
 {
@@ -18,7 +18,9 @@ class DietFactory extends Factory
     {
         return [
             'description' => $this->faker->sentence(10),
-            'kcal' => $this->faker->numberBetween(2000, 3500)
+            'kcal' => $this->faker->numberBetween(2000, 3500),
+            'created_at' => $this->faker->dateTimeThisDecade(),
+            'updated_at' => $this->faker->dateTimeThisDecade(),
         ];
     }
 }

@@ -73,7 +73,7 @@
                     <p>Nombre: <span>{{ $diet->users->name }}</span></p>
                 </div> --}}
                 <div class="info-patient mt-3 mx-3">
-                    <p class="p-inline" style="width:22%">Edad: <span>{{ $diet->age }} años</span></p>
+                    <w class="p-inline" style="width:22%">Edad: <span>{{ $diet->age }} años</span></p>
                     <p class="p-inline text-capitalize" style="width:27%">Genero: <span>{{ $diet->gender }}</span></p>
                     <p class="p-inline" style="width:20%">Altura: <span>{{ $diet->height }}cm</span></p>
                     <p class="p-inline" style="width:20%">Peso: <span>{{ $diet->weight }}kg</span></p>

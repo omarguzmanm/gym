@@ -63,7 +63,7 @@
                                         @endforeach
                                     @else
                                         <td class="px-6 py-4">
-                                            No existe ninguna dieta
+                                            Seleccione un año para ver las dietas
                                         </td>
                                     @endif
                                 </tbody>
