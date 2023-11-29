@@ -12,7 +12,6 @@ use Livewire\Component;
 
 class Chatbox extends Component
 {
-
     public $selectedConversation;
     public $receiver;
     public $messages;
@@ -20,8 +19,6 @@ class Chatbox extends Component
     public $height;
 
     // protected $listeners = [ 'loadConversation', 'pushMessage', 'loadmore', 'updateHeight', "echo-private:chat. {$auth_id},MessageSent"=>'broadcastedMessageReceived',];
-
-
     public function getListeners()
     {
 
@@ -38,46 +35,28 @@ class Chatbox extends Component
         ];
     }
 
-
-
     public function resetComponent()
     {
-
         $this->selectedConversation = null;
         $this->receiverInstance = null;
-
-        # code...
     }
 
     public function broadcastedMessageRead($event)
     {
         //dd($event);
-
         if ($this->selectedConversation) {
-
-
-
             if ((int) $this->selectedConversation->id === (int) $event['conversation_id']) {
-
                 $this->dispatchBrowserEvent('markMessageAsRead');
             }
-
         }
-
-        # code...
     }
     /*---------------------------------------------------------------------------------------*/
     /*-----------------------------Broadcasted Event fucntion-------------------------------------------*/
     /*----------------------------------------------------------------------------*/
-
     function broadcastedMessageReceived($event)
     {
-        ///here 
         $this->emitTo('chat.chat-list', 'refresh');
-        # code...
-
         $broadcastedMessage = Message::find($event['message']);
-
 
         #check if any selected conversation is set 
         if ($this->selectedConversation) {
@@ -94,11 +73,9 @@ class Chatbox extends Component
         }
     }
 
-
     public function broadcastMessageRead()
     {
         broadcast(new MessageRead($this->selectedConversation->id, $this->receiverInstance->id));
-        # code...
     }
 
     /*--------------------------------------------------*/
@@ -109,17 +86,13 @@ class Chatbox extends Component
         $newMessage = Message::find($messageId);
         $this->messages->push($newMessage);
         $this->dispatchBrowserEvent('rowChatToBottom');
-        # code...
     }
-
-
 
     /*--------------------------------------------------*/
     /*------------------load More --------------------*/
     /*------------------------------------------------ */
     function loadmore()
     {
-
         // dd('top reached ');
         $this->paginateVar = $this->paginateVar + 10;
         $this->messages_count = Message::where('conversation_id', $this->selectedConversation->id)->count();
@@ -130,24 +103,16 @@ class Chatbox extends Component
 
         $height = $this->height;
         $this->dispatchBrowserEvent('updatedHeight', ($height));
-        # code...
     }
-
 
     /*---------------------------------------------------------------------*/
     /*------------------Update height of messageBody-----------------------*/
     /*---------------------------------------------------------------------*/
     function updateHeight($height)
     {
-
         // dd($height);
         $this->height = $height;
-
-        # code...
     }
-
-
-
     /*---------------------------------------------------------------------*/
     /*------------------load conersation----------------------------------*/
     /*---------------------------------------------------------------------*/
@@ -156,7 +121,6 @@ class Chatbox extends Component
         //  dd($conversation,$receiver);
         $this->selectedConversation = $conversation;
         $this->receiverInstance = $receiver;
-
 
         $this->messages_count = Message::where('conversation_id', $this->selectedConversation->id)->count();
 
@@ -170,7 +134,6 @@ class Chatbox extends Component
             ->where('receiver_id', auth()->user()->id)->update(['read' => 1]);
 
         $this->emitSelf('broadcastMessageRead');
-        # code...
     }
     public function render()
     {

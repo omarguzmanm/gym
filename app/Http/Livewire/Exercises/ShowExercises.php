@@ -6,10 +6,12 @@ use App\Models\Exercise;
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class ShowExercises extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     public $search = '';
     public $open_edit = false, $showExercise = false;
@@ -43,7 +45,9 @@ class ShowExercises extends Component
     public function delete(Exercise $exercise)
     {
         // Se ocupan las imagenes para este metodo
-        Storage::delete([$exercise->media]);
+        if ($exercise->media) {
+            Storage::delete([$exercise->media]);
+        }
         $exercise->delete();
         $this->reset(['showExercise']);
     }

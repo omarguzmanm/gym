@@ -90,7 +90,7 @@
                             </table>
                             @if ($userDiet->hasPages())
                                 <div class="px-6 py-3">
-                                    {{ $users->links('vendor.pagination.tailwind') }} {{-- Mostramos la paginación --}}
+                                    {{ $userDiet->links('vendor.pagination.tailwind') }} {{-- Mostramos la paginación --}}
                                 </div>
                             @endif
                     </div>
