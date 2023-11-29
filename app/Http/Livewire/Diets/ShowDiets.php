@@ -9,9 +9,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 
 class ShowDiets extends Component
 {
+    use WithPagination;
     public $search = '';
     public $diet, $identifier;
 

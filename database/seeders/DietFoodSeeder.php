@@ -23,23 +23,23 @@ class DietFoodSeeder extends Seeder
             // Crea tres registros con el mismo diet_id y diferentes valores para el atributo name
             $diet->foods()->attach(
                 $foods->random()->id,
-                ['name' => 'desayuno', 'created_at' => now(), 'updated_at' => now()]
+                ['name' => 'Desayuno', 'created_at' => now(), 'updated_at' => now()]
             );
             $diet->foods()->attach(
                 $foods->random()->id,
-                ['name' => 'colación 1', 'created_at' => now(), 'updated_at' => now()]
+                ['name' => 'Colación 1', 'created_at' => now(), 'updated_at' => now()]
             );
             $diet->foods()->attach(
                 $foods->random()->id,
-                ['name' => 'comida', 'created_at' => now(), 'updated_at' => now()]
+                ['name' => 'Comida', 'created_at' => now(), 'updated_at' => now()]
             );
             $diet->foods()->attach(
                 $foods->random()->id,
-                ['name' => 'colación 2', 'created_at' => now(), 'updated_at' => now()]
+                ['name' => 'Colación 2', 'created_at' => now(), 'updated_at' => now()]
             );
             $diet->foods()->attach(
                 $foods->random()->id,
-                ['name' => 'cena', 'created_at' => now(), 'updated_at' => now()]
+                ['name' => 'Cena', 'created_at' => now(), 'updated_at' => now()]
             );
         }
     }

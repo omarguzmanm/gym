@@ -112,28 +112,28 @@ class CreateDiet extends Component
 
     }
 
-    // public function tmb()
-    // {
-    //     $this->user = Analysis::with(['users' => function ($query) {
-    //         $query->where('users.id', $this->analysis_id);
-    //     }])->first();
+    public function tmb()
+    {
+        $this->user = Analysis::with(['users' => function ($query) {
+            $query->where('users.id', $this->analysis_id);
+        }])->first();
 
-    //     if (!empty($this->user->id)) {
-    //         if ($this->user->gender == 'masculino') {
-    //             $tmb = 88.362 + (13.397 * $this->user->weight) + (4.799 * $this->user->height) - (5.677 * $this->user->age);
-    //         } else {
-    //             $tmb = 447.593 + (9.247 * $this->user->weight) + (3.098 * $this->user->height) - (4.330 * $this->user->age);
-    //         }
-    //         if ($this->user->activity == 'baja')
-    //             $this->tmb = intval($tmb * 1.375);
-    //         elseif ($this->user->activity == 'media')
-    //             $this->tmb = intval($tmb * 1.55);
-    //         elseif ($this->user->activity == 'alta')
-    //             $this->tmb = intval($tmb * 1.725);
-    //         elseif ($this->user->activity == 'superAlta')
-    //             $this->tmb = intval($tmb * 1.9);
-    //     }
-    // }
+        if (!empty($this->user->id)) {
+            if ($this->user->gender == 'masculino') {
+                $tmb = 88.362 + (13.397 * $this->user->weight) + (4.799 * $this->user->height) - (5.677 * $this->user->age);
+            } else {
+                $tmb = 447.593 + (9.247 * $this->user->weight) + (3.098 * $this->user->height) - (4.330 * $this->user->age);
+            }
+            if ($this->user->activity == 'baja')
+                $this->tmb = intval($tmb * 1.375);
+            elseif ($this->user->activity == 'media')
+                $this->tmb = intval($tmb * 1.55);
+            elseif ($this->user->activity == 'alta')
+                $this->tmb = intval($tmb * 1.725);
+            elseif ($this->user->activity == 'superAlta')
+                $this->tmb = intval($tmb * 1.9);
+        }
+    }
 
     public function render()
     {
@@ -148,7 +148,7 @@ class CreateDiet extends Component
         // $foods = Food::whereJsonContains('info->Energia', '70 kcal')->get();
         // $this->foods = Food::all();
         $groups = Food::pluck('group')->unique();
-        // $this->tmb();
+        $this->tmb();
         // $foods2 = Food::all(); 
         return view('livewire.diets.create-diet', compact('userAnalysis', 'groups'));
     }

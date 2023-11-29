@@ -2,7 +2,7 @@
     {{-- Stop trying to control. --}}
 
     @if ($selectedConversation)
-        <div class="chatbox_header dark:bg-gray-700" >
+        <div class="chatbox_header dark:bg-gray-800" >
 
             <div class="return">
                 <i class="bi bi-arrow-left"></i>
@@ -35,9 +35,9 @@
             </div>
         </div>
 
-        <div class="chatbox_body dark:bg-gray-700">
+        <div class="chatbox_body dark:bg-gray-800">
             @foreach ($messages as $message)
-                <div class="msg_body {{ auth()->id() == $message->sender_id ? 'msg_body_me bg-gray-200 text-black dark:text-white dark:bg-gray-400 dark:bg-opacity-80' : 'msg_body_receiver' }}"
+                <div class="msg_body {{ auth()->id() == $message->sender_id ? 'msg_body_me bg-gray-200 text-black dark:text-white dark:bg-gray-600' : 'msg_body_receiver' }}"
                     style="width:80%;max-width:80%;max-width:max-content">
 
                     {{ $message->body }}
@@ -53,7 +53,7 @@
                                     if ($message->read == 0) {
                                         echo '<i class="bi bi-check2 status_tick "></i> ';
                                     } else {
-                                        echo '<i class="bi bi-check2-all text-primary  "></i> ';
+                                        echo '<i class="bi bi-check2-all text-blue-500  "></i> ';
                                     }
                                 }
                                 
