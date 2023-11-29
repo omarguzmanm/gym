@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Analysis;
 use App\Models\Appointment;
-use App\Models\Exercise;
+use App\Models\Diet;
 use App\Models\PrRecord;
 use App\Models\Rating;
 use App\Models\User;
@@ -20,11 +21,16 @@ class DatabaseSeeder extends Seeder
     {
         Storage::deleteDirectory('users');
         Storage::makeDirectory('users');
+        Storage::deleteDirectory('exercises');
+        Storage::makeDirectory('exercises');
 
-        User::factory(100)->create();
-        Appointment::factory(200)->create();
+        User::factory(100)->create(); 
         
         $this->call([
+            AppointmentSeeder::class,
+            DietSeeder::class,
+            AnalysisSeeder::class,
+            AnalysisDietUserSeeder::class,
             MembershipSeeder::class,
             RolesAndPermissionsSeeder::class,
             UserRoleSeeder::class,
@@ -32,16 +38,9 @@ class DatabaseSeeder extends Seeder
             RoutineSeeder::class,
             ExerciseRoutineUserSeeder::class,
             FoodSeeder::class, //Este proceso puede demorar - importar solo si se hara uso de dietas
+            DietFoodSeeder::class,
+            PrRecordSeeder::class,
+            RatingSeeder::class
         ]);
-
-        PrRecord::factory(2000)->create();
-        Rating::factory(1000)->create();
-
-
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

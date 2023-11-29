@@ -6,9 +6,10 @@ use App\Models\Membership;
 use App\Models\User;
 use Hashids\Hashids;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class MembershipPayment extends Controller
+class MembershipPaymentController extends Controller
 {
     public function payment(Request $request)
     {
@@ -55,8 +56,31 @@ class MembershipPayment extends Controller
 
         // dd($priceEncode, $userEncode);
 
-        return redirect()->route('payment', [$priceEncode, $userEncode]);
+        return redirect()->route('payment-guest', [$priceEncode, $userEncode]);
     }
 
+    public function selectMembership()
+    {
+        $premiumMonthPrice = 799;
+        $classicMonthPrice = 499;
+        $weekPrice = 199;
+        $hashId = new Hashids('', 20);
+        $userEncode = Auth()->id();
+        $premiumMonthPrice = $hashId->encode($premiumMonthPrice);
+        $classicMonthPrice = $hashId->encode($classicMonthPrice);
+        $weekPrice = $hashId->encode($weekPrice);
+        $userEncode = $hashId->encode($userEncode);
+        return view('checkout.memberships', compact('premiumMonthPrice', 'classicMonthPrice', 'weekPrice', 'userEncode'));
+    }
+
+    public function paymentAuth(Request $request)
+    {
+        $hashId = new Hashids('', 20);
+        $priceDecode = $hashId->decode($request->precio);
+        $userDecode = $hashId->decode($request->usuario);
+        $user = User::where('id', $userDecode)->first();
+        $membership = Membership::where('price', $priceDecode)->first();
+        return view('checkout.payment-auth', compact('membership', 'user'));
+    }
 
 }

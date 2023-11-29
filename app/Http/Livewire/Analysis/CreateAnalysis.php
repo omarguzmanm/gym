@@ -29,16 +29,10 @@ class CreateAnalysis extends Component
 
     public function save()
     {
-        // dd($this->user);
-        // Si la opción seleccionada es "otro", establece $otherGoal en blanco
-        // if ($this->goal === 'otro') {
-        //     $this->otherGoal = '';
-        // }
 
         $this->validate();
 
-        Analysis::create([
-            'user_id' => $this->user_id,
+        $analysis = Analysis::create([
             'age' => $this->age,
             'gender' => $this->gender,
             'weight' => $this->weight,
@@ -48,12 +42,9 @@ class CreateAnalysis extends Component
             'goal' => $this->goal,
             'regularly_consumed' => $this->regularly_consumed,
             'notes' => $this->notes,
-            // 'meal_frecuency' => $this->meal_frecuency,
-            // 'meal_schedule' => $this->meal_schedule,
-            // 'hours_sleep' => $this->hours_sleep,
-            // 'stress_levels' => $this->stress_levels,
-            // 'substance_use' => $this->substance_use,
+
         ]);
+        $analysis->users()->attach($this->user_id, ['created_at' => now(), 'updated_at' => now()]);
 
         $this->reset(['open','user_id', 'gender', 'age', 'weight', 'height', 'imc','activity', 'goal', 'regularly_consumed', 'notes']);
 

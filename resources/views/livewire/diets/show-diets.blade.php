@@ -19,11 +19,6 @@
                                         <option value="50">50</option>
                                         <option value="100">100</option>
                                     </select>
-                                    {{-- <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"> --}}
-                                        {{-- <svg class="w-5 h-5 text-gray-500 dark:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg> --}}
-                                    {{-- </div> --}}
                                 </div>
                             </div>
                             
@@ -46,7 +41,7 @@
                     </div>
 
                     <div class="overflow-x-auto">
-                        @if (count($userDiet))
+                        {{-- @if (count($userDiet)) --}}
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -60,48 +55,50 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($userDiet as $item)
+                                    {{-- @dd($item->diets[$key]->id ) --}}
+                                        {{-- @foreach ($item->users as $user) --}}
                                     {{-- @dd($item) --}}
-                                        @if ($item->users)
+                                        {{-- @if ($item->users) --}}
                                             <tr class="border-b dark:border-gray-700">
                                                 <th scope="row"
-                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->users->code}}</th>
-                                                <td class="px-4 py-3">{{$item->users->name}}</td>
-                                                <td class="px-4 py-3">{{$item->diets->created_at->format('d-m-Y')}}</td>
-                                                <td class="px-4 py-3">{{$item->diets->description}}</td>
+                                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->users[0]->code}}</th>
+                                                <td class="px-4 py-3">{{$item->users[0]->name}}</td>
+                                                <td class="px-4 py-3">{{$item->diets[0]->created_at->format('d-m-Y')}}</td>
+                                                <td class="px-4 py-3">{{$item->diets[0]->description}}</td>
                                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
-                                                    @livewire('diets.edit-diet', ['diet' => $item->diets], key($item->diets->id))
+                                                    @livewire('diets.edit-diet', ['diet' => $item->diets[0]], key($item->diets[0]->id))
 
                                                     <a class="cursor-pointer ml-4"
-                                                        wire:click="$emit('deleteDiet', {{$item->diets->id}})">
+                                                        wire:click="$emit('deleteDiet', {{$item->diets[0]->id}})">
                                                         <i class="fas fa-trash text-lg"></i></a>
                                                     @php
-                                                        $userId = $item->users->id;
+                                                        $dietId = $item->diets[0]->id;
                                                         // $hashids = new Hashids\Hashids('this is salt', 0, 'abcdefghijklmnopqrstuvwxyz'); // all lowercase
                                                         $hashids = new Hashids\Hashids('', 20); 
-                                                        $userId = $hashids->encode($userId);
+                                                        $dietId = $hashids->encode($dietId);
                                                     @endphp
-
                                                     <a class="cursor-pointer ml-4" target="_blank" title="Imprimir dieta"
                                                         {{-- href="{{ route('reporte-dieta', $item->users->id) }}" > --}}
-                                                        href="{{ route('reporte-dieta', $userId) }}" >
+                                                        href="{{ route('reporte-dieta', $dietId) }}" >
                                                         <i class="fas fa-file-pdf text-lg"></i></a>
                                                 </td>
                                             </tr>
-                                        @endif
+                                        {{-- @endif --}}
+                                        {{-- @endforeach --}}
                                     @endforeach
                                 </tbody>
                             </table>
                             @if ($userDiet->hasPages())
                                 <div class="px-6 py-3">
-                                    {{ $users->links('vendor.pagination.tailwind') }} {{-- Mostramos la paginación --}}
+                                    {{ $userDiet->links('vendor.pagination.tailwind') }} {{-- Mostramos la paginación --}}
                                 </div>
                             @endif
                     </div>
-                @else
+                {{-- @else
                     <div wire:loading.remove class="px-6 py-4 dark:text-gray-100">
                         No existe ningún registro coincidente
                     </div>
-                    @endif
+                    @endif --}}
             </section>
             {{-- <div class="flex justify-center">
                 <img wire:loading src="{{ asset('img/loading_4.gif') }}" class="w-40 p-10">

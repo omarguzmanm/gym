@@ -9,9 +9,11 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 
 class ShowDiets extends Component
 {
+    use WithPagination;
     public $search = '';
     public $diet, $identifier;
 
@@ -29,29 +31,38 @@ class ShowDiets extends Component
 
     public function render()
     {
-        $userDiet = Analysis::with('users', 'diets')
-            ->whereHas('users', function ($query) {
-                $query->where('name', 'LIKE', '%' . $this->search . '%');
+        $userDiet = Analysis::with([
+            'users' =>
+                function ($query) {
+                    $query->where('name', 'LIKE', '%' . $this->search . '%');
+                },
+            // 'diets'
+        ])
+            ->whereHas('diets', function ($query) {
+                $query->whereNotNull('diet_id');
             })
-            ->whereNotNull('diet_id')
-            ->orderBy('id', 'asc')
             ->paginate(10);
+        // dd($userDiet);
+
         return view('livewire.diets.show-diets', compact('userDiet'));
     }
 
     public function delete(Diet $diet)
     {
-        Analysis::where('diet_id', $diet->id)->update(['diet_id' => null]);
+        // Analysis::where('diet_id', $diet->id)->update(['diet_id' => null]);
         $diet->delete();
     }
 
     public function reportDiet($id)
     {
         $hashids = new Hashids('', 20);
-        $idDecode = $hashids->decode($id);
-        $diet = Analysis::with('diets', 'users')->where('user_id', $idDecode)->first();
-        $dietId = $diet->diet_id;
-
+        $dietDecode = $hashids->decode($id);
+        // dd($dietDecode);
+        $diet = Analysis::with('diets', 'users')->whereHas('diets', function ($query) use ($dietDecode) {
+            $query->where('diet_id', $dietDecode);
+        })->first();
+        // dd($diet);
+        $dietId = $diet->diets[0]->id;
         $dietUser = Diet::with([
             'foods' => function ($query) use ($dietId) {
                 $query->select('foods.id', 'foods.name', 'foods.portion')

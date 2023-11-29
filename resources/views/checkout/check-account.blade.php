@@ -31,16 +31,15 @@
                 </div>
                 <div class="mb-4 mt-4">
                     <label for="email" class="block mb-2 text-sm font-bold text-gray-900">Correo electrónico</label>
-                    <input type="email" id="email" name="email"
+                    <input type="email" id="email" name="email" autocomplete="email"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-300 focus:border-orange-500 block w-full p-2.5"
                         value="{{ old('email') }}" required autofocus>
                     <x-input-error for="email"></x-input-error>
                 </div>
                 <div class="mb-4 mt-4">
                     <label for="password" class="block mb-2 text-sm font-bold text-gray-900">Contraseña</label>
-                    <input type="password" id="password" name="password"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-300 focus:border-orange-500 block w-full p-2.5"
-                        value="{{ old('password') }}" required autofocus>
+                    <input type="password" id="password" name="password" autocomplete="current-password"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-300 focus:border-orange-500 block w-full p-2.5" required>
                     <input type="hidden" id="priceDecode" name="priceDecode"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-300 focus:border-orange-500 block w-full p-2.5"
                         value="{{ $priceDecode[0] }}" required autofocus>

@@ -58,11 +58,11 @@
             <h6 class="text">Tel: 3321 - 6598</h6>
         </div>
         <div class="mt-5">
-            <p class="font-weight-normal">Reporte de dieta personalizado para <strong>{{ $diet->users->name }}</strong>
+            <p class="font-weight-normal">Reporte de dieta personalizado para <strong>{{ $diet->users[0]->name }}</strong>
             </p>
             <p class="font-weight-normal">Fecha del reporte: {{ \Illuminate\Support\Carbon::now()->format('d/m/Y') }}
             </p>
-            <p class="font-weight-normal">Descripción de la dieta: {{$diet->diets->description}}
+            <p class="font-weight-normal">Descripción de la dieta: {{$diet->diets[0]->description}}
             </p>
         </div>
 
@@ -81,7 +81,7 @@
                 <div class="mx-3">
                     <p class="p-inline" style="width:22%">IMC: <span>{{ $diet->imc }}</span></p>
                     <p class="p-inline text-capitalize" style="width:27%">Actividad: <span>{{ $diet->activity }}</span></p>
-                    <p class="p-inline" style="width:25%">Calorias p/día: <span>{{ $diet->diets->kcal }}</span></p>
+                    <p class="p-inline" style="width:25%">Calorias p/día: <span>{{ $diet->diets[0]->kcal }}</span></p>
                     {{-- <p class="p-inline" style="width:25%">Duración: <span>{{ $diet->weight }}</span></p> --}}
                 </div>
                 <div class="mx-3">

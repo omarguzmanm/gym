@@ -18,11 +18,11 @@
             <form wire:submit.prevent="save">
             <div class="mb-4">
                 <x-label for="user_id">Paciente</x-label>
-                <select class="modal-select" wire:model="user_id" required>
+                <select class="modal-select" wire:model="analysis_id" required>
                     <option value="">Elige una opción</option>
-                    @foreach ($userAnalysis as $user)
-                        {{-- @dd($user) --}}
-                        <option value="{{ $user->users->id }}">{{ $user->users->name }}</option>
+                    @foreach ($userAnalysis as $key => $user)
+                        {{-- <option value="{{ $user->id }}">{{ $user->users[0]->name }} - {{$user->created_at->format('d/m/Y')}}</option> --}}
+                        <option value="{{ $user->id }}">{{ $user->users[$key]->name}}</option>
                     @endforeach
                 </select>
                 <x-input-error for="user_id"></x-input-error>

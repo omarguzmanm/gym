@@ -6,18 +6,20 @@ use Livewire\Component;
 use App\Models\Analysis;
 use App\Models\Diet;
 use App\Models\Food;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class CreateDiet extends Component
 {
     public $open = false;
-    public $user_id, $user;
+    public $analysis_id, $user;
     public $tmb = 0;
     public $name, $description;
     public $meals = [], $foods = [];
     public $count = 0; // contador para nombres únicos de comidas
-    
+
     protected $rules = [
-        'user_id' => 'required',
+        'analysis_id' => 'required',
         'description' => 'required',
         'meals.*.name' => 'required',
         // 'meals.*.groups.*' => 'required',
@@ -34,7 +36,7 @@ class CreateDiet extends Component
     public function updatingOpen()
     {
         if ($this->open == true) {
-            $this->reset(['open', 'user_id', 'name', 'description', 'meals', 'count']);
+            $this->reset(['open', 'analysis_id', 'name', 'description', 'meals', 'count']);
             $this->resetValidation();
         }
     }
@@ -51,7 +53,7 @@ class CreateDiet extends Component
     {
         $selectedFoodId = $this->meals[$mealId]['foods'][$index];
         $food = Food::find($selectedFoodId);
-        $this->meals[$mealId]['portions'][$index] = $food->portion; 
+        $this->meals[$mealId]['portions'][$index] = $food->portion;
         // dd($this->meals[$mealId]['foods'][$index]);
     }
 
@@ -86,16 +88,25 @@ class CreateDiet extends Component
         foreach ($this->meals as $mealData) {
             $mealName = $mealData['name'];
             $foods = $mealData['foods'];
-    
+
             foreach ($foods as $foodId) {
                 // Asocia el alimento con el nombre de la comida a la tabla pivote
                 $diet->foods()->attach($foodId, ['name' => $mealName]);
             }
         }
-        Analysis::where('user_id', $this->user_id)->whereNull('diet_id')->update(['diet_id' => $diet->id]);
+        $analysis = Analysis::find($this->analysis_id);
+        $user = $analysis->users[0];
+        $user_id = $user->id;
+
+        // $user->analyses()->sync([$analysis->id => ['diet_id' => $diet->id, 'user_id' => $user_id]]);
+
+        DB::table('analysis_diet_user')
+            ->where('user_id', $user_id)
+            ->where('analysis_id', $analysis->id)
+            ->update(['diet_id' => $diet->id]);
 
         //Reseteamos todos los valores del form/modal
-        $this->reset(['open', 'user_id', 'description', 'meals', 'count']);
+        $this->reset(['open', 'analysis_id', 'description', 'meals', 'count']);
         $this->emitTo('diets.show-diets', 'render');
         $this->emit('alert', 'La dieta se creó correctamente');
 
@@ -103,7 +114,9 @@ class CreateDiet extends Component
 
     public function tmb()
     {
-        $this->user = Analysis::with('users')->where('user_id', $this->user_id)->first();
+        $this->user = Analysis::with(['users' => function ($query) {
+            $query->where('users.id', $this->analysis_id);
+        }])->first();
 
         if (!empty($this->user->id)) {
             if ($this->user->gender == 'masculino') {
@@ -122,9 +135,16 @@ class CreateDiet extends Component
         }
     }
 
-    public function render()    
+    public function render()
     {
-        $userAnalysis = Analysis::with('users')->get();
+        // Relación inversa - Obtenemos resultados donde no existan la relaciób de la condiciob
+        $userAnalysis = Analysis::with('users', 'diets')
+            ->whereDoesntHave('diets', function ($query) {
+                $query->where('diet_id', '!=', null);
+            })
+            ->get();
+
+        // dd($userAnalysis);
         // $foods = Food::whereJsonContains('info->Energia', '70 kcal')->get();
         // $this->foods = Food::all();
         $groups = Food::pluck('group')->unique();
