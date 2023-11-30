@@ -59,7 +59,8 @@ Al ejecutar el seeder se creará un usuario para cada rol, las credenciales para
 
 ## Notas
 - El proceso de ejecución de migraciones puede demorar, debido a que se insertan datos importantes directamente (comidas, rutinas, ejercicios)
-- Para el funcionamiento del chat, pago de membresia y subida de imagenes poner credenciales correspondientes (Pusher, Mercado Pago, Cloudinary)
+- Para tener una mejor experciencia del rol del cliente, usar un usuario de la factory o bien, uno que creeemos desde el rol administrador, esto con el fin de que al usuario se le active correctamente su membresia.
+- Para el funcionamiento del chat, pago de membresia, subida de imagenes y correos, poner credenciales correspondientes (Pusher, Mercado Pago, Cloudinary y Mailtrap)
 - Si se desean utilizar imágenes de prueba para los usuarios, descomentar la línea del atributo profile_photo_path en el archivo UserFactory
 - No existe un formulario de registro directo; se deben utilizar las credenciales otorgadas.
 
