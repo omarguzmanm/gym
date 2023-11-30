@@ -45,18 +45,21 @@ Al ejecutar el seeder se creará un usuario para cada rol, las credenciales para
 
 ## Secciones
 - Usuarios - Completada
-- Ventas - Proximamente
-- Membresias - En proceso de mejora
-- Análisis - En proceso de mejora
-- Dietas - En proceso de mejora
+- Ventas - Completada V1
+- Membresias - Completada V1
+- Análisis - Completada V1
+- Dietas - Completada V1
 - Citas - Completada
-- Mensajes - En proceso de mejora
+- Mensajes - Completada V1
 - Ejercicios - Completada
 - Rutinas - Completada
-  
+- Mi progreso - Completada V1
+- Nutrición - Completada V1
+- Mis Prs - Completada V1
+
 ## Notas
-- Para el funcionamiento del chat, es necesario poner tus credenciales de Pusher en el .env
-- Por el momento los roles cliente, administrador y superAdministrador tienen la misma funcionalidad. Proximamente se crearán todas las secciones exclusivas del cliente.
-- Por el momento todos los roles tienen los mismos permisos. 
+- El proceso de ejecución de migraciones puede demorar, debido a que se insertan datos importantes directamente (comidas, rutinas, ejercicios)
+- Para el funcionamiento del chat, pago de membresia y subida de imagenes poner credenciales correspondientes (Pusher, Mercado Pago, Cloudinary)
 - Si se desean utilizar imágenes de prueba para los usuarios, descomentar la línea del atributo profile_photo_path en el archivo UserFactory
 - No existe un formulario de registro directo; se deben utilizar las credenciales otorgadas.
+
