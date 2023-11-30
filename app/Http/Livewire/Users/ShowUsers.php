@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Users;
 use Livewire\Component;
 use App\Models\Membership;
 use App\Models\User;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
@@ -17,7 +18,7 @@ class ShowUsers extends Component
 
     public $user, $image, $identifier;
     public $search = '';
-    public $sort = 'id';
+    public $sort = 'code';
     public $direction = 'desc';
     public $cant = '10';
 
@@ -56,7 +57,7 @@ class ShowUsers extends Component
         $this->price = $this->prices->first()->price ?? null;
         $this->id_membership = $this->prices->first()->id ?? null;
     }
-   public function updatingSearch()
+    public function updatingSearch()
     {
         $this->resetPage();
     }
@@ -69,15 +70,12 @@ class ShowUsers extends Component
     ];
     public function render()
     {
-        $users = User::select('users.*')->join('membership_user', 'users.id', '=', 'membership_user.user_id')
-                ->join('memberships', 'membership_user.membership_id', '=', 'memberships.id')
-                ->where('users.id', '!=', auth()->id())
-                ->where(function ($query) {
-                    $query->where('users.name', 'like', '%' . $this->search . '%')
-                        ->orWhere('users.code', 'like', '%' . $this->search . '%');
-                })
-                ->orderBy($this->sort, $this->direction)
-                ->paginate($this->cant);
+        $users = User::withAggregate('memberships', 'renew_date')->withAggregate('memberships', 'status')
+            ->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('code', 'like', '%' . $this->search . '%');
+            })->orderBy($this->sort, $this->direction)
+            ->paginate($this->cant);
         return view('livewire.users.show-users', compact('users'));
     }
 
@@ -102,8 +100,13 @@ class ShowUsers extends Component
 
     public function delete(User $user)
     {
-        // Se ocupan las imagenes para este metodo
-        Storage::delete([$user->profile_photo_path]);
+        if (!is_null($user->profile_photo_path)) {
+            // Se ocupan las imagenes para este metodo
+            // Storage::delete([$user->profile_photo_path]);
+
+            Cloudinary::destroy($user->public_id_photo);
+        }
         $user->delete();
+
     }
 }

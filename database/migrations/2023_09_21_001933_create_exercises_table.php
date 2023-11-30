@@ -19,6 +19,7 @@ return new class extends Migration
             // $table->string('type');
             $table->string('equipment');
             $table->string('media')->nullable();
+            $table->string('public_id_media')->nullable();
             $table->timestamps();
         });
     }

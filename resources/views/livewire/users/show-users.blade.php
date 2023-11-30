@@ -69,19 +69,19 @@
                                             <i class="fas fa-sort float-right mt-1"></i>
                                         @endif
                                     </th>
-                                    <th scope="col" class="cursor-pointer px-4 py-3 text-left tracking-wider" wire:click="order('renew_date')">
+                                    <th scope="col" class="cursor-pointer px-4 py-3 text-left tracking-wider" wire:click="order('memberships_status')">
                                         Renovación
                                         {{-- Sort --}}
-                                        @if ($sort == 'renew_date')
+                                        @if ($sort == 'memberships_renew_date')
                                             <i class="fas {{ $direction == 'asc' ? 'fa-sort-alpha-up-alt' : 'fa-sort-alpha-down-alt' }} float-right mt-1"></i>
                                         @else
                                             <i class="fas fa-sort float-right mt-1"></i>
                                         @endif
                                     </th>
-                                    <th scope="col" class="cursor-pointer px-4 py-3 text-left tracking-wider" wire:click="order('status')">
+                                    <th scope="col" class="cursor-pointer px-4 py-3 text-left tracking-wider" wire:click="order('memberships_status')">
                                         Estado
                                         {{-- Sort --}}
-                                        @if ($sort == 'status')
+                                        @if ($sort == 'memberships_status')
                                             <i class="fas {{ $direction == 'asc' ? 'fa-sort-alpha-up-alt' : 'fa-sort-alpha-down-alt' }} float-right mt-1"></i>
                                         @else
                                             <i class="fas fa-sort float-right mt-1"></i>

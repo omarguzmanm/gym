@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Appointments;
 
 use App\Models\Appointment;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -33,8 +35,9 @@ class ShowAppointments extends Component
     public function render()
     {
         $appointments = Appointment::with('users')->where('day', $this->current_date->format('Y/m/d'))->orderBy('hour', 'asc')->get();
+        $userAppointments = Appointment::with('users')->where('user_id', Auth::id())->orderBy('created_at', 'asc')->get();
         // dd($appointments);
-        return view('livewire.appointments.show-appointments', compact('appointments'));
+        return view('livewire.appointments.show-appointments', compact('appointments', 'userAppointments'));
     }
 
     

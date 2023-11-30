@@ -199,6 +199,8 @@ return [
         App\Providers\JetstreamServiceProvider::class,
             // Spatie
         Spatie\Permission\PermissionServiceProvider::class,
+        // Cloudinary
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
 
     ],
 
@@ -215,6 +217,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'Cloudinary' => CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::class,
+
     ])->toArray(),
     
     'Hashids' => Vinkla\Hashids\Facades\Hashids::class,

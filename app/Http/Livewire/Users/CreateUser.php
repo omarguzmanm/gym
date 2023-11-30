@@ -10,8 +10,10 @@ use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 
 class CreateUser extends Component
 {
@@ -59,16 +61,21 @@ class CreateUser extends Component
     public function save()
     {
         $this->validate();
-        // dd($this->id_membership);
+        $image = Cloudinary::upload($this->image->getRealPath(), ['folder' => 'gym/users']);
+        $public_id = $image->getPublicId();
+        $url = $image->getSecurePath();
 
-        $image = $this->image->store('users');
         $user = User::create([
             'name' => $this->name,
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'code' => random_int(1000, 9999),
-            'profile_photo_path' => $image
+            'profile_photo_path' => $image,
+            'public_id_photo' => $public_id
         ]);
+
+        // Eliminamos la imagen temporal
+        File::delete($this->image->getRealPath());
 
         $user->memberships()->attach($this->id_membership, [
             // 'inscription' => now(),
@@ -82,10 +89,8 @@ class CreateUser extends Component
         $role = Role::where('name', $this->user_type)->first();
         $user->assignRole($role);
 
-
         //Borramos los valores de los inputs
         $this->reset(['open', 'user_type', 'name', 'phone_number', 'address', 'image', 'type', 'plan', 'price']);
-
         $this->identifier = rand();
 
         // Emitimos un evento

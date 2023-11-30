@@ -19,10 +19,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Storage::deleteDirectory('users');
-        Storage::makeDirectory('users');
-        Storage::deleteDirectory('exercises');
-        Storage::makeDirectory('exercises');
 
         User::factory(100)->create(); 
         

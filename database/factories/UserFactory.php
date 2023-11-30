@@ -41,6 +41,7 @@ class UserFactory extends Factory
             // 'profile_photo_path'        => null,
             'current_team_id'           => null,
             // 'profile_photo_path'        =>  'users/' . $this->faker->image('public/storage/users',640,480,null,false)
+                // 'public_id_photo'           => null
         ];
     }
 

@@ -19,7 +19,7 @@
                 </div>
             @else
                 <div class="w-36 h-36 mx-auto rounded-full overflow-hidden">
-                    <img class="object-cover object-center w-full h-full" src="{{ Storage::url($user->profile_photo_path)  }}" alt="Imagen de perfil">
+                    <img class="object-cover object-center w-full h-full" src="{{ $user->profile_photo_path  }}" alt="Imagen de perfil">
                 </div>
             @endif
 
@@ -41,18 +41,6 @@
                 <x-input wire:model="user.address" type="text" class="w-full"></x-input>
             </div>
 
-            {{-- Editar membresia --}}
-            {{-- <div class="mb-4">
-                <x-label value="Membresia" />
-                <select wire:model="membershipSelected" id="membership"
-                    class="modal-select">
-                    <option value="selecciona">Selecciona una opción</option>
-                    <option value="1">Invitado (1 día)</option>
-                    <option value="2">Mensual</option>
-                    <option value="3">Trimestral</option>
-                    <option value="4">Anual</option>
-                </select>
-            </div> --}}
             {{-- Editar images --}}
             <div class="mb-4">
                 <x-label for="image">Imagen</x-label>

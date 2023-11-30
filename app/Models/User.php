@@ -37,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number',
         'address',
         'profile_photo_path',
+        'public_id_photo'
     ];
     protected $primaryKey = 'id';
 

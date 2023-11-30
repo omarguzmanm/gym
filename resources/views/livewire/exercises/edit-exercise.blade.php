@@ -22,7 +22,7 @@
                 </div>
             @else
                 <div class="w-36 h-36 mx-auto overflow-hidden">
-                    <img class="object-cover object-center w-full h-full" src="{{ Storage::url($exercise->media) }}"
+                    <img class="object-cover object-center w-full h-full" src="{{ $exercise->media }}"
                         alt="Imagen">
                 </div>
             @endif

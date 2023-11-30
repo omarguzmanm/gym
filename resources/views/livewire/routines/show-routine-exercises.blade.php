@@ -29,8 +29,8 @@
                         </div>
                         @foreach ($routine->exercises as $exercise)
                             <div class="col-span-8 md:col-span-6">                           
-                                <div class="flex flex-row items-center bg-white border border-gray-200 rounded-lg shadow md:h-[185px] md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                    <img class="object-cover w-48 rounded-t-lg h-48 md:h-44 md:w-48 md:rounded-none md:rounded-l-lg" src="{{asset('img/servicio-pesos.jpg')}}" alt="">
+                                <div class="flex flex-row items-center bg-white border border-gray-200 rounded-lg shadow md:h-[205px] md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                    <img class="object-cover w-48 rounded-t-lg h-48 md:h-52 md:w-48 md:rounded-none md:rounded-l-lg" src="{{asset('img/servicio-pesos.jpg')}}" alt="">
                                     <div class="flex flex-col w-full justify-between p-4 leading-normal">
                                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$exercise->name}}</h5>
                                         <p class="mb-2 text-sm font-normal text-gray-700 dark:text-gray-400">{{$exercise->pivot->sets}} x {{$exercise->pivot->reps}}</p>

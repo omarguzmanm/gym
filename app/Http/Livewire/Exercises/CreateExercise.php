@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Exercises;
 use App\Models\Exercise;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\File;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
 class CreateExercise extends Component
@@ -38,7 +40,9 @@ class CreateExercise extends Component
     public function save()
     {
         $this->validate();
-        $image = $this->media->store('exercises');
+        $image = Cloudinary::upload($this->media->getRealPath(), ['folder' => 'gym/exercises']);
+        $public_id = $image->getPublicId();
+        $url = $image->getSecurePath();
 
         $exercise = Exercise::create([
             'name' => $this->name,
@@ -46,10 +50,14 @@ class CreateExercise extends Component
             'muscle_group' => $this->muscle_group,
             // 'type' => $this->type,
             'equipment' => $this->equipment,
-            'media' => $image
+            'media' => $url,
+            'public_id_media' => $public_id
         ]);
 
-        $this->reset(['open','name', 'description', 'muscle_group', 'equipment', 'media']);
+        // Eliminamos la imagen temporal
+        File::delete($this->media->getRealPath());
+
+        $this->reset(['open', 'name', 'description', 'muscle_group', 'equipment', 'media']);
         $this->emitTo('exercises.show-exercises', 'render');
 
         $this->emit('alert', 'El ejercicio se creó satisfactoriamente');
