@@ -23,7 +23,7 @@ class AppointmentFactory extends Factory
             // 'user_id' => User::factory(),
             'user_id' => $user->id,
             'day' => $this->faker->dateTimeThisMonth('+ 2 months'),
-            'hour' => $this->faker->unique()->randomElement([9, 10, 11, 12, 13, 14, 15]),
+            'hour' => $this->faker->randomElement([9, 10, 11, 12, 13, 14, 15]),
             'reason' => $this->faker->randomElement(['dieta', 'control', 'seguimiento']),
             'status' => $this->faker->randomElement([0, 1])
         ];

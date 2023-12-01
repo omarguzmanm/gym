@@ -22,7 +22,7 @@
                 <div class="md:mx-24 my-6"> <!-- Add mx-28 for horizontal margin on medium screens -->
                     <div class="mb-4 flex justify-center">
                         <div>
-                            <img src="img/logo.png" alt="logo - future fit" class="w-48">
+                            <img src="{{asset('img/logo-light.png')}}" alt="logo - future fit" class="w-48">
                         </div>
                     </div>
                     <form>

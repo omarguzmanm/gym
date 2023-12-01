@@ -29,8 +29,8 @@ class CreateExercise extends Component
     }
 
     protected $rules = [
-        'name' => 'required',
-        'description' => 'required',
+        'name' => 'required|string',
+        'description' => 'required|string',
         'muscle_group' => 'required',
         // 'type' => 'required',
         'equipment' => 'required',

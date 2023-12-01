@@ -17,8 +17,8 @@ class CreateAnalysis extends Component
         'user_id' => 'required',
         'gender' => 'required',
         'age' => 'required',
-        'weight' => 'required',
-        'height' => 'required',
+        'weight' => 'required|numeric',
+        'height' => 'required|numeric',
         // 'imc' => 'required',
         'activity' => 'required',
         'goal' => 'required',
@@ -50,18 +50,31 @@ class CreateAnalysis extends Component
 
         $this->emitTo('analysis.show-analysis', 'render');
         $this->emit('alert', 'El analisis se creó correctamente.');
-
-
     }
 
+
+
+    public function updatingOpen()
+    {
+        if ($this->open == false) {
+            $this->reset(['open','user_id', 'gender', 'age', 'weight', 'height', 'imc','activity', 'goal', 'regularly_consumed', 'notes']);
+            // $this->emit('resetCKEditor');
+            $this->resetValidation();
+        }
+    }
     public function render()
     {
         // Calcular el IMC
-        if(isset($this->height) && isset($this->weight) ){
+        if (isset($this->height) && is_numeric($this->height) && isset($this->weight) && is_numeric($this->weight)) {
             $height = $this->height / 100;
+        
             $imc = $this->weight / ($height * $height);
+        
             $this->imc = number_format($imc, 2);
+        } else {
+            $this->imc = null; 
         }
+        
         $users = User::select('id', 'name')->orderBy('name', 'asc')->get();
         return view('livewire.analysis.create-analysis', compact('users'));
     }

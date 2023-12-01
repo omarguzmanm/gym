@@ -1,6 +1,5 @@
 # Proyecto Future Fit
-Este proyecto es una plataforma de gestión para gimnasios con varios roles y características diseñadas para mejorar la experiencia de los usuarios.
-
+"Este proyecto es una plataforma integral de gestión para gimnasios. Ofrece herramientas específicas para administradores, entrenadores y miembros, con el fin de mejorar la operación del gimnasio y la satisfacción de los usuarios".
 ## Instalación
 Sigue estos pasos para instalar y configurar el proyecto en tu entorno local:
  ```shell
@@ -58,8 +57,8 @@ Al ejecutar el seeder se creará un usuario para cada rol, las credenciales para
 - Mis Prs - Completada V1
 
 ## Notas
-- El proceso de ejecución de migraciones puede demorar, debido a que se insertan datos importantes directamente (comidas, rutinas, ejercicios)
-- Para tener una mejor experciencia del rol del cliente, usar un usuario de la factory o bien, uno que creeemos desde el rol administrador, esto con el fin de que al usuario se le active correctamente su membresia.
+- El proceso de ejecución de migraciones y seeders puede demorar, debido a que se insertan datos importantes directamente (comidas, rutinas, ejercicios)
+- Para tener una mejor experciencia con el rol del cliente, usar un usuario de la factory o bien, uno que creeemos desde el rol administrador, esto con el fin de que al usuario se le active correctamente su membresia.
 - Para el funcionamiento del chat, pago de membresia, subida de imagenes y correos, poner credenciales correspondientes (Pusher, Mercado Pago, Cloudinary y Mailtrap)
 - Si se desean utilizar imágenes de prueba para los usuarios, descomentar la línea del atributo profile_photo_path en el archivo UserFactory
 - No existe un formulario de registro directo; se deben utilizar las credenciales otorgadas.

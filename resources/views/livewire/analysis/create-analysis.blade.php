@@ -44,12 +44,12 @@
                 </div>
                 <div class="mb-4 col-span-2">
                     <x-label for="weight">Peso (kg)</x-label>
-                    <x-input type="number" wire:model="weight" required></x-input>
+                    <x-input type="number" wire:model="weight" required oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"></x-input>
                     <x-input-error for="weight"></x-input-error>
                 </div>
                 <div class="mb-4 col-span-2">
                     <x-label for="height" required>Estatura (cm)</x-label>
-                    <x-input type="number" wire:model="height" required></x-input>
+                    <x-input type="number" wire:model="height" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" required></x-input>
                     <x-input-error for="height"></x-input-error>
                 </div>
                 <div class="mb-4 col-span-2">
@@ -61,10 +61,10 @@
                     <x-label for="activity">Actividad física</x-label>
                     <select class="modal-select" wire:model="activity" required>
                         <option value="null" disabled>Elige una opción</option>
-                        <option value="baja">Baja (1-3 por semana)</option>
-                        <option value="media">Media (3-5 por semana)</option>
-                        <option value="alta">Alta (6-7 por semana)</option>
-                        <option value="superAlta">Super alta (Trabajo y ejercicio)</option>
+                        <option value="Baja">Baja (1-3 por semana)</option>
+                        <option value="Media">Media (3-5 por semana)</option>
+                        <option value="Alta">Alta (6-7 por semana)</option>
+                        <option value="Super Alta">Super alta (Trabajo y ejercicio)</option>
                     </select>
                     <x-input-error for="activity"></x-input-error>
 

@@ -93,7 +93,7 @@
 
             <div>
                 <x-label for="photo">Foto</x-label>
-                <x-input id="photo" type="file" wire:model="image" id="{{ $identifier }}" required></x-input>
+                <x-input id="photo" type="file" wire:model="image" id="{{ $identifier }}"></x-input>
                 <x-input-error for="image"></x-input-error>
             </div>
 

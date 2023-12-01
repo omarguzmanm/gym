@@ -38,10 +38,10 @@ class UserFactory extends Factory
             'two_factor_secret'         => null,
             'two_factor_recovery_codes' => null,
             'remember_token'            => Str::random(10),
-            // 'profile_photo_path'        => null,
+            'profile_photo_path'        => 'https://res.cloudinary.com/des5tlbfo/image/upload/v1701389226/gym/users/wdfx4ceethhvb9pffv3s.jpg',
             'current_team_id'           => null,
             // 'profile_photo_path'        =>  'users/' . $this->faker->image('public/storage/users',640,480,null,false)
-                // 'public_id_photo'           => null
+            'public_id_photo'           => 'gym/users/wdfx4ceethhvb9pffv3s'
         ];
     }
 

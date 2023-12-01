@@ -25,6 +25,7 @@ class EditDiet extends Component
 
     protected $rules = [
         'diet.description' => 'required',
+        'diet.kcal' => 'required'
     ];
 
 
@@ -33,7 +34,6 @@ class EditDiet extends Component
         $this->diet = $diet;
         $this->open_edit = true;
     }
-
 
     public function update()
     {

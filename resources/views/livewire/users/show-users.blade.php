@@ -69,7 +69,7 @@
                                             <i class="fas fa-sort float-right mt-1"></i>
                                         @endif
                                     </th>
-                                    <th scope="col" class="cursor-pointer px-4 py-3 text-left tracking-wider" wire:click="order('memberships_status')">
+                                    <th scope="col" class="cursor-pointer px-4 py-3 text-left tracking-wider" wire:click="order('memberships_renew_date')">
                                         Renovación
                                         {{-- Sort --}}
                                         @if ($sort == 'memberships_renew_date')

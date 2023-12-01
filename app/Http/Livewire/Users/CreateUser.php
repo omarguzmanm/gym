@@ -49,10 +49,10 @@ class CreateUser extends Component
 
     protected $rules = [
         // 'user_type' => 'required',
-        'name' => 'required',
-        'phone_number' => 'required',
-        'address' => 'required',
-        'image' => 'required|image|max:2048',
+        'name' => 'required|string',
+        'phone_number' => 'required|string',
+        'address' => 'required|string',
+        'image' => 'image|max:2048',
         'type' => 'required',
         'plan' => 'required',
         // 'price' => 'required',
@@ -70,7 +70,7 @@ class CreateUser extends Component
             'phone_number' => $this->phone_number,
             'address' => $this->address,
             'code' => random_int(1000, 9999),
-            'profile_photo_path' => $image,
+            'profile_photo_path' => $url,
             'public_id_photo' => $public_id
         ]);
 
@@ -83,7 +83,9 @@ class CreateUser extends Component
                             ($this->type == 'Mensual' ? now()->addMonth() :
                             ($this->type == 'Semestral' ? now()->addMonths(6) :
                             ($this->type == 'Anual' ? now()->addYears(1) : null))),
-            'status' => 1
+            'status' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         $role = Role::where('name', $this->user_type)->first();

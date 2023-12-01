@@ -52,7 +52,9 @@
                                      <th scope="col" class="px-4 py-3">Código</th>
                                      <th scope="col" class="px-4 py-3">Nombre</th>
                                      <th scope="col" class="px-4 py-3">Telefóno</th>
-                                     <th scope="col" class="px-4 py-3">Dieta</th>
+                                     <th scope="col" class="px-4 py-3">IMC</th>
+
+                                     {{-- <th scope="col" class="px-4 py-3">Dieta</th> --}}
                                      <th scope="col" class="px-4 py-3">Acciones</th>
                                  </tr>
                                  </thead>
@@ -63,15 +65,17 @@
                                                  <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->users[0]->code}}</th>
                                                  <td class="px-4 py-3">{{$item->users[0]->name}}</td>
                                                  <td class="px-4 py-3">{{$item->users[0]->phone_number}}</td>
-                                                 <td class="px-4 py-3">{{$item->diet_id ? 'Sí' : 'No'}}</td>
+                                                 <td class="px-4 py-3">{{$item->imc}}</td>
+
+                                                 {{-- <td class="px-4 py-3">{{$item->diets ? 'Sí' : 'No'}}</td> --}}
                                                  <td class="px-4 py-3 whitespace-nowrap text-sm font-medium flex">
                                                     @livewire('analysis.edit-analysis', ['analysis' => $item], key($item->id))
  
                                                      <a class="cursor-pointer ml-4" wire:click="$emit('deleteAnalysis', {{ $item->id }})" title="Eliminar Analisis">
                                                      <i class="fas fa-trash text-lg"></i></a>
-                                                     
+{{--                                                      
                                                      <a class="cursor-pointer ml-4" href="{{route('reporte-analisis', $item->id)}}">
-                                                     <i class="fas fa-file-pdf text-lg"></i></a>
+                                                     <i class="fas fa-file-pdf text-lg"></i></a> --}}
                                                  </td>
                                              </tr>
                                          {{-- @endforeach --}}

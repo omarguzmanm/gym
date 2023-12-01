@@ -43,7 +43,7 @@ class CreateAppointment extends Component
         'patient' => 'required',
         'day' => 'required|date',
         'selectedHour' => 'required',
-        'reason' => 'required'
+        'reason' => 'required|string'
     ];
 
     public function save()

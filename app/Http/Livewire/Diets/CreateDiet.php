@@ -20,7 +20,7 @@ class CreateDiet extends Component
 
     protected $rules = [
         'analysis_id' => 'required',
-        'description' => 'required',
+        'description' => 'required|string',
         'meals.*.name' => 'required',
         // 'meals.*.groups.*' => 'required',
         'meals.*.foods.*' => 'required',
@@ -36,7 +36,7 @@ class CreateDiet extends Component
     public function updatingOpen()
     {
         if ($this->open == true) {
-            $this->reset(['open', 'analysis_id', 'name', 'description', 'meals', 'count']);
+            $this->reset(['open', 'foods', 'name', 'description', 'meals', 'count']);
             $this->resetValidation();
         }
     }

@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->float('weight');
             $table->float('height');
             $table->float('imc');
-            $table->enum('activity', ['baja', 'media', 'alta', 'superAlta']);
+            $table->enum('activity', ['Baja', 'Media', 'Alta', 'Super Alta']);
             //Nutrional goals
             $table->string('goal');
             //Current habits
