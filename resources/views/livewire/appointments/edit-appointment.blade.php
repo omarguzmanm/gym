@@ -77,31 +77,3 @@
 
     </x-dialog-modal>
 </div>
-
-
-@push('js')
-    <script>
-        // Escucha un evemto
-        Livewire.on('deleteAppointment', appointmentId => {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: '¡Sí, eliminar!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.emitTo('appointments.show-appointments', 'delete', appointmentId);
-                    Swal.fire(
-                        '¡Eliminado!',
-                        'La cita ha sido eliminada',
-                        'success'
-                    )
-                }
-            })
-        })
-    </script>
-@endpush

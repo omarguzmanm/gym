@@ -13,6 +13,6 @@ class AnalysisSeeder extends Seeder
      */
     public function run(): void
     {
-        Analysis::factory(100)->create();
+        Analysis::factory(1000)->create();
     }
 }

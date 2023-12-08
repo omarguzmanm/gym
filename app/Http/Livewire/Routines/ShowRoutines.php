@@ -39,6 +39,7 @@ class ShowRoutines extends Component
         $routine->exercises()->detach();
         // Eliminamos la rutina
         $routine->delete();
+        $routine->ratings()->delete();
     }
     
 

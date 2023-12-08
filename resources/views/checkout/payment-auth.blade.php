@@ -7,8 +7,8 @@
     $item = new MercadoPago\Item();
     $item->title = 'Plan ' . $membership->plan . ' ' . $membership->type;
     $item->quantity = 1;
-    // $item->unit_price = $membership->price;
-    $item->unit_price = 10;
+    $item->unit_price = $membership->price;
+    // $item->unit_price = 10;
     $preference->back_urls = [
         'success' => 'http://127.0.0.1:8000',
         'failure' => 'http://127.0.0.1:8000/checkoout/payment/' . $membership->price . '/' . $user->id,
@@ -28,7 +28,7 @@
         'created_at' => now(),
         'updated_at' => now(),
     ]]);
-    // Mail::to($user->email)->send(new App\Mail\RenewedMembership($user));
+    Mail::to($user->email)->send(new App\Mail\RenewedMembership($user));
     
 @endphp
 

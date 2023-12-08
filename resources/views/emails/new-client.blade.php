@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron text-center">
-                    <img src="https://i.ibb.co/Z8q4RCk/logo-light.png" alt="Logo del Gimnasio Future Fit" width="200">
+                    <img src="https://res.cloudinary.com/des5tlbfo/image/upload/v1701645435/gym/nrrmfgajqfzcqewikvxh.png" alt="Logo del Gimnasio Future Fit" width="200">
                     <h1 class="display-">¡Bienvenido a Future Fit!</h1>
                     <p class="lead">Estamos emocionados de tenerte como parte de nuestra comunidad de fitness y estamos aquí para ayudarte a alcanzar tus metas de acondicionamiento físico.</p>
                 </div>

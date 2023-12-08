@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class Chatbox extends Component
 {
-    public $selectedConversation;
+    public $selectedConversation, $receiverInstance;
     public $receiver;
     public $messages;
     public $paginateVar = 10;
@@ -50,9 +50,7 @@ class Chatbox extends Component
             }
         }
     }
-    /*---------------------------------------------------------------------------------------*/
-    /*-----------------------------Broadcasted Event fucntion-------------------------------------------*/
-    /*----------------------------------------------------------------------------*/
+    // Broadcasted Event fucntion
     function broadcastedMessageReceived($event)
     {
         $this->emitTo('chat.chat-list', 'refresh');
@@ -67,7 +65,6 @@ class Chatbox extends Component
                 $broadcastedMessage->save();
                 $this->pushMessage($broadcastedMessage->id);
                 // dd($event);
-
                 $this->emitSelf('broadcastMessageRead');
             }
         }
@@ -77,20 +74,14 @@ class Chatbox extends Component
     {
         broadcast(new MessageRead($this->selectedConversation->id, $this->receiverInstance->id));
     }
-
-    /*--------------------------------------------------*/
-    /*------------------push message to chat--------------*/
-    /*------------------------------------------------ */
+    // Push message to chat
     public function pushMessage($messageId)
     {
         $newMessage = Message::find($messageId);
         $this->messages->push($newMessage);
         $this->dispatchBrowserEvent('rowChatToBottom');
     }
-
-    /*--------------------------------------------------*/
-    /*------------------load More --------------------*/
-    /*------------------------------------------------ */
+    // Load More 
     function loadmore()
     {
         // dd('top reached ');
@@ -104,18 +95,13 @@ class Chatbox extends Component
         $height = $this->height;
         $this->dispatchBrowserEvent('updatedHeight', ($height));
     }
-
-    /*---------------------------------------------------------------------*/
-    /*------------------Update height of messageBody-----------------------*/
-    /*---------------------------------------------------------------------*/
+    // Update height of messageBody
     function updateHeight($height)
     {
         // dd($height);
         $this->height = $height;
     }
-    /*---------------------------------------------------------------------*/
-    /*------------------load conersation----------------------------------*/
-    /*---------------------------------------------------------------------*/
+    // Load conversation
     public function loadConversation(Conversation $conversation, User $receiver)
     {
         //  dd($conversation,$receiver);

@@ -15,20 +15,31 @@ class AnalysisDietUserSeeder extends Seeder
      */
     public function run(): void
     {
-
         // Selecciona usuarios, análisis y dietas de manera aleatoria
         $users = User::inRandomOrder()->get();
         $analyses = Analysis::inRandomOrder()->get();
         $diets = Diet::inRandomOrder()->get();
-
+    
         // Itera sobre los usuarios y utiliza sync para establecer relaciones en la tabla pivote
         foreach ($users as $user) {
-            $analysisIds = $analyses->random(10)->pluck('id')->toArray();
-            $dietId = $diets->random()->id;
-
-            $user->analyses()->sync(
-                array_fill_keys($analysisIds, ['diet_id' => $dietId, 'created_at' => now(), 'updated_at' => now()])
-            );
+            // Selecciona 10 análisis y dietas diferentes de manera aleatoria
+            $uniqueCombinations = collect();
+            while ($uniqueCombinations->count() < 10) {
+                $analysis = $analyses->pop();
+                $diet = $diets->pop();
+                $uniqueCombinations->push([$analysis->id, $diet->id]);
+            }
+    
+            $syncData = [];
+            // Creamos array asociativo [anaylisis => [diet,...]]
+            foreach ($uniqueCombinations as $combination) {
+                $syncData[$combination[0]] = ['diet_id' => $combination[1], 'created_at' => now(), 'updated_at' => now()];
+            }
+            // Asigna las 10 combinaciones únicas al usuario actual sin eliminar las existentes.
+            $user->analyses()->syncWithoutDetaching($syncData);
         }
     }
+    
+    
+    
 }

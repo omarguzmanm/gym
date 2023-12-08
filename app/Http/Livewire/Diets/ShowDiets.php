@@ -16,18 +16,17 @@ class ShowDiets extends Component
     use WithPagination;
     public $search = '';
     public $diet, $identifier;
+    public $cant = '10';
+    public $direction = 'desc';
+    public $sort = 'id';
+    protected $queryString = [
+        'cant' => ['except' => '10'],
+        'sort' => ['except' => 'id'],
+        'direction' => ['except' => 'desc'],
+        'search' => ['except' => '']
+    ];
 
     protected $listeners = ['render', 'delete'];
-
-    public function mount()
-    {
-        // $this->identifier = rand();
-        $this->diet = new Diet();
-    }
-
-    protected $rules = [
-        'diet.description' => 'required',
-    ];
 
     public function render()
     {
@@ -40,17 +39,29 @@ class ShowDiets extends Component
         ])
             ->whereHas('diets', function ($query) {
                 $query->whereNotNull('diet_id');
-            })
-            ->paginate(10);
-        // dd($userDiet);
+            })->orderBy('id', 'desc')
+            ->paginate($this->cant);
 
         return view('livewire.diets.show-diets', compact('userDiet'));
     }
 
     public function delete(Diet $diet)
     {
-        // Analysis::where('diet_id', $diet->id)->update(['diet_id' => null]);
+        // Eliminar registros en la tabla pivote 'analysis_diet_user'
+        $diet->analyses()->detach();
+        $diet->foods()->detach();
+
+        // Eliminar la dieta
         $diet->delete();
+        $diet->foods()->delete();
+
+        $this->emit('render');
+    }
+
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function reportDiet($id)
@@ -61,7 +72,6 @@ class ShowDiets extends Component
         $diet = Analysis::with('diets', 'users')->whereHas('diets', function ($query) use ($dietDecode) {
             $query->where('diet_id', $dietDecode);
         })->first();
-        // dd($diet);
         $dietId = $diet->diets[0]->id;
         $dietUser = Diet::with([
             'foods' => function ($query) use ($dietId) {

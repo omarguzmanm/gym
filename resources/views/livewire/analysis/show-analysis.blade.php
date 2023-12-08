@@ -62,9 +62,9 @@
                                      @foreach ($userAnalysis as $item)
                                          {{-- @foreach ($item->memberships as $membership) --}}
                                              <tr class="border-b dark:border-gray-700">
-                                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->users[0]->code}}</th>
-                                                 <td class="px-4 py-3">{{$item->users[0]->name}}</td>
-                                                 <td class="px-4 py-3">{{$item->users[0]->phone_number}}</td>
+                                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->users[0]->code ?? null}}</th>
+                                                 <td class="px-4 py-3">{{$item->users[0]->name ?? null}}</td>
+                                                 <td class="px-4 py-3">{{$item->users[0]->phone_number ?? null}}</td>
                                                  <td class="px-4 py-3">{{$item->imc}}</td>
 
                                                  {{-- <td class="px-4 py-3">{{$item->diets ? 'Sí' : 'No'}}</td> --}}

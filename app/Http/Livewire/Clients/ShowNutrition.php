@@ -43,7 +43,7 @@ class ShowNutrition extends Component
     public function render()
     {
         $diets = $this->user->analyses()->wherePivot('user_id', $this->user->id)->whereYear('analyses.created_at', $this->selectedYear)->orderBy('analyses.created_at', 'asc')->paginate(10);
-        // dd($this->diets);
+        // dd($diets);
         return view('livewire.clients.show-nutrition', compact('diets'));
     }
 }

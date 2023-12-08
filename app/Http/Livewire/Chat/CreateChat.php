@@ -38,7 +38,7 @@ class CreateChat extends Component
     public function render()
     {
         // $this->users = User::where('id', '!=', auth()->user()->id)->get();
-        $users = User::where('id', '!=', auth()->user()->id)->where('name', 'like', '%' . $this->search . '%')->get();
+        $users = User::where('id', '!=', Auth()->id())->get();
         if(!empty($this->userSelected)){
             $this->checkconversation($this->userSelected);
         }

@@ -124,13 +124,13 @@ class CreateDiet extends Component
             } else {
                 $tmb = 447.593 + (9.247 * $this->user->weight) + (3.098 * $this->user->height) - (4.330 * $this->user->age);
             }
-            if ($this->user->activity == 'baja')
+            if ($this->user->activity == 'Baja')
                 $this->tmb = intval($tmb * 1.375);
-            elseif ($this->user->activity == 'media')
+            elseif ($this->user->activity == 'Media')
                 $this->tmb = intval($tmb * 1.55);
-            elseif ($this->user->activity == 'alta')
+            elseif ($this->user->activity == 'Alta')
                 $this->tmb = intval($tmb * 1.725);
-            elseif ($this->user->activity == 'superAlta')
+            elseif ($this->user->activity == 'Super Alta')
                 $this->tmb = intval($tmb * 1.9);
         }
     }

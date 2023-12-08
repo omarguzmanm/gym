@@ -29,7 +29,7 @@
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Contraseña') }}" />
                 <input wire:model="password" type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-300 focus:border-orange-500 block w-full p-2.5""
-                required autofocus placeholder="Escribe tu correo electrónico" />
+                required autofocus placeholder="Escribe tu contraseña" />
                 <x-input-error for="password" />
 
             </div>

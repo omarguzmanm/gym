@@ -18,8 +18,8 @@ class ShowUsers extends Component
 
     public $user, $image, $identifier;
     public $search = '';
-    public $sort = 'code';
-    public $direction = 'desc';
+    public $sort = 'name';
+    public $direction = 'asc';
     public $cant = '10';
 
     public $type, $plan, $price, $id_membership, $status;
@@ -107,6 +107,9 @@ class ShowUsers extends Component
             Cloudinary::destroy($user->public_id_photo);
         }
         $user->delete();
+        $user->analyses()->delete();
+        $user->memberships()->delete();
+        $user->prs()->delete();
 
     }
 }

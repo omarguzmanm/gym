@@ -22,7 +22,7 @@
                     <option value="">Elige una opción</option>
                     @foreach ($userAnalysis as $key => $user)
                         {{-- <option value="{{ $user->id }}">{{ $user->users[0]->name }} - {{$user->created_at->format('d/m/Y')}}</option> --}}
-                        <option value="{{ $user->id }}">{{ $user->users[$key]->name}}</option>
+                        <option value="{{ $user->id }}">{{ $user->users[$key]->name ?? null}}</option>
                     @endforeach
                 </select>
                 <x-input-error for="user_id"></x-input-error>
@@ -36,12 +36,7 @@
                 <x-label name="plan_diet">Plan de alimentación</x-label>
 
                 <div class="grid grid-cols-3 mt-2">
-                    {{-- <div class="col-span-1 flex">
-                        <div class="mr-2 text-white py-1 px-3 rounded cursor-pointer btn-appointment"
-                            wire:click="addMeal(3)">3 comidas</div>
-                        <div class="mr-2 text-white py-1 px-3 rounded cursor-pointer btn-appointment"
-                            wire:click="addMeal(5)">5 comidas</div>
-                    </div> --}}
+
                     <div class="col-start-3 col-end-4 flex justify-end items-center">
                         <div>
                             <h5 class="font-medium text-sm text-gray-700 dark:text-gray-400">Kcal p/dia: <span
@@ -64,9 +59,7 @@
                                 </div>
                             </div>
                             <x-input-error for="meals.{{ $meal['id'] }}.name"></x-input-error>
-                            {{-- <button wire:click="addFood({{ $meal['id'] }}, '')">Agregar Alimento</button> --}}
                         </div>
-                        {{-- <ul> --}}
                         @foreach ($meal['foods'] as $index => $item)
                             <div class="mb-4 flex flex-row items-center">
                                 <div class="flex flex-col w-1/3 pr-4">
@@ -82,11 +75,11 @@
                                 <div class="flex flex-col w-1/3 pr-4">
                                     <x-label>Alimento</x-label>
                                     <select wire:model="meals.{{ $meal['id'] }}.foods.{{ $index }}" wire:change="updatePortion({{$meal['id']}}, {{$index}})" class="modal-select">
-                                        @if ($foods->count() == 0)
+                                        {{-- @if ($foods->count() == 0)
                                             <option value="">Seleccione un grupo</option>
                                         @else
                                             <option value="">Elige una opción</option>
-                                        @endif
+                                        @endif --}}
                                         @foreach ($foods as $food)
                                             <option value="{{ $food->id }}">{{ $food->name }}</option>
                                         @endforeach
@@ -99,10 +92,7 @@
                                     <x-input-error for="meals.{{ $meal['id'] }}.portions.{{$index}}"></x-input-error>
                                 </div>
                             </div>
-                            {{-- <input type="text" wire:model="meals.{{ $meal['id'] }}.foods.{{ $index }}"> --}}
-                            {{-- <button wire:click="addFood({{ $meal['id'] }}, '')">Agregar Alimento</button> --}}
                         @endforeach
-                        {{-- </ul> --}}
                     </div>
                 @endforeach
                 <div class="mb-4">
@@ -110,8 +100,6 @@
                 </div>
             </div>
 
-
-            {{-- </div> --}}
 
         </x-slot>
 

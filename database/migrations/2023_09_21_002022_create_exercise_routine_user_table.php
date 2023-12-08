@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('reps');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('routine_id')->references('id')->on('routines');
-            $table->foreign('exercise_id')->references('id')->on('exercises');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('routine_id')->references('id')->on('routines')->onDelete('cascade');
+            $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
 
 
         });

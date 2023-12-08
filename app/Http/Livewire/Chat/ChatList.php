@@ -16,7 +16,7 @@ class ChatList extends Component
     public $users, $usersGym;
     public $selectedConversation;
 
-    protected $listeners= ['chatUserSelected','refresh'=>'$refresh','resetComponent'];
+    protected $listeners = ['chatUserSelected', 'refresh' => '$refresh', 'resetComponent'];
 
     public function resetComponent()
     {
@@ -52,12 +52,12 @@ class ChatList extends Component
         $this->auth_id = auth()->id();
         $this->conversations = Conversation::where('sender_id', $this->auth_id)
             ->orWhere('receiver_id', $this->auth_id)->orderBy('last_time_message', 'DESC')->get();
+        // $this->usersGym = User::role(['Nutriologo', 'Entrenador', 'Administrador'])->get();
     }
 
     public function render()
     {
-        $this->users = User::where('name', 'like', '%' . $this->search . '%')->take(5)->get();
-        $this->usersGym = User::role(['Nutriologo', 'Entrenador', 'Administrador'])->get();
+        // $this->users = User::where('name', 'like', '%' . $this->search . '%')->take(5)->get();
         return view('livewire.chat.chat-list');
     }
 }

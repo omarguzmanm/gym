@@ -15,7 +15,7 @@ class AdminMemberships extends Component
 
     public function render()
     {
-        $memberships = Membership::where('type', 'like', '%' . $this->search . '%')->paginate(10);
+        $memberships = Membership::where('type', 'like', '%' . $this->search . '%')->orderBy('id', 'asc')->paginate(10);
         return view('livewire.memberships.admin-memberships', compact('memberships'));
     }
 

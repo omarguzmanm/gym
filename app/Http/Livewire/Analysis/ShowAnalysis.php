@@ -34,19 +34,13 @@ class ShowAnalysis extends Component
 
     protected $listeners = ['render', 'delete'];
 
-    public function mount()
-    {
-        $this->identifier = rand();
-        $this->analysis = new Analysis();
-    }
     public function render()
     {
         $userAnalysis = Analysis::with(['users' => function ($query) {
             $query->where('name', 'LIKE', '%' . $this->search . '%');
-        }, 'diets'])
+        }, 'diets'])->orderBy('id', 'desc')
         ->paginate($this->cant);
         // dd($userAnalysis);
-
         return view('livewire.analysis.show-analysis', compact('userAnalysis'));
     }
 

@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="jumbotron text-center">
-                    <img src="https://i.ibb.co/Z8q4RCk/logo-light.png" alt="Logo del Gimnasio Future Fit" width="200">
+                    <img src="https://res.cloudinary.com/des5tlbfo/image/upload/v1701645435/gym/nrrmfgajqfzcqewikvxh.png" alt="Logo del Gimnasio Future Fit" width="200">
                     <h1 class="display-">¡Gracias por renovar con nosotros!</h1>
                     <p class="lead">Estamos emocionados de que renueves tu membresia y sigas siendo parte de nuestra comunidad de fitness.</p>
                 </div>

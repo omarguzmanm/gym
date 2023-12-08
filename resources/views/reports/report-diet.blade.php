@@ -60,7 +60,7 @@
         <div class="mt-5">
             <p class="font-weight-normal">Reporte de dieta personalizado para <strong>{{ $diet->users[0]->name }}</strong>
             </p>
-            <p class="font-weight-normal">Fecha del reporte: {{ \Illuminate\Support\Carbon::now()->format('d/m/Y') }}
+            <p class="font-weight-normal">Fecha del reporte: {{ $diet->created_at->format('d/m/Y') }}
             </p>
             <p class="font-weight-normal">Descripción de la dieta: {{$diet->diets[0]->description}}
             </p>
@@ -78,7 +78,7 @@
                     <p class="p-inline" style="width:20%">Altura: <span>{{ $diet->height }}cm</span></p>
                     <p class="p-inline" style="width:20%">Peso: <span>{{ $diet->weight }}kg</span></p>
                 </div>
-                <div class="mx-3">
+            <div class="mx-3">
                     <p class="p-inline" style="width:22%">IMC: <span>{{ $diet->imc }}</span></p>
                     <p class="p-inline text-capitalize" style="width:27%">Actividad: <span>{{ $diet->activity }}</span></p>
                     <p class="p-inline" style="width:25%">Calorias p/día: <span>{{ $diet->diets[0]->kcal }}</span></p>
@@ -108,7 +108,7 @@
             </tr>
         </thead>
         <tbody>
-            @php $maxCount = max(array_map('count', $mealData)); @endphp
+            @php $maxCount = max(array_map('count', $mealData)) ?? null; @endphp
             @for ($i = 0; $i < $maxCount; $i++)
                 <tr>
                     @foreach ($meals as $meal)

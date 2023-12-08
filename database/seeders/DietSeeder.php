@@ -13,6 +13,6 @@ class DietSeeder extends Seeder
      */
     public function run(): void
     {
-        Diet::factory(100)->create();
+        Diet::factory(1000)->create();
     }
 }

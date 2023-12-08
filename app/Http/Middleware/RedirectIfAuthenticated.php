@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
                 }
                 // Si el usuario no tiene un rol específico, puedes redirigirlo a una vista predeterminada
                 // return redirect()->route('dashboard');
-                return response('Usuario no identificado', 404);
+                return response('Usuario no identificado');
             }
         }
 

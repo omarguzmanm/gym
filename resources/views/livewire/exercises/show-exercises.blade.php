@@ -120,7 +120,7 @@
                         Livewire.emitTo('exercises.show-exercises', 'delete', exerciseId);
                         Swal.fire(
                             '¡Eliminado!',
-                            'El usuario ha sido eliminado',
+                            'El ejercicio ha sido eliminado',
                             'success'
                         )
                     }

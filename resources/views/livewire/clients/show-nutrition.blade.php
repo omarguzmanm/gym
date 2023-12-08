@@ -64,7 +64,7 @@
                                                     {{ $item->created_at->format('d-m-Y') }}
                                                 </th>
                                                 <td class="px-6 py-4">
-                                                    <a href="{{ route('reporte-dieta', $dietId) }}"
+                                                    <a href="{{ route('reporte-dieta', $dietId) }}" target="_blank"
                                                         class="text-gray-500 dark:text-gray-400">
                                                         <i class="fas fa-file-pdf text-lg"></i>
                                                     </a>

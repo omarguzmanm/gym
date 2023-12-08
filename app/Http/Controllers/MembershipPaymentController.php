@@ -46,7 +46,11 @@ class MembershipPaymentController extends Controller
             'phone_number' => $request->phone_number,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile_photo_path' => 'https://res.cloudinary.com/des5tlbfo/image/upload/v1701389226/gym/users/wdfx4ceethhvb9pffv3s.jpg'
         ]);
+
+        $user->assignRole('Cliente');
+
         // Membresia y usuario codificados (URL)
         $priceEncode = $request->priceDecode;
         $userEncode = $user->id;

@@ -149,7 +149,7 @@
                             <span class="text-base font-normal leading-tight text-gray-500">Locker personal</span>
                         </li>
                       </ul>
-                      <button type="button" onclick="location.href='{{route('payment-auth', [$weekPrice, $userEncode])}}'" class="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Unirme ahora</button>
+                      <button type="button" onclick="location.href='{{route('payment-auth', [$classicMonthPrice, $userEncode])}}'" class="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Unirme ahora</button>
                     </div>
                   <div class="max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-xl hover:shadow-gray-500 sm:p-8 mx-5 dark:bg-gray-800 dark:border-gray-700"">
 

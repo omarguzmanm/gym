@@ -146,7 +146,7 @@
                     Livewire.emitTo('memberships.admin-memberships', 'delete', membershipId);
                     Swal.fire(
                         '¡Eliminado!',
-                        'El usuario ha sido eliminado',
+                        'La membresia se ha sido eliminado',
                         'success'
                     )
                 }

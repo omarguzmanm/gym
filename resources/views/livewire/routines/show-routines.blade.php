@@ -123,7 +123,7 @@
                         Livewire.emitTo('routines.show-routines', 'delete', routineId);
                         Swal.fire(
                             '¡Eliminado!',
-                            'El usuario ha sido eliminado',
+                            'La rutina se ha sido eliminado',
                             'success'
                         )
                     }

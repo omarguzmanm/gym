@@ -14,14 +14,12 @@ return new class extends Migration
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
 
-            // $table->unsignedBigInteger('id_user');
-
             $table->string('type');
             $table->string('plan');
             $table->string('price');
             // $table->boolean('status');
             $table->timestamps();
-            // $table->softDeletes();
+            $table->softDeletes();
             // $table->foreign('id_user')->references('id')->on('users');
         });
     }

@@ -100,7 +100,7 @@
                     {{-- @if ($url) --}}
                     {{-- <x-input type="text" wire:model="media" id="{{ $identifier }}"></x-input> --}}
                     {{-- @else --}}
-                    <x-input type="file" wire:model="media" id="{{ $identifier }}"></x-input>
+                    <x-input type="file" wire:model="media" id="{{ $identifier }}" required></x-input>
                     {{-- @endif  --}}
                     <x-input-error for="media"></x-input-error>
                 </div>
